@@ -18,6 +18,7 @@
       "@/*": ["./*"],
       "@assets/*": ["./public/assets/*"],
       "@components/*": ["./components/*"],
+      "@constants/*": ["./constants/*"],
       "@hooks/*": ["./hooks/*"],
       "@libs/*": ["./libs/*"],
       "@data/*": ["./data/*"],
