@@ -1,6 +1,5 @@
 import Path from "@/constants/path/routes";
 import Image from "next/image";
-import { useRouter } from "next/router";
 import {
   AiFillInstagram,
   AiFillAndroid,
@@ -8,23 +7,17 @@ import {
 } from "react-icons/ai";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
-import { useEffect } from "react";
-interface FormValue {
-  email: string;
-  password: string;
-}
+import { LoginFormProps } from "@/models/user";
 
 const Login = () => {
+  const inputStyle = "w-full flex flex-1 border border-gary-200 p-2";
   const {
     register,
     handleSubmit,
     formState: { isSubmitting, isDirty, errors },
-  } = useForm<FormValue>();
-  const { SIGNUP } = Path;
+  } = useForm<LoginFormProps>({ mode: "onChange" });
 
-  useEffect(() => {
-    console.log(isSubmitting);
-  }, [isSubmitting]);
+  const { SIGNUP } = Path;
 
   return (
     <div className="w-full min-h-screen flex flex-col gap-2 p-8 justify-start items-center">
@@ -50,7 +43,7 @@ const Login = () => {
               <div className="w-full flex flex-col gap-2 items-start justify-center">
                 <input
                   id="email"
-                  className="w-full flex flex-1 border border-gary-200 p-2"
+                  className={inputStyle}
                   type="email"
                   placeholder="이메일을 입력해주세요."
                   aria-invalid={
@@ -74,7 +67,7 @@ const Login = () => {
                   aria-invalid={
                     !isDirty ? undefined : errors.password ? "true" : "false"
                   }
-                  className="w-full flex flex-1 border border-gary-200 p-2"
+                  className={inputStyle}
                   {...register("password", {
                     required: "비밀번호는 필수 입력입니다.",
                     pattern: {
