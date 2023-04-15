@@ -17,7 +17,7 @@ const SignUp = () => {
   // router.push(url, as, options)
 
   return (
-    <div className="w-full min-h-screen flex flex-col gap-2 p-8 justify-start items-center">
+    <div className="w-full min-h-screen flex flex-col gap-2 p-4 justify-start items-center">
       <main className="w-[400px] h-full flex flex-col gap-4 bg-white p-4 rounded-md shadow-t-sm">
         <div className="w-full flex flex-1 flex-col gap-16 items-center py-4">
           <section className="w-full flex flex-col gap-4 items-center justify-center p-4">
@@ -79,7 +79,7 @@ const SignUp = () => {
                 {errors.password && (
                   <small role="alert">{errors.password.message}</small>
                 )}
-                {/* FIXME 비밀번호 확인 */}
+                {/* 비밀번호 확인 */}
                 <input
                   className={inputStyle}
                   type="password"

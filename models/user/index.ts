@@ -2,7 +2,6 @@ export interface LoginFormProps {
   email: string;
   password: string;
 }
-
 export interface UserProps {
   userId: number | null | undefined;
   email: string;

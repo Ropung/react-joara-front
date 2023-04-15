@@ -1,6 +1,7 @@
 import { novelList } from "@/data/dummy";
 import React from "react";
 import { BsArrowLeftSquareFill } from "react-icons/bs";
+import Image from "next/image";
 
 const HomeThemeNovel = () => {
   return (
@@ -21,10 +22,12 @@ const HomeThemeNovel = () => {
             {novelList.map((item) => (
               <li key={item.novelId} className="w-[20%]">
                 <div className="flex flex-col gap-4">
-                  <img
-                    className="w-full px-2"
+                  <Image
+                    width={200}
+                    height={100}
+                    className="px-2"
                     src="http://image.yes24.com/goods/106211628/XL"
-                    alt=""
+                    alt="소설더미이미지"
                   />
                 </div>
               </li>

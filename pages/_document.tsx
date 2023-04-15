@@ -1,4 +1,3 @@
-import GNB from "@/components/common/navi/GNB";
 import Document, { Html, Head, Main, NextScript } from "next/document";
 
 class MyDocument extends Document {
@@ -10,7 +9,6 @@ class MyDocument extends Document {
         {/* <link rel="icon" href="/favicon.ico" /> */}
         <meta charSet="utf-8"></meta>
         <body className="bg-gray-200">
-          <GNB />
           <Main />
           <NextScript />
         </body>

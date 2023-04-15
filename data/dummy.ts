@@ -14,17 +14,17 @@ export interface novelsProps {
 
 export const bannerList: bannerProps[] = [
   {
-    url: "http://blog.jinbo.net/attach/615/200937431.jpg",
+    url: "/logo/bookLogo.webp",
     alt: "이미지01",
     bannerId: 1,
   },
   {
-    url: "https://cdn.pixabay.com/photo/2022/12/07/12/56/morning-mist-7641122_1280.jpg",
+    url: "/logo/bookLogo.webp",
     alt: "이미지02",
     bannerId: 2,
   },
   {
-    url: "https://cdn.pixabay.com/photo/2022/07/09/10/11/insect-7310563_1280.jpg",
+    url: "/logo/bookLogo.webp",
     alt: "이미지03",
     bannerId: 3,
   },
