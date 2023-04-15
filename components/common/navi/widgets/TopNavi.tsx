@@ -1,11 +1,14 @@
 import Path from "@/constants/path/routes";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { useRouter } from "next/router";
 
 const TopNavi = () => {
-  const { HOME, LOGIN, SIGNUP } = Path;
+  const { HOME, LOGIN } = Path;
   const [isAuth, setAuth] = useState<boolean>(false);
   const [isAuthor, setAuthor] = useState<boolean>(false);
+
+  const router = useRouter();
 
   return (
     <section className="w-full flex flex-row items-center justify-between h-10 text-basic font-bold">
@@ -24,6 +27,14 @@ const TopNavi = () => {
           }}
         >
           로그인(온오프)
+        </div>
+        <div
+          className="cursor-pointer hover:text-main"
+          onClick={() => {
+            router.push("books/1");
+          }}
+        >
+          소설들어가기
         </div>
       </div>
       {/* Right */}
