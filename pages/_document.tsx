@@ -1,4 +1,4 @@
-import GNB from "@/components/common/GNB";
+import GNB from "@/components/common/navi/GNB";
 import Document, { Html, Head, Main, NextScript } from "next/document";
 
 class MyDocument extends Document {

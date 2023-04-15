@@ -17,7 +17,7 @@ module.exports = {
         sub: "#1F2836",
         "sub-contra": "#FFFFFF",
         // BASIC
-        basic: "#F0F0F0",
+        basic: "#212121",
         "basic-active": "#F0F0F0",
         "basic-contra": "#000000",
         // DEFAULT
@@ -29,9 +29,9 @@ module.exports = {
         "primary-active": "#0c56d0",
         "primary-contra": "#FFFFFF",
         // SECONDARY
-        footer: "#e9e9e9",
-        "footer-active": "#bdbebd",
-        "footer-contra": "#a9a9a9",
+        icon: "#838995",
+        "icon-active": "#818CF8",
+        "icon-contra": "#a9a9a9",
         // SUCCESS
         success: "#5cb85c",
         "success-active": "#00913b",
@@ -76,8 +76,6 @@ module.exports = {
         platinum: "#00ffff",
         "doing-contra": "#ffffff",
         gold: "#ffd700",
-        "doing-contra": "#ffffff",
-        silver: "#c0c0c0",
         "doing-contra": "#ffffff",
         bronze: "#a0522d",
         "doing-contra": "#ffffff",

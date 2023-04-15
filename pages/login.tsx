@@ -20,14 +20,14 @@ const Login = () => {
   const { SIGNUP } = Path;
 
   return (
-    <div className="w-full min-h-screen flex flex-col gap-2 p-8 justify-start items-center">
+    <div className="w-full flex flex-col gap-2 p-4 justify-start items-center">
       <main className="w-[400px] max-h-[80vh] flex flex-col gap-4 bg-white p-4 rounded-md shadow-t-sm">
         <div className="w-full flex flex-1 flex-col gap-16 items-center py-8">
           <Image
-            width={280}
-            height={100}
-            className="w-36 cursor-pointer"
-            src={"/logo/ic_nav_home_logo_bl.png"}
+            width={200}
+            height={50}
+            className="cursor-pointer"
+            src={"/logo/mainlogo.png"}
             alt="메인로고"
           />
 
