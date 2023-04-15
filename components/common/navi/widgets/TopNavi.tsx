@@ -1,12 +1,16 @@
 import Path from "@/constants/path/routes";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { Dispatch, FC, SetStateAction, useState } from "react";
 import { useRouter } from "next/router";
 
-const TopNavi = () => {
+interface TopNaviProps {
+  isAuth: boolean;
+  setAuth: Dispatch<SetStateAction<boolean>>;
+}
+
+const TopNavi: FC<TopNaviProps> = (props) => {
   const { HOME, LOGIN } = Path;
-  const [isAuth, setAuth] = useState<boolean>(false);
-  const [isAuthor, setAuthor] = useState<boolean>(false);
+  const { isAuth, setAuth } = props;
 
   const router = useRouter();
 
@@ -20,22 +24,6 @@ const TopNavi = () => {
         <Link href={HOME} className=" hover:text-main">
           도서
         </Link>
-        <div
-          className="cursor-pointer hover:text-main"
-          onClick={() => {
-            setAuth(!isAuth);
-          }}
-        >
-          로그인(온오프)
-        </div>
-        <div
-          className="cursor-pointer hover:text-main"
-          onClick={() => {
-            router.push("books/1");
-          }}
-        >
-          소설들어가기
-        </div>
       </div>
       {/* Right */}
       <div className="flex flex-row gap-2">

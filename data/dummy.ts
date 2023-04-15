@@ -4,10 +4,10 @@ export interface bannerProps {
   bannerId: number;
 }
 
-export interface novelsProps {
+export interface bookProps {
   url: string;
   alt: string;
-  novelId: number;
+  bookId: number;
   category: string;
   tag: string;
 }
@@ -30,39 +30,39 @@ export const bannerList: bannerProps[] = [
   },
 ];
 
-export const novelList: novelsProps[] = [
+export const bookList: bookProps[] = [
   {
     url: "http://image.yes24.com/goods/106211628/XL",
     alt: "이미지01",
-    novelId: 1,
+    bookId: 1,
     category: "",
     tag: "",
   },
   {
     url: "http://image.yes24.com/goods/106211628/XL",
     alt: "이미지02",
-    novelId: 2,
+    bookId: 2,
     category: "",
     tag: "",
   },
   {
     url: "http://image.yes24.com/goods/106211628/XL",
     alt: "이미지03",
-    novelId: 3,
+    bookId: 3,
     category: "",
     tag: "",
   },
   {
     url: "http://image.yes24.com/goods/106211628/XL",
     alt: "이미지03",
-    novelId: 4,
+    bookId: 4,
     category: "",
     tag: "",
   },
   {
     url: "http://image.yes24.com/goods/106211628/XL",
     alt: "이미지03",
-    novelId: 5,
+    bookId: 5,
     category: "",
     tag: "",
   },

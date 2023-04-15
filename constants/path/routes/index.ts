@@ -2,7 +2,7 @@ const Path = {
   HOME: "/",
   LOGIN: "/login",
   SIGNUP: "/signup",
-  NOVEL: "/novel",
+  BOOK: "/books/",
 };
 
 Object.freeze(Path);

@@ -1,7 +1,9 @@
-import Image from "next/image";
+import { useRouter } from "next/router";
 
 const BookEpisode = () => {
   const dummyList: number[] = [1, 2, 3, 4, 5];
+
+  const router = useRouter();
 
   return (
     <section className="flex flex-col gap-6">
@@ -17,17 +19,17 @@ const BookEpisode = () => {
       </div>
       <section className="flex flex-col gap-4 items-center justify-between">
         <ul className="w-full flex flex-1 flex-col divide-y">
-          {dummyList.map((item) => {
+          {dummyList.map((epi) => {
             return (
               <li
-                key={"epi-" + item}
+                key={"epi-" + epi}
                 className="flex flex-col gap-4 items-start justify-center cursor-pointer hover:bg-gray-100 rounded-md p-4"
                 onClick={() => {
-                  console.log(item);
+                  router.push("episode/" + epi);
                 }}
               >
                 <div className="flex flex-row gap-6 justify-start items-center ">
-                  <h2 className="font-bold text-xl py-2">{item}화</h2>
+                  <h2 className="font-bold text-xl py-2">{epi}화</h2>
                   <p>{"작품 에피소드 제목"}</p>
                 </div>
                 <div className="flex flex-row gap-4">
@@ -47,7 +49,7 @@ const BookEpisode = () => {
                 key={"page-" + page}
                 className="w-8 h-8 flex items-center justify-center text-lg bg-white text-main p-4 rounded-md border hover:bg-main hover:text-main-contra"
                 onClick={() => {
-                  console.log(page);
+                  //
                 }}
               >
                 {page}

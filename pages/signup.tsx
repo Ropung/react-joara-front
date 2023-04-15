@@ -25,7 +25,7 @@ const SignUp = () => {
               width={280}
               height={50}
               className="w-32 cursor-pointer"
-              src={"/logo/ic_nav_home_logo_bl.png"}
+              src={"/logo/mainlogo.png"}
               alt="메인로고"
             />
             {/* 아이디 비밀번호 form 영역 */}

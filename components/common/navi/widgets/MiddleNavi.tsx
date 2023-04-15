@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Dispatch, FC, SetStateAction } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { FaSearch } from "react-icons/fa";
@@ -8,8 +8,14 @@ import { useRef } from "react";
 import { AiOutlineUser } from "react-icons/ai";
 import { BiBookBookmark } from "react-icons/bi";
 
-const MiddleNavi = () => {
+interface MiddleNaviProps {
+  isAuth: boolean;
+  setAuth: Dispatch<SetStateAction<boolean>>;
+}
+
+const MiddleNavi: FC<MiddleNaviProps> = (props) => {
   const searchFormRef = useRef<HTMLInputElement>(null);
+  const { isAuth, setAuth } = props;
 
   return (
     <section className="w-full flex flex-row justify-between items-center h-16">
@@ -39,7 +45,12 @@ const MiddleNavi = () => {
         <div className="flex flex-row items-center justify-end gap-2 text-3xl text-icon">
           <IoNotificationsOutline className="hover:text-icon-active cursor-pointer" />
           <BiBookBookmark className="hover:text-icon-active cursor-pointer" />
-          <AiOutlineUser className="hover:text-icon-active cursor-pointer" />
+          <AiOutlineUser
+            className="hover:text-icon-active cursor-pointer"
+            onClick={() => {
+              setAuth(!isAuth);
+            }}
+          />
         </div>
       </div>
     </section>

@@ -1,9 +1,13 @@
-import { novelList } from "@/data/dummy";
+import { bookList } from "@/data/dummy";
 import React from "react";
 import { BsArrowLeftSquareFill } from "react-icons/bs";
 import Image from "next/image";
+import Path from "@/constants/path/routes";
+import { useRouter } from "next/router";
 
 const HomeThemeNovel = () => {
+  const { BOOK } = Path;
+  const route = useRouter();
   return (
     <div className="flex flex-col gap-12">
       <ul className="w-full flex flex-col gap-2">
@@ -19,13 +23,20 @@ const HomeThemeNovel = () => {
           </div>
           {/* Novel List */}
           <ul className="w-full flex flex-row gap-2 overflow-hidden">
-            {novelList.map((item) => (
-              <li key={item.novelId} className="w-[20%]">
+            {bookList.map((book) => (
+              <li
+                key={"books-" + book.bookId}
+                className="cursor-pointer"
+                onClick={() => {
+                  console.log(book.bookId);
+                  route.push(BOOK + book.bookId);
+                }}
+              >
                 <div className="flex flex-col gap-4">
                   <Image
                     width={200}
                     height={100}
-                    className="px-2"
+                    className="p-2"
                     src="http://image.yes24.com/goods/106211628/XL"
                     alt="소설더미이미지"
                   />
