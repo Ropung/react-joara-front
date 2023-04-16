@@ -1,7 +1,7 @@
 import BookEpisode from "@/components/book/BookEpisode";
 import BookInfo from "@/components/book/BookInfo";
 
-const bookId = () => {
+const Book = () => {
   return (
     <div className="flex flex-col gap-8 py-8 px-16">
       <BookInfo />
@@ -11,4 +11,4 @@ const bookId = () => {
   );
 };
 
-export default bookId;
+export default Book;

@@ -1,9 +1,13 @@
+import Path from "@/constants/path/routes";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 const BookEpisode = () => {
   const dummyList: number[] = [1, 2, 3, 4, 5];
 
+  const { EPISODE } = Path;
   const router = useRouter();
+  const bid = router.query.bid as string;
 
   return (
     <section className="flex flex-col gap-6">
@@ -25,7 +29,10 @@ const BookEpisode = () => {
                 key={"epi-" + epi}
                 className="flex flex-col gap-4 items-start justify-center cursor-pointer hover:bg-gray-100 rounded-md p-4"
                 onClick={() => {
-                  router.push("episode/" + epi);
+                  router.push({
+                    pathname: EPISODE,
+                    query: { bid: bid, eid: epi },
+                  });
                 }}
               >
                 <div className="flex flex-row gap-6 justify-start items-center ">

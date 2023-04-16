@@ -1,9 +1,18 @@
 import BottomNavViewer from "@/components/episode/BottomNavViewer";
 import TopNavViewer from "@/components/episode/TopNavViewer";
-import { useState } from "react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
-const EpisodeId = () => {
+const Episode = () => {
   const [onNavi, setNavi] = useState<boolean>(true);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    alert("bid" + router.query.bid);
+    alert("eid" + router.query.eid);
+  }, [router.query]);
+
   return (
     <>
       {onNavi && (
@@ -27,4 +36,4 @@ const EpisodeId = () => {
   );
 };
 
-export default EpisodeId;
+export default Episode;

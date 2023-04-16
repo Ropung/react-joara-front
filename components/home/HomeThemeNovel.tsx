@@ -28,8 +28,10 @@ const HomeThemeNovel = () => {
                 key={"books-" + book.bookId}
                 className="cursor-pointer"
                 onClick={() => {
-                  console.log(book.bookId);
-                  route.push(BOOK + book.bookId);
+                  route.push({
+                    pathname: BOOK,
+                    query: { bid: book.bookId },
+                  });
                 }}
               >
                 <div className="flex flex-col gap-4">

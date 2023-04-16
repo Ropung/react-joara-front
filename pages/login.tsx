@@ -62,7 +62,7 @@ const Login = () => {
                 )}
                 <input
                   id="password"
-                  type="text"
+                  type="password"
                   placeholder="비밀번호"
                   aria-invalid={
                     !isDirty ? undefined : errors.password ? "true" : "false"
