@@ -1,13 +1,15 @@
 import Path from "@/constants/path/routes";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+
+type SomeUnion = "bid" | "eid";
 
 const BookEpisode = () => {
   const dummyList: number[] = [1, 2, 3, 4, 5];
 
   const { EPISODE } = Path;
   const router = useRouter();
-  const bid = router.query.bid as string;
+  // const bid = router.query.bid as string;
+  const { bid } = router.query as { [key in SomeUnion]: string };
 
   return (
     <section className="flex flex-col gap-6">

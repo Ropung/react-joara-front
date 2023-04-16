@@ -3,15 +3,14 @@ import TopNavViewer from "@/components/episode/TopNavViewer";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
+type SomeUnion = "bid" | "eid";
+
 const Episode = () => {
   const [onNavi, setNavi] = useState<boolean>(true);
 
   const router = useRouter();
 
-  useEffect(() => {
-    alert("bid" + router.query.bid);
-    alert("eid" + router.query.eid);
-  }, [router.query]);
+  const routerQurey = router.query as { [key in SomeUnion]: string };
 
   return (
     <>
