@@ -30,6 +30,12 @@ export const bannerList: bannerProps[] = [
   },
 ];
 
+export const lorem = {
+  dummy_short: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
+  dummy_long:
+    "Lorem ipsum dolor sit amet consectetur adipisicing elit Lorem ipsum dolor sit amet consectetur adipisicing elitLorem ipsum dolor sit amet consectetur adipisicing elitLorem ipsum dolor sit amet consectetur adipisicing elitLorem ipsum dolor sit amet consectetur adipisicing elit",
+};
+
 export const bookList: bookProps[] = [
   {
     url: "http://image.yes24.com/goods/106211628/XL",

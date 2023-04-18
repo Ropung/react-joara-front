@@ -1,6 +1,4 @@
 import NovelBookcase from "@/components/writer-room/book-case/NovelBookcase";
-import Path from "@/constants/path/routes";
-import { useRouter } from "next/router";
 
 const WriterRoom = () => {
   return (

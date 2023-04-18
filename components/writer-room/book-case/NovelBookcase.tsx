@@ -5,16 +5,16 @@ import NovelBooks from "./widgets/NovelBooks";
 
 const NovelBookcase = () => {
   const router = useRouter();
-  const { WRITER_PUBLISHING } = Path;
+  const { BOOK_PUBLISH: BOOK_PUBLISHING } = Path;
   return (
     <>
-      {/* 작품등록 */}
+      {/* 내 작품관리 */}
       <section className="flex flex-row justify-between items-center">
         <h1 className="font-bold text-2xl">내 작품관리</h1>
         <button
           className="font-bold py-4 px-6 rounded-xl border shadow-md hover:text-main-contra hover:bg-main"
           onClick={() => {
-            router.push(WRITER_PUBLISHING);
+            router.push(BOOK_PUBLISHING);
           }}
         >
           작품 등록하기

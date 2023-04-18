@@ -16,7 +16,7 @@ const NovelBooks = () => {
       </div>
       <ul className="flex flex-col gap-4">
         <li
-          className="flex flex-row items-center justify-start border border-gray-400 shadow-md rounded-md p-4 hover:border-main gap-4"
+          className="flex flex-row items-center justify-start border border-default shadow-md rounded-md p-4 hover:border-main gap-4"
           onClick={() => {
             router.push({
               pathname: BOOK,

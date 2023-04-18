@@ -5,7 +5,10 @@ const Path = {
   BOOK: "/book/[bid]",
   EPISODE: "/book/[bid]/episode/[eid]",
   WRITER_ROOM: "/writer-room",
-  WRITER_PUBLISHING: "/writer-publishing",
+  BOOK_PUBLISH: "/book-publish",
+  BOOK_EPISODE_PUBLISH: "/book-publish/[bid]/episode",
+  BOOK_UPDATE_PUBLISH: "/book-publish/[bid]",
+  BOOK_UPDATE_EPISODE_PUBLISH: "/book-publish/[bid]/episode/[eid]",
 };
 
 Object.freeze(Path);

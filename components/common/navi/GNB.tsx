@@ -7,7 +7,6 @@ import TopNavi from "./widgets/TopNavi";
 
 const GNB = () => {
   const [isAuth, setAuth] = useState<boolean>(false);
-  const [isAuthor, setAuthor] = useState<boolean>(false);
 
   return (
     <div className="bg-white">
