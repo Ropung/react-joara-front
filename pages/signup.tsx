@@ -2,6 +2,8 @@ import { useForm } from "react-hook-form";
 import Image from "next/image";
 import { UserProps } from "@/models/user";
 import Path from "@/constants/path/routes";
+import MainLogo from "@/public/logo/mainlogo.png";
+import { useRouter } from "next/router";
 
 const SignUp = () => {
   const inputStyle = "w-full flex flex-1 border border-gary-200 p-2";
@@ -12,9 +14,8 @@ const SignUp = () => {
     formState: { isSubmitting, isDirty, errors },
   } = useForm<UserProps>({ mode: "onChange" });
 
-  const { SIGNUP } = Path;
-
-  // router.push(url, as, options)
+  const { SIGNUP, HOME } = Path;
+  const router = useRouter();
 
   return (
     <div className="w-full min-h-screen flex flex-col gap-2 p-4 justify-start items-center">
@@ -25,14 +26,14 @@ const SignUp = () => {
               width={280}
               height={50}
               className="w-32 cursor-pointer"
-              src={"/logo/mainlogo.png"}
+              src={MainLogo}
               alt="메인로고"
             />
             {/* 아이디 비밀번호 form 영역 */}
             <form
               className="w-full flex flex-col gap-8"
               onSubmit={handleSubmit((data) => {
-                // FIXME
+                // FIXME axios 작업 데이터 보낼것들
                 alert(JSON.stringify(data));
               })}
             >
@@ -209,6 +210,7 @@ const SignUp = () => {
                 //
                 onClick={() => {
                   // FIXME axios 작업
+                  router.push(HOME);
                 }}
               >
                 회원가입

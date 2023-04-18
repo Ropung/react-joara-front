@@ -1,6 +1,7 @@
 import { lorem } from "@/data/dummy";
 import useAutosizeTextArea from "@/utils/common/textresize";
 import resolveEXIFRotate from "@/utils/upload/resolveEXIFRotate";
+
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 

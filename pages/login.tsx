@@ -8,6 +8,7 @@ import {
 import { useForm } from "react-hook-form";
 import Link from "next/link";
 import { LoginFormProps } from "@/models/user";
+import MainLogo from "@/public/logo/mainlogo.png";
 
 const Login = () => {
   const inputStyle = "w-full flex flex-1 border border-gary-200 p-2";
@@ -27,7 +28,7 @@ const Login = () => {
             width={200}
             height={50}
             className="cursor-pointer"
-            src={"/logo/mainlogo.png"}
+            src={MainLogo}
             alt="메인로고"
           />
 

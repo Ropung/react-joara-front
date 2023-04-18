@@ -7,6 +7,7 @@ import { IoNotificationsOutline } from "react-icons/io5";
 import { useRef } from "react";
 import { AiOutlineUser } from "react-icons/ai";
 import { BiBookBookmark } from "react-icons/bi";
+import MainLogo from "@/public/logo/mainlogo.png"; //FIXME 임시용
 
 interface MiddleNaviProps {
   isAuth: boolean;
@@ -25,7 +26,7 @@ const MiddleNavi: FC<MiddleNaviProps> = (props) => {
             width={200}
             height={40}
             className="w-32 cursor-pointer"
-            src={"/logo/mainlogo.png"}
+            src={MainLogo}
             alt="메인로고"
           />
         </Link>
