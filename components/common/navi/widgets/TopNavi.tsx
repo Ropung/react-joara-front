@@ -28,13 +28,29 @@ const TopNavi: FC<TopNaviProps> = (props) => {
       {/* Right */}
       <div className="flex flex-row gap-2">
         {!isAuth ? (
-          <Link href={LOGIN} className="hover:text-main">
-            로그인
-          </Link>
+          <>
+            <Link href={LOGIN} className="hover:text-main">
+              로그인
+            </Link>
+            <Link href={WRITER_ROOM} className="hover:text-main">
+              내 작품관리
+            </Link>
+          </>
         ) : (
-          <Link href={WRITER_ROOM} className="hover:text-main">
-            내 작품관리
-          </Link>
+          <>
+            <Link
+              href={WRITER_ROOM}
+              className="hover:text-main"
+              onClick={() => {
+                setAuth(!isAuth);
+              }}
+            >
+              로그아웃
+            </Link>
+            <Link href={WRITER_ROOM} className="hover:text-main">
+              내 작품관리
+            </Link>
+          </>
         )}
       </div>
     </section>

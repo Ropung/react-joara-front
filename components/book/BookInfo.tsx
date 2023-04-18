@@ -16,7 +16,7 @@ const BookInfo: FC<BookInfoProps> = (props) => {
   const { isAuth, setAuth } = props;
 
   const router = useRouter();
-  const { BOOK_PUBLISH, BOOK_EPISODE_PUBLISH } = Path;
+  const { BOOK_PUBLISH, BOOK_EPISODE_PUBLISH, BOOK_UPDATE_PUBLISH } = Path;
   const routerQurey = router.query as { [key in SomeUnion]: string };
 
   return (
@@ -44,7 +44,10 @@ const BookInfo: FC<BookInfoProps> = (props) => {
                 <AiOutlineSetting
                   className="text-3xl hover:text-main cursor-pointer"
                   onClick={() => {
-                    router.push(BOOK_PUBLISH);
+                    router.push({
+                      pathname: BOOK_UPDATE_PUBLISH,
+                      query: { bid: routerQurey.bid },
+                    });
                   }}
                 />
               )}

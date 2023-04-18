@@ -1,5 +1,5 @@
 import { lorem } from "@/data/dummy";
-import useAutosizeTextArea from "@/utils/common/textresize";
+import useAutoSizeTextArea from "@/utils/common/textresize";
 import resolveEXIFRotate from "@/utils/upload/resolveEXIFRotate";
 
 import Image from "next/image";
@@ -16,13 +16,12 @@ const BookPublishing = () => {
   const introductionNovelRef = useRef<HTMLTextAreaElement | null>(null);
   const [introductionNovelValue, setIntroductionNovelValue] =
     useState<string>("");
-  useAutosizeTextArea(introductionNovelRef.current, introductionNovelValue);
+  useAutoSizeTextArea(introductionNovelRef.current, introductionNovelValue);
 
   const introductHandleChange = (
     evt: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     const val = evt.target?.value;
-
     setIntroductionNovelValue(val);
   };
 
@@ -65,7 +64,6 @@ const BookPublishing = () => {
   return (
     <div className="w-full flex items-center justify-center p-8">
       <section className="w-[90%] flex flex-col gap-4 bg-white rounded-md p-8 shadow-md">
-        {/*  */}
         <section className="flex flex-row justify-between items-center">
           <h1 className="font-bold text-2xl">작품등록</h1>
           <button
@@ -100,7 +98,6 @@ const BookPublishing = () => {
             </select>
           </div>
         </section>
-        {/*  */}
 
         <div className="w-full flex flex-col gap-4">
           <div
@@ -131,7 +128,7 @@ const BookPublishing = () => {
               onChange={introductHandleChange}
             ></textarea>
           </div>
-          <div
+          <section
             className={`w-full flex flex-row justify-center items-center border border-gray-400 rounded-md shadow-md p-4 gap-6`}
           >
             <div className="w-[15%] flex flex-col gap-1">
@@ -157,7 +154,6 @@ const BookPublishing = () => {
                     : "선택된 사진이 없을 때는 눈 덮인 산을 멀리서 담은 샘플 이미지"
                 }
               />
-
               <section className="w-full flex flex-col gap-2 overflow-hidden">
                 <fieldset className="w-full flex flex-col whitespace-nowrap text-gray-400">
                   <p className="font-bold text-dark">*주의사항</p>
@@ -198,7 +194,7 @@ const BookPublishing = () => {
                 </fieldset>
               </section>
             </section>
-          </div>
+          </section>
           <button
             className="font-bold py-4 px-6 rounded-xl border shadow-md hover:text-main-contra bg-main text-main-contra hover:bg-black"
             onClick={() => {

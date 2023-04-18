@@ -1,5 +1,5 @@
 import { lorem } from "@/data/dummy";
-import useAutosizeTextArea from "@/utils/common/textresize";
+import useAutoSizeTextArea from "@/utils/common/textresize";
 import resolveEXIFRotate from "@/utils/upload/resolveEXIFRotate";
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -14,7 +14,7 @@ const BookUpdate = () => {
   const introductionNovelRef = useRef<HTMLTextAreaElement | null>(null);
   const [introductionNovelValue, setIntroductionNovelValue] =
     useState<string>("");
-  useAutosizeTextArea(introductionNovelRef.current, introductionNovelValue);
+  useAutoSizeTextArea(introductionNovelRef.current, introductionNovelValue);
 
   const introductHandleChange = (
     evt: React.ChangeEvent<HTMLTextAreaElement>
