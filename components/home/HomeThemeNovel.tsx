@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 
 const HomeThemeNovel = () => {
   const { BOOK } = Path;
-  const route = useRouter();
+  const router = useRouter();
   return (
     <div className="flex flex-col gap-12">
       <ul className="w-full flex flex-col gap-2">
@@ -28,7 +28,7 @@ const HomeThemeNovel = () => {
                 key={"books-" + book.bookId}
                 className="cursor-pointer"
                 onClick={() => {
-                  route.push({
+                  router.push({
                     pathname: BOOK,
                     query: { bid: book.bookId },
                   });
