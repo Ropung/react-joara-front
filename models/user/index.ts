@@ -7,7 +7,8 @@ export interface UserProps {
   email: string;
   password: string;
   passwordConfirm: string;
-  profileId: string;
+  nickName: string;
+  // profileId: string;
   fullName: string;
   birth: string;
   phoneNum: string | null | undefined;

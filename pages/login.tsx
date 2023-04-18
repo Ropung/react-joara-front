@@ -20,7 +20,7 @@ const Login = () => {
   const { SIGNUP } = Path;
 
   return (
-    <div className="w-full flex flex-col gap-2 p-4 justify-start items-center">
+    <div className="flex flex-col gap-2 p-4 justify-start items-center">
       <main className="w-[400px] max-h-[80vh] flex flex-col gap-4 bg-white p-4 rounded-md shadow-t-sm">
         <div className="w-full flex flex-1 flex-col gap-16 items-center py-8">
           <Image
@@ -72,7 +72,7 @@ const Login = () => {
                     required: "비밀번호는 필수 입력입니다.",
                     pattern: {
                       value:
-                        /(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{2,50}).{8,16}$/,
+                        /^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$/,
                       message:
                         "비밀번호를 8~16자로 영문 대소문자, 숫자, 특수기호를 조합해서 사용하세요. ",
                     },

@@ -1,16 +1,14 @@
 import BottomNavViewer from "@/components/episode/BottomNavViewer";
 import TopNavViewer from "@/components/episode/TopNavViewer";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-type SomeUnion = "bid" | "eid";
+// type SomeUnion = "bid" | "eid";
 
 const Episode = () => {
   const [onNavi, setNavi] = useState<boolean>(true);
 
-  const router = useRouter();
-
-  const routerQurey = router.query as { [key in SomeUnion]: string };
+  // const router = useRouter();
+  // const routerQurey = router.query as { [key in SomeUnion]: string };
 
   return (
     <>

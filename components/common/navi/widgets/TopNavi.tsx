@@ -9,7 +9,7 @@ interface TopNaviProps {
 }
 
 const TopNavi: FC<TopNaviProps> = (props) => {
-  const { HOME, LOGIN } = Path;
+  const { HOME, LOGIN, WRITER_ROOM } = Path;
   const { isAuth, setAuth } = props;
 
   const router = useRouter();
@@ -32,8 +32,8 @@ const TopNavi: FC<TopNaviProps> = (props) => {
             로그인
           </Link>
         ) : (
-          <Link href={"/"} className="hover:text-main">
-            작가신청
+          <Link href={WRITER_ROOM} className="hover:text-main">
+            내 작품관리
           </Link>
         )}
       </div>

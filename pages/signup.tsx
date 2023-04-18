@@ -70,7 +70,7 @@ const SignUp = () => {
                     required: "비밀번호는 필수 입력입니다.",
                     pattern: {
                       value:
-                        /(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{2,50}).{8,16}$/,
+                        /^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$/,
                       message:
                         "비밀번호를 8~16자로 영문 대소문자, 숫자, 특수기호를 조합해서 사용하세요. ",
                     },
@@ -89,7 +89,7 @@ const SignUp = () => {
                     required: "비밀번호는 필수 입력입니다.",
                     pattern: {
                       value:
-                        /(?=.*\d{1,50})(?=.*[~`!@#$%\^&*()-+=]{1,50})(?=.*[a-zA-Z]{2,50}).{8,16}$/,
+                        /^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$/,
                       message:
                         "비밀번호를 8~16자로 영문 대소문자, 숫자, 특수기호를 조합해서 사용하세요. ",
                     },
@@ -109,9 +109,9 @@ const SignUp = () => {
                 <input
                   className={inputStyle}
                   type="text"
-                  id="profileId"
+                  id="nickName"
                   placeholder="프로필 입력"
-                  {...register("profileId", {
+                  {...register("nickName", {
                     required: "닉네임을 입력해주세요.",
                     minLength: {
                       value: 3,
@@ -123,8 +123,8 @@ const SignUp = () => {
                     },
                   })}
                 />
-                {errors.profileId && (
-                  <small role="alert">{errors.profileId.message}</small>
+                {errors.nickName && (
+                  <small role="alert">{errors.nickName.message}</small>
                 )}
                 {/* 이름 입력 */}
                 <input
