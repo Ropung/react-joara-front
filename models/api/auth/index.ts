@@ -13,7 +13,7 @@ export interface SignupRequest {
   password?: string;
   passwordConfirm?: string;
   name?: string;
-  nickName?: string;
+  nickname?: string;
   phone?: string;
   gender?: MemberGender;
   birth?: string;

@@ -9,9 +9,11 @@ const TopNavi = () => {
   const router = useRouter();
   const [isAuthed, setAuthed] = useState<boolean>(false);
 
-  useEffect(() => {
-    const accessToken = !!token.get();
-  }, []);
+  // FIXME 토큰적용
+  // useEffect(() => {
+  //   const accessToken = !!token.get();
+  //   accessToken ? setAuthed(true) : setAuthed(false);
+  // }, []);
 
   return (
     <section className="w-full flex flex-row items-center justify-between h-10 text-basic font-bold">

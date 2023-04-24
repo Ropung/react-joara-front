@@ -48,7 +48,7 @@ export const useUserLoginMutation = () => {
 const signupFetcher = (reqData: SignupRequest) => {
   return api
     .post<SignupResponse>(API_SIGNUP, reqData)
-    .then(({ data }) => data)
+    .then(({ data }) => alert(data))
     .catch(console.error);
 };
 

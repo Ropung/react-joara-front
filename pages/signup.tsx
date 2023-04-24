@@ -5,8 +5,11 @@ import MainLogo from "@/public/logo/mainlogo.png";
 import { useRouter } from "next/router";
 import { SignupRequest } from "@/models/api/auth";
 import { useUserSignupMutation } from "@/hooks/mutation/userAuthMutation";
+import { useState } from "react";
 
 const SignUp = () => {
+  const radioGenderStyle =
+    "flex flex-1 hover:bg-main hover:bg-opacity-60 hover:text-main-contra px-4 py-2 items-center justify-center cursor-pointer";
   const inputStyle = "w-full flex flex-1 border border-gary-200 p-2";
   const {
     register,
@@ -15,12 +18,14 @@ const SignUp = () => {
     formState: { isSubmitting, isDirty, errors },
   } = useForm<SignupRequest>({ mode: "onChange" });
 
+  const [indexOfGenderWith, setIndexOfGenderWith] = useState<number>(0);
+
   const { SIGNUP, HOME } = Path;
   const router = useRouter();
   const mutation = useUserSignupMutation();
 
   return (
-    <div className="w-full min-h-screen flex flex-col gap-2 p-4 justify-start items-center">
+    <div className="w-full flex flex-col gap-2 p-4 justify-center items-center">
       <main className="w-[400px] h-full flex flex-col gap-4 bg-white p-4 rounded-md shadow-t-sm">
         <div className="w-full flex flex-1 flex-col gap-16 items-center py-4">
           <section className="w-full flex flex-col gap-4 items-center justify-center p-4">
@@ -33,10 +38,20 @@ const SignUp = () => {
             />
             {/* 아이디 비밀번호 form 영역 */}
             <form
-              className="w-full flex flex-col gap-8"
+              className="w-full flex flex-col gap-4"
               onSubmit={handleSubmit((data) => {
-                alert(JSON.stringify(data));
-                mutation.mutate(data);
+                const SignupFormReq: SignupRequest = {
+                  email: data.email,
+                  password: data.password,
+                  nickname: data.nickname,
+                  gender: data.gender,
+                  name: data.name,
+                  phone: data.phone,
+                  birth: data.birth,
+                };
+
+                alert(JSON.stringify(SignupFormReq));
+                mutation.mutate(SignupFormReq);
               })}
             >
               <div className="w-full flex flex-col gap-2">
@@ -139,7 +154,7 @@ const SignUp = () => {
                   type="text"
                   id="nickName"
                   placeholder="닉네임 입력"
-                  {...register("nickName", {
+                  {...register("nickname", {
                     required: "닉네임을 입력해주세요.",
                     minLength: {
                       value: 3,
@@ -151,10 +166,10 @@ const SignUp = () => {
                     },
                   })}
                 />
-                {errors.nickName && (
-                  <small role="alert">{errors.nickName.message}</small>
+                {errors.nickname && (
+                  <small role="alert">{errors.nickname.message}</small>
                 )}
-                {/* 주민앞자리입력 */}
+                {/* 생년월일 입력 */}
                 <input
                   className={inputStyle}
                   type="text"
@@ -172,6 +187,7 @@ const SignUp = () => {
                 {errors.birth && (
                   <small role="alert">{errors.birth.message}</small>
                 )}
+                {/* 전화번호 입력 */}
                 <input
                   className={inputStyle}
                   type="text"
@@ -188,6 +204,56 @@ const SignUp = () => {
                 {errors.phone && (
                   <small role="alert">{errors.phone.message}</small>
                 )}
+                {/* 성별선택 */}
+                <fieldset className="w-full flex flex-row items-center border border-default rounded-md divide-x-2 overflow-hidden">
+                  <div className="w-1/2 flex flex-row items-center justify-center">
+                    <label
+                      className={`${radioGenderStyle} ${
+                        indexOfGenderWith === 0
+                          ? `bg-main text-main-contra`
+                          : `bg-white`
+                      }`}
+                      htmlFor="male"
+                      onClick={() => {
+                        setIndexOfGenderWith(0);
+                      }}
+                    >
+                      남성
+                      <input
+                        id="male"
+                        checked={indexOfGenderWith === 0}
+                        className="hidden"
+                        {...register("gender", { required: true })}
+                        type="radio"
+                        value="M"
+                      />
+                    </label>
+                  </div>
+                  <div className="w-1/2 flex flex-row items-center justify-center">
+                    <label
+                      className={`${radioGenderStyle} ${
+                        indexOfGenderWith === 1
+                          ? `bg-main text-main-contra`
+                          : `bg-white`
+                      }`}
+                      htmlFor="female"
+                      onClick={() => {
+                        setIndexOfGenderWith(1);
+                      }}
+                    >
+                      여성
+                      <input
+                        id="female"
+                        checked={indexOfGenderWith === 1}
+                        className="hidden"
+                        {...register("gender", { required: true })}
+                        type="radio"
+                        value="F"
+                        placeholder="여성"
+                      />
+                    </label>
+                  </div>
+                </fieldset>
               </div>
               <button
                 type="submit"

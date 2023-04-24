@@ -26,7 +26,7 @@ const Login = () => {
   const mutation = useUserLoginMutation();
 
   return (
-    <div className="flex flex-col gap-2 p-4 justify-start items-center">
+    <div className="flex flex-col gap-2 p-4 justify-center items-center">
       <main className="w-[400px] max-h-[80vh] flex flex-col gap-4 bg-white p-4 rounded-md shadow-t-sm">
         <div className="w-full flex flex-1 flex-col gap-16 items-center py-8">
           <Image
