@@ -5,6 +5,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import GNB from "@/components/common/navi/GNB";
 import { useRouter } from "next/router";
 import Path from "@/constants/path/routes";
+import { useEffect } from "react";
+import token from "@/libs/token";
 
 export default function App({ Component, pageProps }: AppProps) {
   const client = new QueryClient({

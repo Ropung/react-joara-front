@@ -1,13 +1,7 @@
-class Token {
-  getToken(key: string) {
-    return localStorage.getItem(key);
-  }
-  setToken(key: string, token: string) {
-    localStorage.setItem(key, token);
-  }
-  removeToken(key: string) {
-    localStorage.removeItem(key);
-  }
-}
+const token = {
+  get: () => localStorage.getItem("token"),
+  set: (item: string) => localStorage.setItem("token", item),
+  remove: () => localStorage.removeItem("token"),
+};
 
-export default new Token();
+export default token;

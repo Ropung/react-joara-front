@@ -42,7 +42,7 @@ const Login = () => {
             <form
               className="w-full flex flex-col gap-8"
               onSubmit={handleSubmit((data) => {
-                token.removeToken("token");
+                token.remove();
                 mutation.mutate(data);
               })}
             >

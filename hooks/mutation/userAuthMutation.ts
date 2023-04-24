@@ -20,7 +20,7 @@ const loginFetcher = (reqData: LoginRequest) => {
   return api
     .post<LoginResponse>(API_LOGIN, reqData)
     .then(({ data }) => {
-      token.setToken("token", data.token);
+      token.set(data.token);
     })
     .catch(console.error);
 };
@@ -34,10 +34,7 @@ export const useUserLoginMutation = () => {
       return alert(error);
     },
     onSuccess: () => {
-      if (
-        token.getToken("token") == null ||
-        token.getToken("token")?.length === 0
-      ) {
+      if (token.get() == null || token.get()?.length === 0) {
         return alert("인가되지 않은 사용자입니다.");
       }
       alert("로그인 성공");

@@ -2,12 +2,16 @@ import Path from "@/constants/path/routes";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import token from "@/libs/token";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const TopNavi = () => {
   const { HOME, LOGIN, WRITER_ROOM, SIGNUP } = Path;
-  // const [isAuthed, setAuthed] = useState<boolean>(!!token.getToken("token"));
   const router = useRouter();
+  const [isAuthed, setAuthed] = useState<boolean>(false);
+
+  useEffect(() => {
+    const accessToken = !!token.get();
+  }, []);
 
   return (
     <section className="w-full flex flex-row items-center justify-between h-10 text-basic font-bold">
@@ -22,7 +26,7 @@ const TopNavi = () => {
       </div>
       {/* Right */}
       <div className="flex flex-row gap-2">
-        {!true ? (
+        {!isAuthed ? (
           <>
             <Link href={LOGIN} className="hover:text-main">
               로그인
@@ -37,7 +41,7 @@ const TopNavi = () => {
               href={LOGIN}
               className="hover:text-main"
               onClick={() => {
-                token.removeToken("token");
+                token.remove();
                 router.push(LOGIN);
               }}
             >

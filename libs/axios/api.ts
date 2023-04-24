@@ -9,7 +9,7 @@ const api = axios.create({
 });
 
 api.interceptors.request.use((config: any) => {
-  const accessToken = token.getToken("token");
+  const accessToken = token.get();
 
   return {
     ...config,
