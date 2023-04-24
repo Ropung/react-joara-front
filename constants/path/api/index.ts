@@ -1,6 +1,6 @@
 const API_PATH = {
-  API_LOGIN: "/api/users/login",
-  API_SIGNUP: "/api/users/signup",
+  API_LOGIN: "/login",
+  API_SIGNUP: "/signup",
 };
 
 Object.freeze(API_PATH);

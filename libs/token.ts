@@ -9,4 +9,5 @@ class Token {
     localStorage.removeItem(key);
   }
 }
+
 export default new Token();

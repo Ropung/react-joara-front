@@ -2,7 +2,6 @@ import "@/styles/globals.css";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import type { AppProps } from "next/app";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import React, { useEffect, useState } from "react";
 import GNB from "@/components/common/navi/GNB";
 import { useRouter } from "next/router";
 import Path from "@/constants/path/routes";

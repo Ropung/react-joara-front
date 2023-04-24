@@ -4,11 +4,11 @@ export interface BookGenreProps {
 }
 
 export interface BookProps {
-  bookId: string;
+  bookId?: string;
   memberId?: string;
-  genreId: string;
-  bookTitle: string;
-  bookDescription: string;
+  genreId?: string;
+  bookTitle?: string;
+  bookDescription?: string;
   bookCover?: string;
   avgScore?: number;
   ISBN_CIP?: string;

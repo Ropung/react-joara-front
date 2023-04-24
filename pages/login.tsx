@@ -7,8 +7,11 @@ import {
 } from "react-icons/ai";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
-import { LoginFormProps } from "@/models/user";
 import MainLogo from "@/public/logo/mainlogo.png";
+import { LoginRequest } from "@/models/api/auth";
+import { useUserLoginMutation } from "@/hooks/mutation/userAuthMutation";
+import { useRouter } from "next/router";
+import token from "@/libs/token";
 
 const Login = () => {
   const inputStyle = "w-full flex flex-1 border border-gary-200 p-2";
@@ -16,9 +19,11 @@ const Login = () => {
     register,
     handleSubmit,
     formState: { isSubmitting, isDirty, errors },
-  } = useForm<LoginFormProps>({ mode: "onChange" });
+  } = useForm<LoginRequest>({ mode: "onChange" });
 
+  const router = useRouter();
   const { SIGNUP } = Path;
+  const mutation = useUserLoginMutation();
 
   return (
     <div className="flex flex-col gap-2 p-4 justify-start items-center">
@@ -37,8 +42,8 @@ const Login = () => {
             <form
               className="w-full flex flex-col gap-8"
               onSubmit={handleSubmit((data) => {
-                // FIXME
-                alert(JSON.stringify(data));
+                token.removeToken("token");
+                mutation.mutate(data);
               })}
             >
               <div className="w-full flex flex-col gap-2 items-start justify-center">
@@ -73,9 +78,9 @@ const Login = () => {
                     required: "비밀번호는 필수 입력입니다.",
                     pattern: {
                       value:
-                        /^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$/,
+                        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
                       message:
-                        "비밀번호를 8~16자로 영문 대소문자, 숫자, 특수기호를 조합해서 사용하세요. ",
+                        "비밀번호를 8~16자로 영문 소문자, 숫자, 특수기호를 조합해서 사용하세요. ",
                     },
                   })}
                 />

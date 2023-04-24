@@ -1,17 +1,12 @@
 import Path from "@/constants/path/routes";
 import Link from "next/link";
-import React, { Dispatch, FC, SetStateAction, useState } from "react";
 import { useRouter } from "next/router";
+import token from "@/libs/token";
+import { useState } from "react";
 
-interface TopNaviProps {
-  isAuth: boolean;
-  setAuth: Dispatch<SetStateAction<boolean>>;
-}
-
-const TopNavi: FC<TopNaviProps> = (props) => {
-  const { HOME, LOGIN, WRITER_ROOM } = Path;
-  const { isAuth, setAuth } = props;
-
+const TopNavi = () => {
+  const { HOME, LOGIN, WRITER_ROOM, SIGNUP } = Path;
+  // const [isAuthed, setAuthed] = useState<boolean>(!!token.getToken("token"));
   const router = useRouter();
 
   return (
@@ -27,22 +22,23 @@ const TopNavi: FC<TopNaviProps> = (props) => {
       </div>
       {/* Right */}
       <div className="flex flex-row gap-2">
-        {!isAuth ? (
+        {!true ? (
           <>
             <Link href={LOGIN} className="hover:text-main">
               로그인
             </Link>
-            <Link href={WRITER_ROOM} className="hover:text-main">
-              내 작품관리
+            <Link href={SIGNUP} className="hover:text-main">
+              회원가입
             </Link>
           </>
         ) : (
           <>
             <Link
-              href={WRITER_ROOM}
+              href={LOGIN}
               className="hover:text-main"
               onClick={() => {
-                setAuth(!isAuth);
+                token.removeToken("token");
+                router.push(LOGIN);
               }}
             >
               로그아웃

@@ -1,22 +1,21 @@
-import React, { Dispatch, FC, SetStateAction } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { FaSearch } from "react-icons/fa";
 import { GiCancel } from "react-icons/gi";
 import { IoNotificationsOutline } from "react-icons/io5";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AiOutlineUser } from "react-icons/ai";
 import { BiBookBookmark } from "react-icons/bi";
 import MainLogo from "@/public/logo/mainlogo.png"; //FIXME 임시용
+import { useRouter } from "next/router";
+import Path from "@/constants/path/routes";
+import token from "@/libs/token";
 
-interface MiddleNaviProps {
-  isAuth: boolean;
-  setAuth: Dispatch<SetStateAction<boolean>>;
-}
-
-const MiddleNavi: FC<MiddleNaviProps> = (props) => {
+const MiddleNavi = () => {
   const searchFormRef = useRef<HTMLInputElement>(null);
-  const { isAuth, setAuth } = props;
+  const { LOGIN, HOME } = Path;
+  // const [isAuthed, setAuthed] = useState<boolean>(!!token.getToken("token"));
+  const router = useRouter();
 
   return (
     <section className="w-full flex flex-row justify-between items-center h-16">
@@ -49,7 +48,8 @@ const MiddleNavi: FC<MiddleNaviProps> = (props) => {
           <AiOutlineUser
             className="hover:text-icon-active cursor-pointer"
             onClick={() => {
-              setAuth(!isAuth);
+              // FIXME 로그인 버튼 누르면 페이지 이동 할 기획
+              // isAuthed ? router.push(HOME) : router.push(LOGIN);
             }}
           />
         </div>
