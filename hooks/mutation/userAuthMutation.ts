@@ -2,13 +2,13 @@ import { AUTH_KEY } from "@/constants/key";
 import API_PATH from "@/constants/path/api";
 import Path from "@/constants/path/routes";
 import api from "@/libs/axios/api";
-import token from "@/libs/token";
 import {
   LoginRequest,
   LoginResponse,
   SignupRequest,
   SignupResponse,
 } from "@/models/api/auth";
+import token from "@/utils/token";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 

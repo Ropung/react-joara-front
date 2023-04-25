@@ -9,7 +9,6 @@ import { BiBookBookmark } from "react-icons/bi";
 import MainLogo from "@/public/logo/mainlogo.png"; //FIXME 임시용
 import { useRouter } from "next/router";
 import Path from "@/constants/path/routes";
-import token from "@/libs/token";
 
 const MiddleNavi = () => {
   const searchFormRef = useRef<HTMLInputElement>(null);

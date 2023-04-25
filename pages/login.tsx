@@ -11,7 +11,7 @@ import MainLogo from "@/public/logo/mainlogo.png";
 import { LoginRequest } from "@/models/api/auth";
 import { useUserLoginMutation } from "@/hooks/mutation/userAuthMutation";
 import { useRouter } from "next/router";
-import token from "@/libs/token";
+import token from "@/utils/token";
 
 const Login = () => {
   const inputStyle = "w-full flex flex-1 border border-gary-200 p-2";

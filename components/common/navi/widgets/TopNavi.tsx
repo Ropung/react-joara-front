@@ -1,19 +1,19 @@
 import Path from "@/constants/path/routes";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import token from "@/libs/token";
+import token from "@/utils/token";
 import { useEffect, useState } from "react";
 
 const TopNavi = () => {
   const { HOME, LOGIN, WRITER_ROOM, SIGNUP } = Path;
   const router = useRouter();
-  const [isAuthed, setAuthed] = useState<boolean>(false);
 
-  // FIXME 토큰적용
-  // useEffect(() => {
-  //   const accessToken = !!token.get();
-  //   accessToken ? setAuthed(true) : setAuthed(false);
-  // }, []);
+  // const [accesstoken] = useState(() => {
+  //   token.get();
+  // });
+
+  // const acToken = token.get();
+  // useEffect(() => {}, [acToken]);
 
   return (
     <section className="w-full flex flex-row items-center justify-between h-10 text-basic font-bold">
@@ -28,7 +28,7 @@ const TopNavi = () => {
       </div>
       {/* Right */}
       <div className="flex flex-row gap-2">
-        {!isAuthed ? (
+        {!true ? (
           <>
             <Link href={LOGIN} className="hover:text-main">
               로그인
