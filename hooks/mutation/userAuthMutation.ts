@@ -37,7 +37,6 @@ export const useUserLoginMutation = () => {
       if (token.get() == null || token.get()?.length === 0) {
         return alert("인가되지 않은 사용자입니다.");
       }
-      alert("로그인 성공");
       router.push(HOME);
       queryClient.invalidateQueries<string>([AUTH_KEY]);
     },
@@ -48,7 +47,7 @@ export const useUserLoginMutation = () => {
 const signupFetcher = (reqData: SignupRequest) => {
   return api
     .post<SignupResponse>(API_SIGNUP, reqData)
-    .then(({ data }) => alert(data))
+    .then(({ data }) => alert("회원가입 완료 로그인해주세요."))
     .catch(console.error);
 };
 
