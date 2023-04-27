@@ -47,7 +47,10 @@ export const useUserLoginMutation = () => {
 const signupFetcher = (reqData: SignupRequest) => {
   return api
     .post<SignupResponse>(API_SIGNUP, reqData)
-    .then(({ data }) => alert("회원가입 완료 로그인해주세요."))
+    .then(({ data }) => {
+      if (data.success === false) return alert("중복된 아이디 입니다.");
+      alert("회원가입 되었습니다.");
+    })
     .catch(console.error);
 };
 
@@ -57,13 +60,11 @@ export const useUserSignupMutation = () => {
 
   return useMutation(signupFetcher, {
     onError: (error) => {
-      alert("회원가입에 실패 하셨습니다.");
       return error;
     },
     onSuccess: () => {
-      alert("회원가입 성공");
-      router.push(LOGIN);
       queryClient.invalidateQueries<string>([AUTH_KEY]);
+      // router.push(LOGIN);
     },
   });
 };

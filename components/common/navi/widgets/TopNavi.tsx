@@ -2,7 +2,6 @@ import Path from "@/constants/path/routes";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import token from "@/utils/token";
-import { useEffect } from "react";
 
 const TopNavi = () => {
   const { HOME, LOGIN, WRITER_ROOM, SIGNUP } = Path;

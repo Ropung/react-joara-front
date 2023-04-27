@@ -50,7 +50,7 @@ const SignUp = () => {
                   birth: data.birth,
                 };
 
-                alert(JSON.stringify(SignupFormReq));
+                // alert(JSON.stringify(SignupFormReq));
                 mutation.mutate(SignupFormReq);
               })}
             >
