@@ -1,7 +1,7 @@
 const Path = {
   HOME: "/",
   LOGIN: "/login",
-  SIGNUP: "/signup",
+  SIGN_UP: "/signup",
   BOOK: "/book/[bid]",
   EPISODE: "/book/[bid]/episode/[eid]",
   WRITER_ROOM: "/writer-room",

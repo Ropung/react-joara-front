@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import token from "@/utils/token";
 
 const TopNavi = () => {
-  const { HOME, LOGIN, WRITER_ROOM, SIGNUP } = Path;
+  const { HOME, LOGIN, WRITER_ROOM, SIGN_UP } = Path;
   const router = useRouter();
 
   const acToken = token.get();
@@ -27,7 +27,7 @@ const TopNavi = () => {
             <Link href={LOGIN} className="hover:text-main">
               로그인
             </Link>
-            <Link href={SIGNUP} className="hover:text-main">
+            <Link href={SIGN_UP} className="hover:text-main">
               회원가입
             </Link>
           </>

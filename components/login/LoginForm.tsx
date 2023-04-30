@@ -9,8 +9,7 @@ import { LoginRequest } from "@/models/api/auth";
 import { useUserLoginMutation } from "@/hooks/mutation/userAuthMutation";
 import { useRouter } from "next/router";
 import token from "@/utils/token";
-import { useQuery } from "@tanstack/react-query";
-import { AUTH_KEY } from "@/constants/key";
+
 const LoginForm = () => {
   const inputStyle = "w-full flex flex-1 border border-gary-200 p-2";
   const {
@@ -19,9 +18,8 @@ const LoginForm = () => {
     formState: { isSubmitting, isDirty, errors },
   } = useForm<LoginRequest>({ mode: "onChange" });
 
-  const { SIGNUP } = Path;
+  const { SIGN_UP } = Path;
   const mutation = useUserLoginMutation();
-  const router = useRouter();
 
   return (
     <>
@@ -99,7 +97,7 @@ const LoginForm = () => {
                 로그인
               </button>
               <Link
-                href={SIGNUP}
+                href={SIGN_UP}
                 className="text-center p-2 bg-default text-main-contra rounded-md hover:bg-main"
               >
                 회원가입

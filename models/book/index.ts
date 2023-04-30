@@ -1,5 +1,5 @@
 export interface BookGenreProps {
-  bookGenreId?: string;
+  genreId?: string;
   genreName?: string;
 }
 
@@ -7,16 +7,17 @@ export interface BookProps {
   bookId?: string;
   memberId?: string;
   genreId?: string;
-  bookTitle?: string;
-  bookDescription?: string;
-  bookCover?: string;
+  title?: string;
+  description?: string;
+  cover_url?: string;
   avgScore?: number;
-  ISBN_CIP?: string;
+  isbn?: string;
+  cip?: string;
   createAt?: string;
   updateAt?: string;
   deleteAt?: string;
 }
 export interface BookTagProps {
-  tagId: string;
+  id: string;
   bookId: string;
 }

@@ -6,14 +6,14 @@ import { useRouter } from "next/router";
 
 const GNB = () => {
   const router = useRouter();
-  const { LOGIN, SIGNUP } = Path;
+  const { LOGIN, SIGN_UP } = Path;
 
   return (
     <div className="flex flex-col justify-center items-center px-8 shadow-t-sm bg-white">
       <TopNavi />
       <p className="w-screen border-b border-gray-100" />
       <MiddleNavi />
-      {router.pathname != LOGIN && router.pathname != SIGNUP && (
+      {router.pathname != LOGIN && router.pathname != SIGN_UP && (
         <CategoryNavi />
       )}
     </div>

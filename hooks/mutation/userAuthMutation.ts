@@ -5,8 +5,8 @@ import api from "@/libs/axios/api";
 import {
   LoginRequest,
   LoginResponse,
-  SignupRequest,
-  SignupResponse,
+  SignUpRequest,
+  SignUpResponse,
 } from "@/models/api/auth";
 import token from "@/utils/token";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -44,9 +44,9 @@ export const useUserLoginMutation = () => {
 };
 
 // 회원가입
-const signupFetcher = (reqData: SignupRequest) => {
+const signUpFetcher = (reqData: SignUpRequest) => {
   return api
-    .post<SignupResponse>(API_SIGNUP, reqData)
+    .post<SignUpResponse>(API_SIGNUP, reqData)
     .then(({ data }) => {
       if (data.success === false) return alert("중복된 아이디 입니다.");
       alert("회원가입 되었습니다.");
@@ -54,11 +54,11 @@ const signupFetcher = (reqData: SignupRequest) => {
     .catch(console.error);
 };
 
-export const useUserSignupMutation = () => {
+export const useUserSignUpMutation = () => {
   const queryClient = useQueryClient();
   const router = useRouter();
 
-  return useMutation(signupFetcher, {
+  return useMutation(signUpFetcher, {
     onError: (error) => {
       return error;
     },

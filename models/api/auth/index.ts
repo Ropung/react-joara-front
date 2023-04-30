@@ -8,7 +8,7 @@ export interface LoginResponse {
   token: string;
 }
 
-export interface SignupRequest {
+export interface SignUpRequest {
   email?: string;
   password?: string;
   passwordConfirm?: string;
@@ -23,6 +23,19 @@ export interface SignupRequest {
   status?: MemberState;
 }
 
-export interface SignupResponse {
+export interface SignUpResponse {
+  success: boolean;
+}
+
+export interface BookAddRequest {
+  genreId?: string;
+  title?: string;
+  description?: string;
+  coverUrl?: string;
+  avgScore?: number;
+  isbn?: string;
+  cip?: string;
+}
+export interface BookAddResponse {
   success: boolean;
 }
