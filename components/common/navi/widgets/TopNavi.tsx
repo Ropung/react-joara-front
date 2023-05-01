@@ -2,12 +2,18 @@ import Path from "@/constants/path/routes";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import token from "@/utils/token";
+import { useEffect, useState } from "react";
 
 const TopNavi = () => {
   const { HOME, LOGIN, WRITER_ROOM, SIGN_UP } = Path;
   const router = useRouter();
 
+  const [isToken, setToken] = useState<boolean>(false);
+
   const acToken = token.get();
+  useEffect(() => {
+    !!acToken ? setToken(true) : setToken(false);
+  }, [acToken]);
 
   return (
     <section className="w-full flex flex-row items-center justify-between h-10 text-basic font-bold">
@@ -22,7 +28,7 @@ const TopNavi = () => {
       </div>
       {/* Right */}
       <div className="flex flex-row gap-2">
-        {!acToken ? (
+        {!isToken ? (
           <>
             <Link href={LOGIN} className="hover:text-main">
               로그인
