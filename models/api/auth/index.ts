@@ -27,15 +27,20 @@ export interface SignUpResponse {
   success: boolean;
 }
 
-export interface BookAddRequest {
+// NOTE: 입력폼에서 쓸 타입
+export interface BookAddFormState {
+  coverImages?: FileList;
   genreId?: string;
   title?: string;
   description?: string;
-  coverUrl?: string;
-  avgScore?: number;
   isbn?: string;
   cip?: string;
 }
+// NOTE: 요청 보낼 때 쓸 타입
+export type BookAddRequest = Omit<BookAddFormState, "coverImages"> & {
+  coverImage?: File;
+};
+
 export interface BookAddResponse {
   success: boolean;
 }

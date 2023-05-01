@@ -9,7 +9,7 @@ const Path = {
   BOOK_UPDATE_PUBLISH: "/publish/[bid]",
   BOOK_EPISODE_PUBLISH: "/publish/[bid]/episode",
   BOOK_UPDATE_EPISODE_PUBLISH: "/publish/[bid]/episode/[eid]",
-};
+} as const;
 
 Object.freeze(Path);
 
