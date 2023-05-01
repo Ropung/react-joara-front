@@ -1,35 +1,57 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { lorem } from "@/data/dummy";
 
 import Image from "next/image";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { BookAddRequest } from "@/models/api/auth";
-import { BookAddMutation } from "@/hooks/mutation/BookMutation";
+import { UseFormReturn, useForm } from "react-hook-form";
+import { BookAddFormState, BookAddRequest } from "@/models/api/auth";
+import { useBookMutation } from "@/hooks/mutation/useBookMutation";
+import Genre from "@/constants/genre";
 
 const BookAddForm = () => {
-  const [photoUrl, setPhotoUrl] = useState<string | ArrayBuffer | null>();
-
+  const { ACTION, FANTASY, ROMANCE } = Genre;
   // Book Add Form
   const {
     register,
     handleSubmit,
-    getValues,
-    formState: { isSubmitting, isDirty, errors },
-  } = useForm<BookAddRequest>({ mode: "onChange" });
+    watch,
+    formState: { isSubmitting, errors },
+  } = useForm<BookAddFormState>({ mode: "onChange" });
 
-  const mutation = BookAddMutation();
+  // Object.keys(obj).map(key => ({ [key]: key }));
+
+  const mutation = useBookMutation();
+
+  const [photoUrl, setPhotoUrl] = useState("");
+
+  const COVER_IMAGES = "coverImages";
+  const coverImages = watch(COVER_IMAGES);
+
+  useEffect(() => {
+    if (coverImages && coverImages.length > 0) {
+      setPhotoUrl(URL.createObjectURL(coverImages[0]));
+    }
+  }, [coverImages]);
 
   return (
     <form
       className="w-full flex flex-col gap-4 bg-white rounded-md p-8 shadow-md"
+      encType="multipart/form-data"
       onSubmit={handleSubmit((data) => {
-        alert(JSON.stringify(data));
-        mutation.mutate(data);
+        console.log(data);
+        const { coverImages, ...restData } = data;
+
+        const bookAddFormReq: BookAddRequest = {
+          ...restData,
+          // coverImage: coverImages?.item(0) ?? undefined,
+          coverImage: coverImages && coverImages[0],
+        };
+
+        mutation.mutate(bookAddFormReq);
       })}
     >
-      <section className="flex flex-row justify-between items-center">
+      <section className="w-full flex flex-row justify-between items-center">
         <h1 className="font-bold text-2xl">작품등록</h1>
         <button
           type="submit"
@@ -39,23 +61,23 @@ const BookAddForm = () => {
           등록하기
         </button>
       </section>
-      <section className="w-full flex flex-col gap-4 text-lg">
+      <fieldset className="w-full flex flex-col gap-4 text-lg">
         <div
           className={`w-full flex flex-row justify-between items-center border border-gray-400 rounded-md shadow-md p-4 checked-bg:bg-main`}
         >
-          <p className="flex flex-1">장르</p>
+          <p className="font-bold">장르</p>
           <select
             className="w-[20%] border border-gray-400 rounded-lg p-2 text-sm"
             {...register("genreId", {
               required: "장르를 선택해주세요.",
             })}
           >
-            <option value="ACTION">액션</option>
-            <option value="ROMANCE">로맨스</option>
-            <option value="FANTASY">판타지</option>
+            <option value={ACTION}>액션</option>
+            <option value={ROMANCE}>로멘스</option>
+            <option value={FANTASY}>판타지</option>
           </select>
         </div>
-      </section>
+      </fieldset>
       <div className="w-full flex flex-col gap-4">
         <div
           className={`w-full flex flex-row justify-center items-center border border-gray-400 rounded-md shadow-md p-4 gap-6`}
@@ -82,7 +104,7 @@ const BookAddForm = () => {
           </div>
         </div>
 
-        <div
+        <fieldset
           className={`w-full h-fit flex flex-row justify-center items-center border border-gray-400 rounded-md shadow-md p-4 gap-6`}
         >
           <div className="w-[15%] flex flex-col justify-start items-start">
@@ -108,13 +130,35 @@ const BookAddForm = () => {
               })}
             ></textarea>
             {errors.description && (
-              <small role="alert">{errors.description.message}</small>
+              <small role="alert">
+                {errors.description.message?.toString()}
+              </small>
             )}
           </div>
-        </div>
+        </fieldset>
+        <fieldset className="w-full flex flex-col items-center justify-center gap-4 p-4 border border-gray-400 rounded-md">
+          <div className="w-full flex flex-row gap-2 items-center justify-start">
+            <p className="font-bold w-[15%]">ISBN:</p>
+            <input
+              className="border border-gray-400 p-1 rounded-md flex flex-1"
+              type="text"
+              placeholder="ISBN 입력"
+              {...register("isbn")}
+            />
+          </div>
+          <div className="w-full flex flex-row gap-2 items-center justify-start">
+            <p className="font-bold w-[15%]">CIP:</p>
+            <input
+              className="border border-gray-400 p-1 rounded-md flex flex-1"
+              type="text"
+              placeholder="CIP 입력"
+              {...register("cip")}
+            />
+          </div>
+        </fieldset>
 
         {/* 표지이미지 */}
-        <section
+        <fieldset
           className={`w-full flex flex-row justify-center items-center border border-gray-400 rounded-md shadow-md p-4 gap-6`}
         >
           <div className="w-[15%] flex flex-col gap-1">
@@ -133,11 +177,10 @@ const BookAddForm = () => {
               className={`w-[100px] border rounded-md ${
                 !!photoUrl ? "border-gray-300" : ""
               }`}
-              // TODO 다국어 처리
               alt={
                 !!photoUrl
                   ? "미리보기 이미지(Image Preview)"
-                  : "선택된 사진이 없을 때는 눈 덮인 산을 멀리서 담은 샘플 이미지"
+                  : "기본 조아라 표지이미지"
               }
             />
             <section className="w-full flex flex-col gap-2 overflow-hidden">
@@ -145,25 +188,18 @@ const BookAddForm = () => {
                 <p className="font-bold text-dark">*주의사항</p>
                 <p>{lorem.dummy_short}</p>
               </fieldset>
+              {/* 파일 등록 */}
               <fieldset className="w-full flex flex-row gap-2 justify-start">
                 <input
-                  className="hidden"
+                  {...register(COVER_IMAGES)}
+                  id="coverUrl"
                   type="file"
                   accept="image/*"
-                  onChange={(evt) => {
-                    const reader = new FileReader();
-                    reader.readAsDataURL(evt.target.files![0]);
-                    // (Example of onload)
-                    reader.onload = (evt) => {
-                      const photoUrl = evt.target?.result;
-                      photoUrl && setPhotoUrl(photoUrl);
-                    };
-                  }}
                 />
               </fieldset>
             </section>
           </section>
-        </section>
+        </fieldset>
         <button
           type="submit"
           disabled={isSubmitting}
