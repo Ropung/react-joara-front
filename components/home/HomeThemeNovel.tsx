@@ -34,14 +34,19 @@ const HomeThemeNovel = () => {
                   });
                 }}
               >
-                <div className="flex flex-col gap-4">
+                <div className="w-[150px] flex flex-col gap-4 relative">
                   <Image
-                    width={200}
-                    height={100}
-                    className="p-2"
+                    sizes="w-full"
+                    width={70}
+                    height={50}
+                    className="w-full relative"
                     src="http://image.yes24.com/goods/106211628/XL"
                     alt="소설더미이미지"
                   />
+                  <div className="absolute bottom-0 right-0 left-0 bg-black/10 h-fit text-center font-bold text-white py-2">
+                    <p className="text-2xl drop-shadow-md">{"제목"}</p>
+                    <p className="text-sm drop-shadow-md">{"작가"}</p>
+                  </div>
                 </div>
               </li>
             ))}

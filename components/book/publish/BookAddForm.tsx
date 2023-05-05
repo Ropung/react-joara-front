@@ -4,13 +4,13 @@ import { lorem } from "@/data/dummy";
 
 import Image from "next/image";
 import { useState } from "react";
-import { UseFormReturn, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { BookAddFormState, BookAddRequest } from "@/models/api/auth";
 import { useBookMutation } from "@/hooks/mutation/useBookMutation";
-import Genre from "@/constants/genre";
+import GenreName from "@/constants/genre";
 
 const BookAddForm = () => {
-  const { ACTION, FANTASY, ROMANCE } = Genre;
+  const { ACTION, FANTASY, ROMANCE } = GenreName;
   // Book Add Form
   const {
     register,
