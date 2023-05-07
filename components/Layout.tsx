@@ -9,10 +9,10 @@ const Layout = (props: PropsWithChildren) => {
   const { EPISODE } = Path;
 
   return (
-    <>
+    <div className="min-w-screen min-h-screen bg-gray-50 select-none">
       {router.pathname != EPISODE && <GNB />}
-      <main>{children}</main>
-    </>
+      <main className="w-full">{children}</main>
+    </div>
   );
 };
 

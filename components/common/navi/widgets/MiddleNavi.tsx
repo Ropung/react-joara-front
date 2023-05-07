@@ -17,7 +17,7 @@ const MiddleNavi = () => {
   const router = useRouter();
 
   return (
-    <section className="w-full flex flex-row justify-between items-center h-16">
+    <section className="w-full flex flex-row justify-between items-center h-16 overflow-hidden">
       <div className="flex flex-row gap-6 items-center justify-center">
         <Link href={"/"}>
           <Image

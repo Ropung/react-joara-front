@@ -10,7 +10,6 @@ import {
 } from "@/models/api/auth";
 import token from "@/utils/token";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useRouter } from "next/router";
 
 const { API_LOGIN, API_SIGNUP } = API_PATH;
 const { HOME, LOGIN } = Path;
@@ -27,7 +26,7 @@ const loginFetcher = (reqData: LoginRequest) => {
 
 export const useUserLoginMutation = () => {
   const queryClient = useQueryClient();
-  const router = useRouter();
+  // const router = useRouter();
 
   return useMutation(loginFetcher, {
     onError: (error) => {
@@ -37,7 +36,7 @@ export const useUserLoginMutation = () => {
       if (token.get() == null || token.get()?.length === 0) {
         return alert("인가되지 않은 사용자입니다.");
       }
-      router.push(HOME);
+      // router.push(HOME);
       queryClient.invalidateQueries<string>([AUTH_KEY]);
     },
   });
@@ -56,7 +55,7 @@ const signUpFetcher = (reqData: SignUpRequest) => {
 
 export const useUserSignUpMutation = () => {
   const queryClient = useQueryClient();
-  const router = useRouter();
+  // const router = useRouter();
 
   return useMutation(signUpFetcher, {
     onError: (error) => {

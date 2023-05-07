@@ -8,7 +8,7 @@ class MyDocument extends Document {
         <title>Joara</title>
         {/* <link rel="icon" href="/favicon.ico" /> */}
         <meta charSet="utf-8"></meta>
-        <body className="min-h-screen bg-gray-50 select-none">
+        <body>
           <Main />
           <NextScript />
         </body>

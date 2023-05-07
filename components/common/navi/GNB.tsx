@@ -9,7 +9,7 @@ const GNB = () => {
   const { LOGIN, SIGN_UP } = Path;
 
   return (
-    <div className="flex flex-col justify-center items-center px-8 shadow-t-sm bg-white">
+    <div className="w-full flex flex-col justify-center items-center px-8 jm:px-2 shadow-t-sm bg-white">
       <TopNavi />
       <p className="w-screen border-b border-gray-100" />
       <MiddleNavi />
