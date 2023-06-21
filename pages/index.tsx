@@ -1,15 +1,17 @@
 import EventBanner from "@/components/event/EventBanner";
-import HomeThemeNovel from "@/components/home/HomeThemeNovel";
+import ActionNovel from "@/components/home/ActionNovel";
+import FantasyNovel from "@/components/home/FantasyNovel";
+import RomanceNovel from "@/components/home/RomanceNovel";
 
 export default function Home() {
   return (
-    <div className="w-full flex items-center justify-center">
+    <div className="flex items-center justify-center w-full">
       <main className="w-[80vw] flex flex-col gap-8">
         <EventBanner />
-        {/* 테마 별 작품 목록 */}
-        <HomeThemeNovel />
-        <HomeThemeNovel />
-        <HomeThemeNovel />
+        {/* 장르별 작품 목록 */}
+        <ActionNovel />
+        <FantasyNovel />
+        <RomanceNovel />
       </main>
     </div>
   );
