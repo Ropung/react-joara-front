@@ -16,19 +16,19 @@ const TopNavi = () => {
   }, [acToken]);
 
   return (
-    <section className="w-full flex flex-row items-center justify-between h-10 text-basic font-bold">
+    <section className="flex flex-row items-center justify-between w-full h-10 font-bold text-basic">
       {/* Left */}
       <div className="flex flex-row gap-4">
         <Link href={HOME} className="hover:text-main">
-          웹소설
+          공지사항
         </Link>
         <Link href={HOME} className=" hover:text-main">
-          도서
+          게시판
         </Link>
       </div>
       {/* Right */}
       <div className="flex flex-row gap-2">
-        {!isToken ? (
+        {isToken ? (
           <>
             <Link href={LOGIN} className="hover:text-main">
               로그인
