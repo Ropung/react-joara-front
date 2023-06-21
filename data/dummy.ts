@@ -4,14 +4,6 @@ export interface bannerProps {
   bannerId: number;
 }
 
-export interface bookProps {
-  url: string;
-  alt: string;
-  bookId: number;
-  category: string;
-  tag: string;
-}
-
 export const bannerList: bannerProps[] = [
   {
     url: "/logo/bookLogo.webp",
@@ -36,82 +28,136 @@ export const lorem = {
     "Lorem ipsum dolor sit amet consectetur adipisicing elit Lorem ipsum dolor sit amet consectetur adipisicing elitLorem ipsum dolor sit amet consectetur adipisicing elitLorem ipsum dolor sit amet consectetur adipisicing elitLorem ipsum dolor sit amet consectetur adipisicing elit",
 };
 
-export const bookList: bookProps[] = [
-  {
-    url: "http://image.yes24.com/goods/106211628/XL",
-    alt: "이미지01",
-    bookId: 1,
-    category: "",
-    tag: "",
-  },
-  {
-    url: "http://image.yes24.com/goods/106211628/XL",
-    alt: "이미지02",
-    bookId: 2,
-    category: "",
-    tag: "",
-  },
-  {
-    url: "http://image.yes24.com/goods/106211628/XL",
-    alt: "이미지03",
-    bookId: 3,
-    category: "",
-    tag: "",
-  },
-  {
-    url: "http://image.yes24.com/goods/106211628/XL",
-    alt: "이미지03",
-    bookId: 4,
-    category: "",
-    tag: "",
-  },
-  {
-    url: "http://image.yes24.com/goods/106211628/XL",
-    alt: "이미지03",
-    bookId: 5,
-    category: "",
-    tag: "",
-  },
-  {
-    url: "http://image.yes24.com/goods/106211628/XL",
-    alt: "이미지03",
-    bookId: 6,
-    category: "",
-    tag: "",
-  },
-  {
-    url: "http://image.yes24.com/goods/106211628/XL",
-    alt: "이미지03",
-    bookId: 7,
-    category: "",
-    tag: "",
-  },
-  {
-    url: "http://image.yes24.com/goods/106211628/XL",
-    alt: "이미지03",
-    bookId: 5,
-    category: "",
-    tag: "",
-  },
-  {
-    url: "http://image.yes24.com/goods/106211628/XL",
-    alt: "이미지03",
-    bookId: 5,
-    category: "",
-    tag: "",
-  },
-  {
-    url: "http://image.yes24.com/goods/106211628/XL",
-    alt: "이미지03",
-    bookId: 8,
-    category: "",
-    tag: "",
-  },
-  {
-    url: "http://image.yes24.com/goods/106211628/XL",
-    alt: "이미지03",
-    bookId: 9,
-    category: "",
-    tag: "",
-  },
-];
+export interface mainBookProps {
+  genreKor?: string;
+  bookList?: bookProps[];
+}
+
+export const mainActionBooksDummy: mainBookProps = {
+  genreKor: "액션",
+  bookList: [
+    {
+      url: "http://image.yes24.com/goods/106211628/XL",
+      alt: "이미지01",
+      bookId: 1,
+      title: "예비군을 간 현종",
+      nickname: "예비군을 간 현종",
+    },
+    {
+      url: "http://image.yes24.com/goods/106211628/XL",
+      alt: "이미지01",
+      bookId: 2,
+      title: "자바",
+      nickname: "제임스 고슬링",
+    },
+    {
+      url: "http://image.yes24.com/goods/106211628/XL",
+      alt: "이미지01",
+      bookId: 3,
+      title: "아키텍처",
+      nickname: "헥사고날",
+    },
+    {
+      url: "http://image.yes24.com/goods/106211628/XL",
+      alt: "이미지01",
+      bookId: 4,
+      title: "부의 축적",
+      nickname: "몰루",
+    },
+    {
+      url: "http://image.yes24.com/goods/106211628/XL",
+      alt: "이미지01",
+      bookId: 5,
+      title: "오늘도 개발자가 안된다",
+      nickname: "SI개발자",
+    },
+  ],
+};
+export const mainRomanceBooksDummy: mainBookProps = {
+  genreKor: "로멘스",
+  bookList: [
+    {
+      url: "http://image.yes24.com/goods/106211628/XL",
+      alt: "이미지01",
+      bookId: 1,
+      title: "또링또링",
+      nickname: "또로롱",
+    },
+    {
+      url: "http://image.yes24.com/goods/106211628/XL",
+      alt: "이미지01",
+      bookId: 2,
+      title: "아수라발발타",
+      nickname: "고니",
+    },
+    {
+      url: "http://image.yes24.com/goods/106211628/XL",
+      alt: "이미지01",
+      bookId: 3,
+      title: "데분 고수의 길",
+      nickname: "박승인",
+    },
+    {
+      url: "http://image.yes24.com/goods/106211628/XL",
+      alt: "이미지01",
+      bookId: 4,
+      title: "자바의 신이되고픈 남자",
+      nickname: "오승재",
+    },
+    {
+      url: "http://image.yes24.com/goods/106211628/XL",
+      alt: "이미지01",
+      bookId: 5,
+      title: "난 몰루",
+      nickname: "이현종",
+    },
+  ],
+};
+export const mainFantasyBooksDummy: mainBookProps = {
+  genreKor: "판타지",
+  bookList: [
+    {
+      url: "http://image.yes24.com/goods/106211628/XL",
+      alt: "이미지01",
+      bookId: 1,
+      title: "예비군을 간 현종1",
+      nickname: "예비군을 간 현종1",
+    },
+    {
+      url: "http://image.yes24.com/goods/106211628/XL",
+      alt: "이미지01",
+      bookId: 2,
+      title: "예비군을 간 현종2",
+      nickname: "예비군을 간 현종2",
+    },
+    {
+      url: "http://image.yes24.com/goods/106211628/XL",
+      alt: "이미지01",
+      bookId: 3,
+      title: "예비군을 간 현종3",
+      nickname: "예비군을 간 현종3",
+    },
+    {
+      url: "http://image.yes24.com/goods/106211628/XL",
+      alt: "이미지01",
+      bookId: 4,
+      title: "예비군을 간 현종4",
+      nickname: "예비군을 간 현종4",
+    },
+    {
+      url: "http://image.yes24.com/goods/106211628/XL",
+      alt: "이미지01",
+      bookId: 5,
+      title: "예비군을 간 현종5",
+      nickname: "예비군을 간 현종5",
+    },
+  ],
+};
+
+export interface bookProps {
+  url?: string;
+  alt?: string;
+  bookId: number;
+  title?: string;
+  nickname?: string;
+}
