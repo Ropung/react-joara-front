@@ -2,15 +2,16 @@ import Path from "@/constants/path/routes";
 import { mainActionBooksDummy } from "@/data/dummy";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import React from "react";
-
-type GenreUnion = "fantasy" | "action";
+import PreviewImg from "@/public/img/preview.jpg";
+import useGenreBooksPreviewQuery from "@/hooks/query/useBooksPreviewQuery";
+import { Size } from "@/constants/genre";
 
 const Genre = () => {
-  const router = useRouter();
-  const routerQurey = router.query as { [key in GenreUnion]: string };
-
   const { BOOK } = Path;
+  const router = useRouter();
+  const { gid } = router.query;
+  const { data } = useGenreBooksPreviewQuery(Number(gid), Size.TWENTY, 1);
+
   return (
     <div className="flex flex-col gap-8 px-16 py-8">
       <p className="text-3xl font-bold">{mainActionBooksDummy.genreKor}</p>
@@ -34,7 +35,8 @@ const Genre = () => {
                   width={40}
                   height={50}
                   className="relative w-full"
-                  src="http://image.yes24.com/goods/106211628/XL"
+                  src={PreviewImg}
+                  // src={book.coverUrl ?? }
                   alt="소설더미이미지"
                 />
                 <p className="w-full drop-shadow-md">{book.title}</p>

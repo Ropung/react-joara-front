@@ -2,6 +2,7 @@ import { lorem } from "@/data/dummy";
 import useAutoSizeTextArea from "@/utils/common/textresize";
 import Image from "next/image";
 import { useCallback, useRef, useState } from "react";
+import PreviewImg from "@/public/img/preview.jpg";
 
 const BookUpdate = () => {
   const [files, setFiles] = useState<FileList | null>(null);
@@ -110,10 +111,8 @@ const BookUpdate = () => {
               <Image
                 width={200}
                 height={305}
-                src={
-                  (photoUrl as string) ||
-                  "http://image.yes24.com/goods/106211628/XL"
-                }
+                src={(photoUrl as string) || PreviewImg}
+                // src={book.coverUrl ?? }
                 className={`w-[100px] border rounded-md ${
                   !!photoUrl ? "border-gray-300" : ""
                 }`}

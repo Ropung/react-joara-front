@@ -1,6 +1,6 @@
 import Path from "@/constants/path/routes";
 import { useRouter } from "next/router";
-import GenreName from "@/constants/genre";
+import GenreType from "@/constants/genre";
 import { TotalGenresList } from "./TotalGenresList";
 
 const CategoryNavi = () => {
@@ -15,7 +15,7 @@ const CategoryNavi = () => {
           onClick={() => {
             router.push({
               pathname: GENRE,
-              query: { gid: GenreName.ACTION },
+              query: { gid: GenreType.ACTION },
             });
           }}
         >
@@ -26,22 +26,22 @@ const CategoryNavi = () => {
           onClick={() => {
             router.push({
               pathname: GENRE,
-              query: { gid: GenreName.ROMANCE },
+              query: { gid: GenreType.FANTASY },
             });
           }}
         >
-          로맨스
+          판타지
         </li>
         <li
           className="hover:text-main"
           onClick={() => {
             router.push({
               pathname: GENRE,
-              query: { gid: GenreName.FANTASY },
+              query: { gid: GenreType.ROMANCE },
             });
           }}
         >
-          판타지
+          로맨스
         </li>
       </ul>
       <TotalGenresList className="overflow-hidden" />

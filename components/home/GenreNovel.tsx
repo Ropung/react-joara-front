@@ -2,11 +2,19 @@ import React, { FC } from "react";
 import Image from "next/image";
 import Path from "@/constants/path/routes";
 import { useRouter } from "next/router";
-import { mainActionBooksDummy, mainRomanceBooksDummy } from "@/data/dummy";
+import GenreType from "@/constants/genre";
+import { PreviewGenreBooksResponse } from "@/models/book";
+import PreviewImg from "@/public/img/preview.jpg";
 
-const RomanceNovel = () => {
-  const { BOOK } = Path;
+interface GenreNovelProps {
+  titleGenre: string;
+  books: PreviewGenreBooksResponse | undefined;
+}
+
+const GenreNovel: FC<GenreNovelProps> = (Props) => {
+  const { GENRE, BOOK_ONE, BOOK } = Path;
   const router = useRouter();
+  const { books, titleGenre } = Props;
 
   return (
     <div className="flex flex-col gap-12">
@@ -15,23 +23,30 @@ const RomanceNovel = () => {
         <li className="flex flex-col gap-4">
           {/* Title */}
           <div className="flex flex-row items-center justify-between w-full">
-            <p className="text-2xl font-bold">
-              {mainRomanceBooksDummy.genreKor} 인기작
-            </p>
+            <p className="text-2xl font-bold">{titleGenre}</p>
             <div className="flex flex-row justify-end gap-2 text-4xl">
-              <div className="text-sm cursor-pointer">더보기</div>
+              <div
+                className="text-sm cursor-pointer"
+                onClick={() => {
+                  router.push({
+                    pathname: GENRE + books?.genreId,
+                  });
+                }}
+              >
+                더보기
+              </div>
             </div>
           </div>
           {/* Novel List */}
           <ul className="flex flex-row w-full gap-2 overflow-hidden">
-            {mainRomanceBooksDummy.bookList?.map((book) => (
+            {books?.bookList?.map((book, index) => (
               <li
-                key={"books-" + book.bookId}
+                key={"bookGenreMain" + index}
                 className="w-1/5 cursor-pointer"
                 onClick={() => {
+                  console.log(book);
                   router.push({
-                    pathname: BOOK,
-                    query: { bid: book.bookId },
+                    pathname: BOOK + "/" + book.id,
                   });
                 }}
               >
@@ -41,8 +56,8 @@ const RomanceNovel = () => {
                     width={40}
                     height={50}
                     className="relative w-full"
-                    src="http://image.yes24.com/goods/106211628/XL"
-                    alt="소설더미이미지"
+                    src={book.coverUrl ?? PreviewImg}
+                    alt="미리보기 이미지"
                   />
                   <p className="w-full drop-shadow-md">{book.title}</p>
                   <p className="w-full text-sm drop-shadow-md text-default">
@@ -58,4 +73,4 @@ const RomanceNovel = () => {
   );
 };
 
-export default RomanceNovel;
+export default GenreNovel;
