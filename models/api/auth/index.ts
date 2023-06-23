@@ -1,4 +1,4 @@
-import { MemberGender, MemberState } from "@/models/auth";
+import { MemberGender } from "@/models/auth";
 
 export interface LoginRequest {
   email: string;
@@ -20,7 +20,6 @@ export interface SignUpRequest {
   createAt?: string;
   updateAt?: string;
   deleteAt?: string;
-  status?: MemberState;
 }
 
 export interface SignUpResponse {

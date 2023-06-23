@@ -21,3 +21,16 @@ export interface BookTagProps {
   id: string;
   bookId: string;
 }
+export interface PreviewGenreBooksResponse {
+  bookList: PreviewGenreBookProps[];
+  genreId: number;
+  lastPage: number;
+}
+interface PreviewGenreBookProps {
+  id: number;
+  genreId: number;
+  genreName: string;
+  nickname: string;
+  title: string;
+  coverUrl: string;
+}
