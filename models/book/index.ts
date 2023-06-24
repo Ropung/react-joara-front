@@ -22,6 +22,31 @@ export interface BookProps {
   updateAt?: string;
   deleteAt?: string;
 }
+export interface BookDetailedRes {
+  book: BookDetailedProps;
+}
+
+export interface BookDetailedProps {
+  id?: number;
+  genreIdList?: number[];
+  // added
+  genreNameList?: string[];
+  nickname?: string;
+  title?: string;
+  description?: string;
+  coverUrl: string;
+  status: BookStatusType;
+  totalViewCount: number;
+  totalHeartCount: number;
+  favorCount: number;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date;
+  score: number;
+}
+
+export type BookStatusType = "PENDING" | "ACTIVE" | "SUSPEND" | "REMOVED";
+export type SomeIdUnion = "bid" | "eid" | "gid";
 export interface BookTagProps {
   id: string;
   bookId: string;

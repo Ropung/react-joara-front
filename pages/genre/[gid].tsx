@@ -6,14 +6,14 @@ import useGenreBooksDetailQuery from "@/hooks/query/useGenreBooksDetailQuery";
 import { useState } from "react";
 import { genreNumByName } from "@/constants/genre";
 
-const GenrePage = () => {
+const GenreOnePage = () => {
   const { BOOK } = Path;
   const router = useRouter();
   const { gid } = router.query;
 
   const [pageNation, setPageNation] = useState<number>(0);
 
-  const { data } = useGenreBooksDetailQuery(
+  const { data: { bookList } = {} } = useGenreBooksDetailQuery(
     Number(gid),
     Number(20),
     Number(pageNation)
@@ -25,7 +25,7 @@ const GenrePage = () => {
       <div className="flex flex-col gap-12">
         {/* Genre List */}
         <ul className="flex flex-wrap w-full overflow-hidden">
-          {data?.bookList?.map((book) => (
+          {bookList?.map((book) => (
             <li
               key={"books-" + book.id}
               className="w-1/5 p-2 cursor-pointer"
@@ -57,4 +57,4 @@ const GenrePage = () => {
   );
 };
 
-export default GenrePage;
+export default GenreOnePage;

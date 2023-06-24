@@ -1,4 +1,4 @@
-export interface MemberProps {
+export interface MemberProfileRes {
   memberId?: string;
   email?: string;
   password?: string;
@@ -6,7 +6,7 @@ export interface MemberProps {
   name?: string;
   nickName?: string;
   phone?: string;
-  gender?: MemberGender;
+  gender?: GenderType;
   birth?: string;
   createAt?: string;
   updateAt?: string;
@@ -14,6 +14,25 @@ export interface MemberProps {
   status?: MemberState;
 }
 
+export interface MemberProfileInfoRes {
+  profile: MemberProfileInfo;
+}
+
+export interface MemberProfileInfo {
+  email?: string;
+  name?: string;
+  nickname?: string;
+  phone?: string;
+  gender?: GenderType;
+  birth?: string;
+  tier?: TierType;
+}
+export type AccountStatus =
+  | "ACTIVE"
+  | "SLEEP"
+  | "BLOCKED"
+  | "REMOVED"
+  | "PENDING";
 export type MemberState = "ACTION" | "SLEEP" | "BLOCK";
-export type GenreState = "A" | "R" | "H";
-export type MemberGender = "M" | "W";
+export type GenderType = "M" | "F";
+export type TierType = "BRONZE" | "SILVER" | "GOLD" | "DIAMOND";

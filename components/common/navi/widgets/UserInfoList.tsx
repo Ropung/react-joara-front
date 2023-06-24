@@ -13,6 +13,7 @@ import { BiLogOut } from "react-icons/bi";
 import { BsBookmarkStar } from "react-icons/bs";
 import { LuFolderCog } from "react-icons/lu";
 import { RiFolderUserLine } from "react-icons/ri";
+import useMemberQuery from "@/hooks/query/useMemberQuery";
 
 interface Props {
   children?: ReactNode;
@@ -28,6 +29,7 @@ export const UserInfoList = forwardRef<Ref, Props>(function UserInfoList(
   const { LOGIN } = Path;
   const router = useRouter();
 
+  const { data: { profile } = {} } = useMemberQuery();
   const PopStyle =
     "flex flex-row items-center justify-start w-full gap-2 cursor-pointer hover:text-main";
 
@@ -45,7 +47,8 @@ export const UserInfoList = forwardRef<Ref, Props>(function UserInfoList(
         <Popover.Content className="PopoverContent" sideOffset={10}>
           <div className="mr-4 flex min-w-[20vw] divide-y-2 select-none flex-col items-start justify-center rounded-xl bg-white py-4 border-2">
             <p className="px-6 font-bold" style={{ marginBottom: 10 }}>
-              Account
+              {profile?.nickname ?? "Account"}
+              <span className="font-normal">님 안녕하세요.</span>
             </p>
             <div className="flex flex-col w-full gap-2 py-2 pl-6">
               <Link href={Path.BOOK_ME} className={`w-full ${PopStyle}`}>

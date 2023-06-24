@@ -4,7 +4,8 @@ const API_PATH = {
   API_SIGNUP: "/sign-up",
 
   // Member
-  // API_GET_USER_INFO: "/users/info",
+  // API_MEMBER: "/members",
+  API_MEMBER_PROFILE: "/members/me",
 
   // GENRE
   API_GENRE: "/genre",
