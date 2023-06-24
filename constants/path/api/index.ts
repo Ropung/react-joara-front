@@ -6,9 +6,11 @@ const API_PATH = {
   // Member
   // API_GET_USER_INFO: "/users/info",
 
+  // GENRE
+  API_GENRE: "/genre",
+
   // Books
-  API_GENRE_BOOK_PREVIEW: "/books/genre/",
-  API_BOOK_PAGINATE: "/books?",
+  API_GENRE_BOOK: "/books/genre",
   API_BOOK: "/books",
 
   API_BOOK_CREATE: "/books",

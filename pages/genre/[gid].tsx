@@ -2,7 +2,7 @@ import Path from "@/constants/path/routes";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import PreviewImg from "@/public/img/preview.jpg";
-import useGenreBooksPreviewQuery from "@/hooks/query/useBooksPreviewQuery";
+import useGenreBooksDetailQuery from "@/hooks/query/useGenreBooksDetailQuery";
 import { useState } from "react";
 import { genreNumByName } from "@/constants/genre";
 
@@ -13,7 +13,7 @@ const GenrePage = () => {
 
   const [pageNation, setPageNation] = useState<number>(0);
 
-  const { data } = useGenreBooksPreviewQuery(
+  const { data } = useGenreBooksDetailQuery(
     Number(gid),
     Number(20),
     Number(pageNation)

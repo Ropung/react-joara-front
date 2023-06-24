@@ -21,6 +21,7 @@ export interface BookTagProps {
   id: string;
   bookId: string;
 }
+
 export interface PreviewGenreBooksResponse {
   bookList: PreviewGenreBookProps[];
   genreId: number;

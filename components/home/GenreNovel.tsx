@@ -12,7 +12,7 @@ interface GenreNovelProps {
 }
 
 const GenreNovel: FC<GenreNovelProps> = (Props) => {
-  const { GENRE, BOOK_ONE, BOOK } = Path;
+  const { GENRE_MORE, BOOK_ONE, BOOK } = Path;
   const router = useRouter();
   const { books, genreId } = Props;
 
@@ -29,7 +29,7 @@ const GenreNovel: FC<GenreNovelProps> = (Props) => {
                 className="text-sm cursor-pointer"
                 onClick={() => {
                   router.push({
-                    pathname: GENRE + books?.genreId,
+                    pathname: GENRE_MORE + books?.genreId,
                   });
                 }}
               >
