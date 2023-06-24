@@ -6,7 +6,7 @@ import { BookAddRequest, BookAddResponse } from "@/models/api/auth";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const { API_BOOK_CREATE } = API_PATH;
-const { WRITER_ROOM } = Path;
+const { BOOK_ME } = Path;
 // 책 추가
 const bookAddFetcher = (reqData: BookAddRequest) => {
   return apiBook
@@ -14,7 +14,7 @@ const bookAddFetcher = (reqData: BookAddRequest) => {
     .then(({ data }) => {
       if (data.success) {
         data.success && alert("책이 등록되었습니다.");
-        window.location.href = WRITER_ROOM;
+        window.location.href = BOOK_ME;
       }
     })
     .catch(console.error);
@@ -29,7 +29,7 @@ export const useBookMutation = () => {
       return alert(error);
     },
     onSuccess: () => {
-      // router.push(WRITER_ROOM);
+      // router.push(BOOK_ME);
       queryClient.invalidateQueries<string>([BOOK_ADD]);
     },
   });

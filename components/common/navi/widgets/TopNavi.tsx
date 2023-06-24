@@ -5,7 +5,7 @@ import token from "@/utils/token";
 import { useEffect, useState } from "react";
 
 const TopNavi = () => {
-  const { HOME, LOGIN, WRITER_ROOM, SIGN_UP } = Path;
+  const { HOME, LOGIN, BOOK_ME, SIGN_UP } = Path;
   const router = useRouter();
 
   const [hasToken, setHasToken] = useState<boolean>(false);
@@ -49,7 +49,7 @@ const TopNavi = () => {
             >
               로그아웃
             </Link>
-            <Link href={WRITER_ROOM} className="hover:text-main">
+            <Link href={BOOK_ME} className="hover:text-main">
               내 작품관리
             </Link>
           </>

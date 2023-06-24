@@ -3,7 +3,7 @@ const Path = {
   LOGIN: "/login",
   SIGN_UP: "/signup",
 
-  WRITER_ROOM: "/writer-room",
+  BOOK_ME: "/me",
 
   GENRE: "/genre/[gid]",
   GENRE_MORE: "/genre/",
