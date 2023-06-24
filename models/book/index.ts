@@ -1,6 +1,11 @@
-export interface BookGenreProps {
-  genreId?: string;
-  genreName?: string;
+export interface GenreListReq {
+  genres: GenreProps[];
+}
+
+export interface GenreProps {
+  id?: number;
+  kor?: string;
+  eng?: string;
 }
 
 export interface BookProps {
@@ -22,12 +27,12 @@ export interface BookTagProps {
   bookId: string;
 }
 
-export interface PreviewGenreBooksResponse {
-  bookList: PreviewGenreBookProps[];
+export interface PreviewGenreBooksRes {
+  bookList: GenreBookProjectionProps[];
   genreId: number;
   lastPage: number;
 }
-interface PreviewGenreBookProps {
+interface GenreBookProjectionProps {
   id: number;
   genreId: number;
   genreName: string;

@@ -2,13 +2,13 @@ import React, { FC, useEffect } from "react";
 import Image from "next/image";
 import Path from "@/constants/path/routes";
 import { useRouter } from "next/router";
-import { PreviewGenreBooksResponse } from "@/models/book";
+import { PreviewGenreBooksRes } from "@/models/book";
 import PreviewImg from "@/public/img/preview.jpg";
 import { genreNumByName } from "@/constants/genre";
 
 interface GenreNovelProps {
   genreId: number;
-  books: PreviewGenreBooksResponse | undefined;
+  books: PreviewGenreBooksRes | undefined;
 }
 
 const GenreNovel: FC<GenreNovelProps> = (Props) => {

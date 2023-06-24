@@ -2,16 +2,16 @@ import { useQuery } from "@tanstack/react-query";
 import { apiBook } from "@/libs/axios/api";
 import API_PATH from "@/constants/path/api";
 import { GENRE_KEY } from "@/constants/key";
-import { BookGenreProps } from "@/models/book";
+import { GenreListReq } from "@/models/book";
 
-const { API_GENRE_BOOK } = API_PATH;
+const { API_GENRE } = API_PATH;
 // "/api/boards"
 const fetcher = async () => {
-  const { data } = await apiBook.get<BookGenreProps>(`${API_GENRE_BOOK}`);
+  const { data } = await apiBook.get<GenreListReq>(`${API_GENRE}`);
   return data;
 };
 
-const useGenreListQuery = () => {
+const useGenresQuery = () => {
   return useQuery({
     queryKey: [GENRE_KEY],
     queryFn: () => fetcher(),
@@ -19,4 +19,4 @@ const useGenreListQuery = () => {
   });
 };
 
-export default useGenreListQuery;
+export default useGenresQuery;

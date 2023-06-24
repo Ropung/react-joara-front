@@ -1,22 +1,25 @@
 import { ReactNode, forwardRef } from "react";
 import * as Popover from "@radix-ui/react-popover";
-import Link from "next/link";
-import Path from "@/constants/path/routes";
-import { useRouter } from "next/router";
 import { RxHamburgerMenu } from "react-icons/rx";
+import useGenresQuery from "@/hooks/query/useGenresQuery";
+import { useRouter } from "next/router";
+import Path from "@/constants/path/routes";
+import GenreType from "@/constants/genre";
 
 interface Props {
-  children?: ReactNode;
+  children?: React.ReactNode;
   className?: string;
   href?: string;
+  name?: string;
 }
 export type Ref = HTMLAnchorElement;
 
 export const TotalGenresList = forwardRef<Ref, Props>(function TotalGenresList(
-  { className, children, ...props },
+  { className, children, name, ...props },
   forwardedRef
 ) {
-  const { LOGIN } = Path;
+  const { data: { genres } = {} } = useGenresQuery();
+  const { GENRE } = Path;
   const router = useRouter();
 
   return (
@@ -30,26 +33,32 @@ export const TotalGenresList = forwardRef<Ref, Props>(function TotalGenresList(
         </button>
       </Popover.Trigger>
       <Popover.Portal>
-        <Popover.Content className="PopoverContent" sideOffset={30}>
-          <div className="mr-4 flex min-w-[95vw] min-h-[40vw] divide-y-2 select-none flex-col items-start justify-start rounded-xl bg-white py-4 border-2">
+        <Popover.Content className="w-[95vw] PopoverContent" sideOffset={30}>
+          <div className="p-6 flex flex-col items-start justify-start mr-8 bg-white border-2 divide-y-[1px] select-none min-w-fit min-h-fit rounded-xl">
             <p
-              className="w-full px-6 text-xl font-bold text-left"
+              className="w-full pl-4 text-xl font-bold text-left"
               style={{ marginBottom: 10 }}
             >
-              장르별
+              세부장르
             </p>
-            <ul className="flex flex-wrap w-full gap-4 p-6">
-              {/* {mainFantasyBooksDummy.bookList?.map((genre, index) => {
+            <ul className="flex flex-wrap w-full gap-2 px-2 py-4">
+              {genres?.map((genre, index) => {
                 return (
-                  <li key={index}>
-                    <Link href={Path.WRITER_ROOM} className={`w-full `}>
-                      <p className="px-4 py-2 border-2 rounded-full hover:text-main">
-                        {genre.title}
-                      </p>
-                    </Link>
+                  <li
+                    key={index}
+                    onClick={() => {
+                      router.push({
+                        pathname: GENRE,
+                        query: { gid: genre.id },
+                      });
+                    }}
+                  >
+                    <p className="px-4 py-1.5 border-2 rounded-full hover:bg-main/50">
+                      {genre.kor}
+                    </p>
                   </li>
                 );
-              })} */}
+              })}
             </ul>
           </div>
           <Popover.Close className="PopoverClose" aria-label="Close">
