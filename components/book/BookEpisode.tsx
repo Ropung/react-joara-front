@@ -6,13 +6,13 @@ import { AiOutlineSetting } from "react-icons/ai";
 type SomeUnion = "bid" | "eid";
 
 interface BookInfoProps {
-  isAuth: boolean;
-  setAuth: Dispatch<SetStateAction<boolean>>;
+  hasToken: boolean;
+  setHasToken: Dispatch<SetStateAction<boolean>>;
 }
 
 const BookEpisode: FC<BookInfoProps> = (props) => {
   const dummyList: number[] = [1, 2, 3, 4, 5];
-  const { isAuth, setAuth } = props;
+  const { hasToken: isAuth, setHasToken: setAuth } = props;
   const { EPISODE, BOOK_UPDATE_EPISODE_PUBLISH } = Path;
   const router = useRouter();
   // const bid = router.query.bid as string;

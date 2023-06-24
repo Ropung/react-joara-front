@@ -1,12 +1,11 @@
 import { lorem } from "@/data/dummy";
 import useAutoSizeTextArea from "@/utils/common/textresize";
-import resolveEXIFRotate from "@/utils/upload/resolveEXIFRotate";
 import Image from "next/image";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
+import PreviewImg from "@/public/img/preview.jpg";
 
 const BookUpdate = () => {
   const [files, setFiles] = useState<FileList | null>(null);
-  const [file, setFile] = useState<File | null>(null); // from files
   const [photoUrl, setPhotoUrl] = useState<string | ArrayBuffer | null>();
   const imageUploaderRef = useRef<HTMLInputElement | null>(null);
 
@@ -24,50 +23,21 @@ const BookUpdate = () => {
     setIntroductionNovelValue(val);
   };
 
-  // useEffect(() => {
-  //   console.debug(photoUrl);
-  // }, [photoUrl]);
-
-  useEffect(() => {
-    files &&
-      resolveEXIFRotate(files)
-        .then(setFile) //
-        .catch(console.error);
-  }, [files]);
-
   const clearImage = useCallback<React.MouseEventHandler<HTMLButtonElement>>(
     (evt) =>
       imageUploaderRef.current &&
       setPhotoUrl((imageUploaderRef.current.value = "")),
     []
   );
-  const sendRequest = useCallback<React.MouseEventHandler<HTMLButtonElement>>(
-    (evt) => {
-      if (!file) return;
-      const formData = new FormData();
-      formData.append("paramName", file); // custom param name: from your api server
-      const option = {
-        headers: { "Content-Type": "multipart/form-data" },
-      };
-      /* (ex)
-        axios.post(url, formData, option)
-          .then(({ data })=>data)
-          .then((data) => {
-            // ...
-          })
-          .catch(console.error)
-      */
-    },
-    [file]
-  );
+
   return (
-    <div className="w-full flex items-center justify-center p-8">
+    <div className="flex items-center justify-center w-full p-8">
       <section className="w-[90%] flex flex-col gap-4 bg-white rounded-md p-8 shadow-md">
         {/*  */}
-        <section className="flex flex-row justify-between items-center">
-          <h1 className="font-bold text-2xl">작품수정</h1>
+        <section className="flex flex-row items-center justify-between">
+          <h1 className="text-2xl font-bold">작품수정</h1>
           <button
-            className="font-bold py-4 px-6 rounded-xl border shadow-md hover:text-main-contra hover:bg-main"
+            className="px-6 py-4 font-bold border shadow-md rounded-xl hover:text-main-contra hover:bg-main"
             onClick={() => {
               // router.push();
             }}
@@ -75,7 +45,7 @@ const BookUpdate = () => {
             작품 등록하기
           </button>
         </section>
-        <section className="w-full flex flex-col gap-4 text-lg">
+        <section className="flex flex-col w-full gap-4 text-lg">
           <div
             className={`w-full flex flex-row justify-between items-center border border-gray-400 rounded-md shadow-md p-4 checked-bg:bg-main`}
           >
@@ -100,14 +70,14 @@ const BookUpdate = () => {
         </section>
         {/*  */}
 
-        <div className="w-full flex flex-col gap-4">
+        <div className="flex flex-col w-full gap-4">
           <div
             className={`w-full flex flex-row justify-center items-center border border-gray-400 rounded-md shadow-md p-4 gap-6`}
           >
             <p className="w-[15%] font-bold">작품명</p>
             <input
               type="text"
-              className="flex flex-1 border border-gray-400 rounded-lg py-2 px-4"
+              className="flex flex-1 px-4 py-2 border border-gray-400 rounded-lg"
               placeholder="20자 이하로 작성 가능합니다."
               maxLength={20}
             />
@@ -141,10 +111,8 @@ const BookUpdate = () => {
               <Image
                 width={200}
                 height={305}
-                src={
-                  (photoUrl as string) ||
-                  "http://image.yes24.com/goods/106211628/XL"
-                }
+                src={(photoUrl as string) || PreviewImg}
+                // src={book.coverUrl ?? }
                 className={`w-[100px] border rounded-md ${
                   !!photoUrl ? "border-gray-300" : ""
                 }`}
@@ -156,12 +124,12 @@ const BookUpdate = () => {
                 }
               />
 
-              <section className="w-full flex flex-col gap-2 overflow-hidden">
-                <fieldset className="w-full flex flex-col whitespace-nowrap text-gray-400">
+              <section className="flex flex-col w-full gap-2 overflow-hidden">
+                <fieldset className="flex flex-col w-full text-gray-400 whitespace-nowrap">
                   <p className="font-bold text-dark">*주의사항</p>
                   <p>{lorem.dummy_short}</p>
                 </fieldset>
-                <fieldset className="w-full flex flex-row gap-2 justify-start">
+                <fieldset className="flex flex-row justify-start w-full gap-2">
                   <input
                     className="hidden"
                     type="file"
@@ -180,14 +148,14 @@ const BookUpdate = () => {
                   />
                   {!photoUrl ? (
                     <button
-                      className="font-bold px-4 py-2 rounded-xl border shadow-md hover:text-main-contra hover:bg-main"
+                      className="px-4 py-2 font-bold border shadow-md rounded-xl hover:text-main-contra hover:bg-main"
                       onClick={(evt) => imageUploaderRef.current?.click()}
                     >
                       사진 선택
                     </button>
                   ) : (
                     <button
-                      className="font-bold px-4 py-2 rounded-xl border shadow-md hover:text-main-contra hover:bg-danger"
+                      className="px-4 py-2 font-bold border shadow-md rounded-xl hover:text-main-contra hover:bg-danger"
                       onClick={clearImage}
                     >
                       삭제
@@ -198,7 +166,7 @@ const BookUpdate = () => {
             </section>
           </div>
           <button
-            className="font-bold py-4 px-6 rounded-xl border shadow-md hover:text-main-contra bg-main text-main-contra hover:bg-black"
+            className="px-6 py-4 font-bold border shadow-md rounded-xl hover:text-main-contra bg-main text-main-contra hover:bg-black"
             onClick={() => {
               // router.push();
             }}

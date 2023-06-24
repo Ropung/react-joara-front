@@ -4,95 +4,110 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { Dispatch, FC, SetStateAction, useState } from "react";
 import { AiOutlineSetting } from "react-icons/ai";
-
-type SomeUnion = "bid" | "eid";
+import PreviewImg from "@/public/img/preview.jpg";
+import { BookDetailedProps } from "@/models/book";
+import useBookOfOneQuery from "@/hooks/query/useBookOfOneQuery";
+import { ParsedUrlQuery } from "querystring";
+import BookStatusNameByKor from "@/constants/book";
 
 interface BookInfoProps {
-  isAuth: boolean;
-  setAuth: Dispatch<SetStateAction<boolean>>;
+  hasToken: boolean;
+  setHasToken: Dispatch<SetStateAction<boolean>>;
+  book?: BookDetailedProps;
 }
 
 const BookInfo: FC<BookInfoProps> = (props) => {
-  const { isAuth, setAuth } = props;
-
+  const { hasToken, setHasToken, book } = props;
   const router = useRouter();
-  const { BOOK_PUBLISH, BOOK_EPISODE_PUBLISH, BOOK_UPDATE_PUBLISH } = Path;
-  const routerQurey = router.query as { [key in SomeUnion]: string };
+  const { BOOK_EPISODE_PUBLISH, BOOK_UPDATE_PUBLISH } = Path;
+
+  const btnStyle =
+    "px-6 py-2 font-bold transition rounded-md bg-main text-main-contra hover:scale-105";
 
   return (
     <>
-      <section className="flex flex-row gap-8 items-start justify-between">
-        <Image
-          width={150}
-          height={200}
-          className="w-[25%]"
-          src="http://image.yes24.com/goods/106211628/XL"
-          alt="소설더미이미지"
-        />
-        <div className="flex flex-1 flex-col items-start">
-          <div className="flex flex-col gap-6 items-start justify-between">
-            <div className="w-full flex flex-row justify-between items-center">
-              <div className="w-full flex flex-col items-start">
-                <h1 className="font-bold text-3xl">소설제목</h1>
-                <p className="flex flex-row gap-2 text-icon">
-                  <span className="">작가이름</span>
-                  <span>조회수</span>
-                  <span>장르</span>
-                </p>
-              </div>
-              {isAuth && (
-                <AiOutlineSetting
-                  className="text-3xl hover:text-main cursor-pointer"
-                  onClick={() => {
-                    router.push({
-                      pathname: BOOK_UPDATE_PUBLISH,
-                      query: { bid: routerQurey.bid },
-                    });
-                  }}
-                />
-              )}
-            </div>
-            <p className="w-full flex flex-1 flex-col items-start">
-              {lorem.dummy_long}
-            </p>
-            <ul className="flex flex-row gap-2 items-center justify-start">
-              <li
-                className="text-sm py-1 px-4 hover:bg-main hover:text-main-contra rounded-md border"
-                onClick={() => {
-                  setAuth(!isAuth);
-                }}
-              >
-                {/* FIXME test끝나면 바꾸셈 */}
-                {"태그 들어올 자린데 이거 누르면 로그인 됬다침"}
-              </li>
-            </ul>
-            <div className="w-full flex items-center justify-start gap-4">
-              {!isAuth ? (
-                <>
-                  <button className="bg-main py-4 px-6 rounded-md text-main-contra hover:scale-105 transition font-bold">
-                    최근화보기
-                  </button>
-                  <button className="bg-main py-4 px-6 rounded-md text-main-contra hover:scale-105 transition font-bold">
-                    첫화보기
-                  </button>
-                </>
-              ) : (
-                <>
+      <section className="flex flex-col ">
+        <div className="flex flex-row items-start justify-between w-full gap-8 py-4">
+          <Image
+            width={150}
+            height={200}
+            className="w-[25%]"
+            src={book?.coverUrl ? book?.coverUrl : PreviewImg}
+            alt={book?.title + "표지 이미지"}
+          />
+          <section className="flex flex-col items-start flex-1">
+            <div className="flex flex-col items-start justify-between w-full min-h-full gap-2">
+              <div className="flex flex-row items-start justify-between w-full">
+                <div className="flex flex-row justify-start w-full gap-2">
+                  <h1 className="text-3xl font-bold">{book?.title}</h1>
                   <button
-                    className="bg-main py-4 px-6 rounded-md text-main-contra hover:scale-105 transition font-bold"
+                    className={
+                      "px-2 font-bold transition rounded-md bg-main text-main-contra hover:scale-105 text-sm"
+                    }
+                  >
+                    {BookStatusNameByKor[book?.status ?? "SUSPEND"]}
+                  </button>
+                </div>
+                {hasToken && (
+                  <AiOutlineSetting
+                    className="text-3xl cursor-pointer hover:text-main"
                     onClick={() => {
                       router.push({
-                        pathname: BOOK_EPISODE_PUBLISH,
-                        query: { bid: routerQurey.bid },
+                        pathname: BOOK_UPDATE_PUBLISH,
+                        query: { bid: book?.id },
                       });
                     }}
-                  >
-                    에피소드 추가
-                  </button>
-                </>
-              )}
+                  />
+                )}
+              </div>
+              <div className="flex flex-row items-center justify-between w-full gap-2 text-icon">
+                <p className="w-fit">작가: {book?.nickname}</p>
+                <div className="flex justify-end flex-1 gap-4">
+                  <p>평점: {book?.score ?? 0}점</p>
+                  <p>좋아요: {book?.totalHeartCount ?? 0}개</p>
+                  <p>조회수: {book?.totalViewCount ?? 0}회</p>
+                </div>
+              </div>
+              <p className="flex flex-col items-start flex-1 w-full min-h-[150px]">
+                {book?.description}
+              </p>
+              <ul className="flex flex-row items-center justify-start gap-2">
+                {book?.genreNameList?.map((genreName, index) => {
+                  return (
+                    <li
+                      key={"genreName-" + index}
+                      className="px-4 py-1 text-sm border rounded-md hover:bg-main hover:text-main-contra"
+                      onClick={() => {}}
+                    >
+                      <p>{genreName}</p>
+                    </li>
+                  );
+                })}
+              </ul>
             </div>
-          </div>
+          </section>
+        </div>
+        <div className="flex items-end justify-end w-full gap-4">
+          {!hasToken ? (
+            <>
+              <button className={btnStyle}>최근화보기</button>
+              <button className={btnStyle}>첫화보기</button>
+            </>
+          ) : (
+            <>
+              <button
+                className={btnStyle}
+                onClick={() => {
+                  router.push({
+                    pathname: BOOK_EPISODE_PUBLISH,
+                    // query: { bid: routerQurey.bid },
+                  });
+                }}
+              >
+                에피소드 추가
+              </button>
+            </>
+          )}
         </div>
       </section>
     </>

@@ -7,7 +7,6 @@ import Link from "next/link";
 import MainLogo from "@/public/logo/mainlogo.png";
 import { LoginRequest } from "@/models/api/auth";
 import { useUserLoginMutation } from "@/hooks/mutation/userAuthMutation";
-import { useRouter } from "next/router";
 import token from "@/utils/token";
 
 const LoginForm = () => {
@@ -23,7 +22,7 @@ const LoginForm = () => {
 
   return (
     <>
-      <div className="w-full flex flex-1 flex-col gap-16 items-center py-8">
+      <div className="flex flex-col items-center flex-1 w-full gap-16 py-8">
         <Image
           width={200}
           height={50}
@@ -32,16 +31,16 @@ const LoginForm = () => {
           alt="메인로고"
         />
 
-        <section className="w-full flex flex-col gap-4 items-center justify-center px-8 py-4">
+        <section className="flex flex-col items-center justify-center w-full gap-4 px-8 py-4">
           {/* 아이디 비밀번호 form 영역 */}
           <form
-            className="w-full flex flex-col gap-8"
+            className="flex flex-col w-full gap-8"
             onSubmit={handleSubmit((data) => {
               token.remove();
               mutation.mutate(data);
             })}
           >
-            <div className="w-full flex flex-col gap-2 items-start justify-center">
+            <div className="flex flex-col items-start justify-center w-full gap-2">
               <input
                 id="email"
                 className={inputStyle}
@@ -84,7 +83,7 @@ const LoginForm = () => {
               )}
             </div>
             {/* 버튼영역 */}
-            <div className="w-full flex flex-col gap-2">
+            <div className="flex flex-col w-full gap-2">
               <button
                 type="submit"
                 disabled={isSubmitting}
@@ -98,7 +97,7 @@ const LoginForm = () => {
               </button>
               <Link
                 href={SIGN_UP}
-                className="text-center p-2 bg-default text-main-contra rounded-md hover:bg-main"
+                className="p-2 text-center rounded-md bg-default text-main-contra hover:bg-main"
               >
                 회원가입
               </Link>

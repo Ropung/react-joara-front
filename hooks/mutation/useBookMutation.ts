@@ -1,19 +1,21 @@
 import { BOOK_ADD } from "@/constants/key";
 import API_PATH from "@/constants/path/api";
 import Path from "@/constants/path/routes";
-import { apiMultipart } from "@/libs/axios/api";
+import { apiBook } from "@/libs/axios/api";
 import { BookAddRequest, BookAddResponse } from "@/models/api/auth";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useRouter } from "next/router";
 
-const { API_BOOKS_ADD } = API_PATH;
-const { WRITER_ROOM } = Path;
+const { API_BOOK_CREATE } = API_PATH;
+const { BOOK_ME } = Path;
 // 책 추가
 const bookAddFetcher = (reqData: BookAddRequest) => {
-  return apiMultipart
-    .post<BookAddResponse>(API_BOOKS_ADD, reqData)
+  return apiBook
+    .post<BookAddResponse>(API_BOOK_CREATE, reqData)
     .then(({ data }) => {
-      data.success ? alert("성공") : alert("실패");
+      if (data.success) {
+        data.success && alert("책이 등록되었습니다.");
+        window.location.href = BOOK_ME;
+      }
     })
     .catch(console.error);
 };
@@ -27,7 +29,7 @@ export const useBookMutation = () => {
       return alert(error);
     },
     onSuccess: () => {
-      // router.push(WRITER_ROOM);
+      // router.push(BOOK_ME);
       queryClient.invalidateQueries<string>([BOOK_ADD]);
     },
   });

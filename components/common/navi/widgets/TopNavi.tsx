@@ -5,30 +5,30 @@ import token from "@/utils/token";
 import { useEffect, useState } from "react";
 
 const TopNavi = () => {
-  const { HOME, LOGIN, WRITER_ROOM, SIGN_UP } = Path;
+  const { HOME, LOGIN, BOOK_ME, SIGN_UP } = Path;
   const router = useRouter();
 
-  const [isToken, setToken] = useState<boolean>(false);
+  const [hasToken, setHasToken] = useState<boolean>(false);
 
   const acToken = token.get();
   useEffect(() => {
-    !!acToken ? setToken(true) : setToken(false);
+    !!acToken ? setHasToken(true) : setHasToken(false);
   }, [acToken]);
 
   return (
-    <section className="w-full flex flex-row items-center justify-between h-10 text-basic font-bold">
+    <section className="flex flex-row items-center justify-between w-full h-10 font-bold text-basic">
       {/* Left */}
       <div className="flex flex-row gap-4">
         <Link href={HOME} className="hover:text-main">
-          웹소설
+          공지사항
         </Link>
         <Link href={HOME} className=" hover:text-main">
-          도서
+          게시판
         </Link>
       </div>
       {/* Right */}
       <div className="flex flex-row gap-2">
-        {!isToken ? (
+        {!hasToken ? (
           <>
             <Link href={LOGIN} className="hover:text-main">
               로그인
@@ -49,7 +49,7 @@ const TopNavi = () => {
             >
               로그아웃
             </Link>
-            <Link href={WRITER_ROOM} className="hover:text-main">
+            <Link href={BOOK_ME} className="hover:text-main">
               내 작품관리
             </Link>
           </>

@@ -4,19 +4,20 @@ import { useRouter } from "next/router";
 import Path from "@/constants/path/routes";
 import NovelState from "./NovelState";
 import { AiOutlineSetting } from "react-icons/ai";
+import PreviewImg from "@/public/img/preview.jpg";
 
 const NovelBooks = () => {
   const router = useRouter();
   const { BOOK } = Path;
   return (
     <>
-      <div className="flex flex-row justify-between items-center">
-        <h1 className="flex-1 font-bold text-xl">작품 목록</h1>
+      <div className="flex flex-row items-center justify-between">
+        <h1 className="flex-1 text-xl font-bold">작품 목록</h1>
         <NovelState />
       </div>
       <ul className="flex flex-col gap-4">
         <li
-          className="flex flex-row items-center justify-start border border-default shadow-md rounded-md p-4 hover:border-main gap-4"
+          className="flex flex-row items-center justify-start gap-4 p-4 border rounded-md shadow-md border-default hover:border-main"
           onClick={() => {
             router.push({
               pathname: BOOK,
@@ -28,13 +29,14 @@ const NovelBooks = () => {
             width={150}
             height={200}
             className="w-[15%]"
-            src="http://image.yes24.com/goods/106211628/XL"
+            src={PreviewImg}
+            // src={book.coverUrl ?? }
             alt="소설더미이미지"
           />
-          <section className="flex flex-1 flex-col gap-2 justify-between items-start">
-            <div className="w-full flex justify-between">
+          <section className="flex flex-col items-start justify-between flex-1 gap-2">
+            <div className="flex justify-between w-full">
               <div className="flex flex-col items-start justify-start">
-                <p className="flex flex-row gap-2 items-center font-bold">
+                <p className="flex flex-row items-center gap-2 font-bold">
                   <span className="text-xl ">{"소설제목"}</span>
                   <span className="text-main">{"작가이름"}</span>
                 </p>
@@ -54,8 +56,8 @@ const NovelBooks = () => {
                 doloremque non, placeat corporis nobis sunt praesentium
               </p>
             </div>
-            <ul className="flex flex-row gap-2 items-center justify-start">
-              <li className="text-sm py-1 px-4 hover:bg-main hover:text-main-contra rounded-md border">
+            <ul className="flex flex-row items-center justify-start gap-2">
+              <li className="px-4 py-1 text-sm border rounded-md hover:bg-main hover:text-main-contra">
                 {"태그"}
               </li>
             </ul>

@@ -7,10 +7,11 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { BookAddFormState, BookAddRequest } from "@/models/api/auth";
 import { useBookMutation } from "@/hooks/mutation/useBookMutation";
-import GenreName from "@/constants/genre";
+import GenreType from "@/constants/genre";
+import PreviewImg from "@/public/img/preview.jpg";
 
 const BookAddForm = () => {
-  const { ACTION, FANTASY, ROMANCE } = GenreName;
+  const { ACTION, FANTASY, ROMANCE } = GenreType;
   // Book Add Form
   const {
     register,
@@ -36,7 +37,7 @@ const BookAddForm = () => {
 
   return (
     <form
-      className="w-full flex flex-col gap-4 bg-white rounded-md p-8 shadow-md"
+      className="flex flex-col w-full gap-4 p-8 bg-white rounded-md shadow-md"
       encType="multipart/form-data"
       onSubmit={handleSubmit((data) => {
         console.log(data);
@@ -51,17 +52,17 @@ const BookAddForm = () => {
         mutation.mutate(bookAddFormReq);
       })}
     >
-      <section className="w-full flex flex-row justify-between items-center">
-        <h1 className="font-bold text-2xl">작품등록</h1>
+      <section className="flex flex-row items-center justify-between w-full">
+        <h1 className="text-2xl font-bold">작품등록</h1>
         <button
           type="submit"
           disabled={isSubmitting}
-          className="font-bold py-4 px-6 rounded-xl border shadow-md hover:text-main-contra hover:bg-main"
+          className="px-6 py-4 font-bold border shadow-md rounded-xl hover:text-main-contra hover:bg-main"
         >
           등록하기
         </button>
       </section>
-      <fieldset className="w-full flex flex-col gap-4 text-lg">
+      <fieldset className="flex flex-col w-full gap-4 text-lg">
         <div
           className={`w-full flex flex-row justify-between items-center border border-gray-400 rounded-md shadow-md p-4 checked-bg:bg-main`}
         >
@@ -78,15 +79,15 @@ const BookAddForm = () => {
           </select>
         </div>
       </fieldset>
-      <div className="w-full flex flex-col gap-4">
+      <div className="flex flex-col w-full gap-4">
         <div
           className={`w-full flex flex-row justify-center items-center border border-gray-400 rounded-md shadow-md p-4 gap-6`}
         >
           <p className="w-[15%] font-bold">작품명</p>
-          <div className="flex flex-1 flex-col gap-2">
+          <div className="flex flex-col flex-1 gap-2">
             <input
               type="text"
-              className="border border-gray-400 rounded-lg py-2 px-4"
+              className="px-4 py-2 border border-gray-400 rounded-lg"
               placeholder="20자 이하로 작성 가능합니다."
               {...register("title", {
                 required: "제목을 입력해주세요.",
@@ -112,9 +113,9 @@ const BookAddForm = () => {
             <span className="text-sm text-gray-400">{`(줄거리)`}</span>
           </div>
           {/* 작품소개 textarea */}
-          <div className="flex flex-1 flex-col">
+          <div className="flex flex-col flex-1">
             <textarea
-              className="w-full  flex flex-1 border border-gray-400 rounded-lg px-4 py-2 text-sm outline-none resize-none placeholder:text-base"
+              className="flex flex-1 w-full px-4 py-2 text-sm border border-gray-400 rounded-lg outline-none resize-none placeholder:text-base"
               rows={5}
               placeholder="작품 줄거리를 입력하세요."
               {...register("description", {
@@ -136,20 +137,20 @@ const BookAddForm = () => {
             )}
           </div>
         </fieldset>
-        <fieldset className="w-full flex flex-col items-center justify-center gap-4 p-4 border border-gray-400 rounded-md">
-          <div className="w-full flex flex-row gap-2 items-center justify-start">
+        <fieldset className="flex flex-col items-center justify-center w-full gap-4 p-4 border border-gray-400 rounded-md">
+          <div className="flex flex-row items-center justify-start w-full gap-2">
             <p className="font-bold w-[15%]">ISBN:</p>
             <input
-              className="border border-gray-400 p-1 rounded-md flex flex-1"
+              className="flex flex-1 p-1 border border-gray-400 rounded-md"
               type="text"
               placeholder="ISBN 입력"
               {...register("isbn")}
             />
           </div>
-          <div className="w-full flex flex-row gap-2 items-center justify-start">
+          <div className="flex flex-row items-center justify-start w-full gap-2">
             <p className="font-bold w-[15%]">CIP:</p>
             <input
-              className="border border-gray-400 p-1 rounded-md flex flex-1"
+              className="flex flex-1 p-1 border border-gray-400 rounded-md"
               type="text"
               placeholder="CIP 입력"
               {...register("cip")}
@@ -170,10 +171,8 @@ const BookAddForm = () => {
             <Image
               width={200}
               height={305}
-              src={
-                (photoUrl as string) ||
-                "http://image.yes24.com/goods/106211628/XL"
-              }
+              src={(photoUrl as string) || PreviewImg}
+              // src={book.coverUrl ?? }
               className={`w-[100px] border rounded-md ${
                 !!photoUrl ? "border-gray-300" : ""
               }`}
@@ -183,13 +182,13 @@ const BookAddForm = () => {
                   : "기본 조아라 표지이미지"
               }
             />
-            <section className="w-full flex flex-col gap-2 overflow-hidden">
-              <fieldset className="w-full flex flex-col whitespace-nowrap text-gray-400">
+            <section className="flex flex-col w-full gap-2 overflow-hidden">
+              <fieldset className="flex flex-col w-full text-gray-400 whitespace-nowrap">
                 <p className="font-bold text-dark">*주의사항</p>
                 <p>{lorem.dummy_short}</p>
               </fieldset>
               {/* 파일 등록 */}
-              <fieldset className="w-full flex flex-row gap-2 justify-start">
+              <fieldset className="flex flex-row justify-start w-full gap-2">
                 <input
                   {...register(COVER_IMAGES)}
                   id="coverUrl"
@@ -203,7 +202,7 @@ const BookAddForm = () => {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="font-bold py-4 px-6 rounded-xl border shadow-md hover:text-main-contra bg-main text-main-contra hover:bg-black"
+          className="px-6 py-4 font-bold border shadow-md rounded-xl hover:text-main-contra bg-main text-main-contra hover:bg-black"
         >
           작품 등록하기
         </button>

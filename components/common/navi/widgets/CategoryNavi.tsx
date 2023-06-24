@@ -1,21 +1,23 @@
 import Path from "@/constants/path/routes";
-import { RxHamburgerMenu } from "react-icons/rx";
 import { useRouter } from "next/router";
-import GenreName from "@/constants/genre";
+import GenreType from "@/constants/genre";
+import { TotalGenresList } from "./TotalGenresList";
+import useGenresQuery from "@/hooks/query/useGenresQuery";
+import { GenreProps } from "@/models/book";
 
 const CategoryNavi = () => {
   const { GENRE } = Path;
   const router = useRouter();
 
   return (
-    <div className="w-full h-16 flex flex-row justify-between items-center text-basic border-b border-gray-100">
-      <ul className="flex flex-row gap-6 font-bold text-2xl justify-start">
+    <div className="flex flex-row items-center justify-between w-full h-16 border-b border-gray-100 text-basic">
+      <ul className="flex flex-row justify-start gap-6 text-2xl font-bold">
         <li
           className="hover:text-main"
           onClick={() => {
             router.push({
               pathname: GENRE,
-              query: { gid: GenreName.ACTION },
+              query: { gid: GenreType.ACTION },
             });
           }}
         >
@@ -26,28 +28,25 @@ const CategoryNavi = () => {
           onClick={() => {
             router.push({
               pathname: GENRE,
-              query: { gid: GenreName.ROMANCE },
+              query: { gid: GenreType.FANTASY },
             });
           }}
         >
-          로맨스
+          판타지
         </li>
         <li
           className="hover:text-main"
           onClick={() => {
             router.push({
               pathname: GENRE,
-              query: { gid: GenreName.FANTASY },
+              query: { gid: GenreType.ROMANCE },
             });
           }}
         >
-          판타지
+          로맨스
         </li>
       </ul>
-      <div className="flex flex-row gap-2 hover:text-main">
-        <RxHamburgerMenu className="text-2xl " />
-        <p>전체 카테고리</p>
-      </div>
+      <TotalGenresList className="overflow-hidden" />
     </div>
   );
 };
