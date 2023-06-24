@@ -8,11 +8,11 @@ const TopNavi = () => {
   const { HOME, LOGIN, WRITER_ROOM, SIGN_UP } = Path;
   const router = useRouter();
 
-  const [isToken, setToken] = useState<boolean>(false);
+  const [hasToken, setHasToken] = useState<boolean>(false);
 
   const acToken = token.get();
   useEffect(() => {
-    !!acToken ? setToken(true) : setToken(false);
+    !!acToken ? setHasToken(true) : setHasToken(false);
   }, [acToken]);
 
   return (
@@ -28,7 +28,7 @@ const TopNavi = () => {
       </div>
       {/* Right */}
       <div className="flex flex-row gap-2">
-        {isToken ? (
+        {!hasToken ? (
           <>
             <Link href={LOGIN} className="hover:text-main">
               로그인

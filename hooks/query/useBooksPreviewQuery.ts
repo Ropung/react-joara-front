@@ -6,20 +6,20 @@ import { PreviewGenreBooksResponse } from "@/models/book";
 
 const { API_GENRE_BOOK_PREVIEW } = API_PATH;
 // "/api/boards"
-const fetcher = async (genreId: number, size?: number, page?: number) => {
+const fetcher = async (genreId: number, size: number, page: number) => {
   const { data } = await apiBook.get<PreviewGenreBooksResponse>(
-    `${API_GENRE_BOOK_PREVIEW}${genreId}?size=${size}page=${page}`
+    `${API_GENRE_BOOK_PREVIEW + genreId}?size=${size}&page=${page}`
   );
   return data;
 };
 
 const useGenreBooksPreviewQuery = (
   genreId: number,
-  size?: number,
-  page?: number
+  size: number,
+  page: number
 ) => {
   return useQuery({
-    queryKey: [BOOK_KEY, genreId],
+    queryKey: [BOOK_KEY, genreId, size, page],
     queryFn: () => fetcher(genreId, size, page),
     // enabled: !!page,
   });

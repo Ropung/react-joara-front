@@ -2,19 +2,8 @@ import { ReactNode, forwardRef } from "react";
 import * as Popover from "@radix-ui/react-popover";
 import Link from "next/link";
 import Path from "@/constants/path/routes";
-import {
-  AiOutlineFolderAdd,
-  AiOutlineNotification,
-  AiOutlineUser,
-} from "react-icons/ai";
-import token from "@/utils/token";
 import { useRouter } from "next/router";
-import { BiLogOut } from "react-icons/bi";
-import { BsBookmarkStar } from "react-icons/bs";
-import { LuFolderCog } from "react-icons/lu";
-import { RiFolderUserLine } from "react-icons/ri";
 import { RxHamburgerMenu } from "react-icons/rx";
-import { mainFantasyBooksDummy } from "@/data/dummy";
 
 interface Props {
   children?: ReactNode;
@@ -36,7 +25,7 @@ export const TotalGenresList = forwardRef<Ref, Props>(function TotalGenresList(
         <button className="IconButton" aria-label="Update dimensions">
           <div className="flex flex-row gap-2 hover:text-main">
             <RxHamburgerMenu className="text-2xl " />
-            <p>전체 카테고리</p>
+            <p>전체장르</p>
           </div>
         </button>
       </Popover.Trigger>
@@ -50,7 +39,7 @@ export const TotalGenresList = forwardRef<Ref, Props>(function TotalGenresList(
               장르별
             </p>
             <ul className="flex flex-wrap w-full gap-4 p-6">
-              {mainFantasyBooksDummy.bookList?.map((genre, index) => {
+              {/* {mainFantasyBooksDummy.bookList?.map((genre, index) => {
                 return (
                   <li key={index}>
                     <Link href={Path.WRITER_ROOM} className={`w-full `}>
@@ -60,7 +49,7 @@ export const TotalGenresList = forwardRef<Ref, Props>(function TotalGenresList(
                     </Link>
                   </li>
                 );
-              })}
+              })} */}
             </ul>
           </div>
           <Popover.Close className="PopoverClose" aria-label="Close">

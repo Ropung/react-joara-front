@@ -1,21 +1,21 @@
 import EventBanner from "@/components/event/EventBanner";
 import GenreNovel from "@/components/home/GenreNovel";
-import GenreType, { Size } from "@/constants/genre";
+import GenreType, { Size, genreNumByName } from "@/constants/genre";
 import useGenreBooksPreviewQuery from "@/hooks/query/useBooksPreviewQuery";
 
 export default function Home() {
-  const { data: ActionBooks } = useGenreBooksPreviewQuery(
-    GenreType.ACTION,
+  const { data: actionBooks } = useGenreBooksPreviewQuery(
+    GenreType.ACTION, // 5
     Size.FIVE,
     1
   );
-  const { data: FantasyBooks } = useGenreBooksPreviewQuery(
-    GenreType.FANTASY,
+  const { data: fantasyBooks } = useGenreBooksPreviewQuery(
+    GenreType.FANTASY, // 7
     Size.FIVE,
     1
   );
-  const { data: RomanceBooks } = useGenreBooksPreviewQuery(
-    GenreType.ROMANCE,
+  const { data: romanceBooks } = useGenreBooksPreviewQuery(
+    GenreType.ROMANCE, // 2
     Size.FIVE,
     1
   );
@@ -25,14 +25,14 @@ export default function Home() {
       <main className="w-[80vw] flex flex-col gap-8">
         <EventBanner />
         {/* 장르별 작품 목록 */}
-        {ActionBooks && (
-          <GenreNovel titleGenre={"액션 인기작"} books={ActionBooks} />
+        {actionBooks && (
+          <GenreNovel genreId={actionBooks.genreId} books={actionBooks} />
         )}
-        {FantasyBooks && (
-          <GenreNovel titleGenre={"판타지 인기작"} books={FantasyBooks} />
+        {fantasyBooks && (
+          <GenreNovel genreId={fantasyBooks.genreId} books={fantasyBooks} />
         )}
-        {RomanceBooks && (
-          <GenreNovel titleGenre={"로맨스 인기작"} books={RomanceBooks} />
+        {romanceBooks && (
+          <GenreNovel genreId={romanceBooks.genreId} books={romanceBooks} />
         )}
       </main>
     </div>

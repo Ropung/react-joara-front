@@ -1,31 +1,37 @@
 import Path from "@/constants/path/routes";
-import { mainActionBooksDummy } from "@/data/dummy";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import PreviewImg from "@/public/img/preview.jpg";
 import useGenreBooksPreviewQuery from "@/hooks/query/useBooksPreviewQuery";
-import { Size } from "@/constants/genre";
+import { useState } from "react";
+import { genreNumByName } from "@/constants/genre";
 
-const Genre = () => {
+const GenrePage = () => {
   const { BOOK } = Path;
   const router = useRouter();
   const { gid } = router.query;
-  const { data } = useGenreBooksPreviewQuery(Number(gid), Size.TWENTY, 1);
+
+  const [pageNation, setPageNation] = useState<number>(0);
+
+  const { data } = useGenreBooksPreviewQuery(
+    Number(gid),
+    Number(20),
+    Number(pageNation)
+  );
 
   return (
     <div className="flex flex-col gap-8 px-16 py-8">
-      <p className="text-3xl font-bold">{mainActionBooksDummy.genreKor}</p>
+      <p className="text-3xl font-bold">{genreNumByName[Number(gid)]}</p>
       <div className="flex flex-col gap-12">
         {/* Genre List */}
-        <ul className="flex w-full gap-2 overflow-hidden">
-          {mainActionBooksDummy.bookList?.map((book) => (
+        <ul className="flex flex-wrap w-full overflow-hidden">
+          {data?.bookList?.map((book) => (
             <li
-              key={"books-" + book.bookId}
-              className="w-1/5 cursor-pointer"
+              key={"books-" + book.id}
+              className="w-1/5 p-2 cursor-pointer"
               onClick={() => {
                 router.push({
-                  pathname: BOOK,
-                  query: { bid: book.bookId },
+                  pathname: BOOK + "/" + book.id,
                 });
               }}
             >
@@ -35,9 +41,8 @@ const Genre = () => {
                   width={40}
                   height={50}
                   className="relative w-full"
-                  src={PreviewImg}
-                  // src={book.coverUrl ?? }
-                  alt="소설더미이미지"
+                  src={book.coverUrl ? book.coverUrl : PreviewImg}
+                  alt="북커버 이미지"
                 />
                 <p className="w-full drop-shadow-md">{book.title}</p>
                 <p className="w-full text-sm drop-shadow-md text-default">
@@ -52,4 +57,4 @@ const Genre = () => {
   );
 };
 
-export default Genre;
+export default GenrePage;

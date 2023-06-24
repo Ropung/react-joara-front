@@ -1,20 +1,20 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import Image from "next/image";
 import Path from "@/constants/path/routes";
 import { useRouter } from "next/router";
-import GenreType from "@/constants/genre";
 import { PreviewGenreBooksResponse } from "@/models/book";
 import PreviewImg from "@/public/img/preview.jpg";
+import { genreNumByName } from "@/constants/genre";
 
 interface GenreNovelProps {
-  titleGenre: string;
+  genreId: number;
   books: PreviewGenreBooksResponse | undefined;
 }
 
 const GenreNovel: FC<GenreNovelProps> = (Props) => {
   const { GENRE, BOOK_ONE, BOOK } = Path;
   const router = useRouter();
-  const { books, titleGenre } = Props;
+  const { books, genreId } = Props;
 
   return (
     <div className="flex flex-col gap-12">
@@ -23,7 +23,7 @@ const GenreNovel: FC<GenreNovelProps> = (Props) => {
         <li className="flex flex-col gap-4">
           {/* Title */}
           <div className="flex flex-row items-center justify-between w-full">
-            <p className="text-2xl font-bold">{titleGenre}</p>
+            <p className="text-2xl font-bold">{genreNumByName[genreId]}</p>
             <div className="flex flex-row justify-end gap-2 text-4xl">
               <div
                 className="text-sm cursor-pointer"
@@ -44,7 +44,6 @@ const GenreNovel: FC<GenreNovelProps> = (Props) => {
                 key={"bookGenreMain" + index}
                 className="w-1/5 cursor-pointer"
                 onClick={() => {
-                  console.log(book);
                   router.push({
                     pathname: BOOK + "/" + book.id,
                   });
@@ -56,8 +55,8 @@ const GenreNovel: FC<GenreNovelProps> = (Props) => {
                     width={40}
                     height={50}
                     className="relative w-full"
-                    src={book.coverUrl ?? PreviewImg}
-                    alt="미리보기 이미지"
+                    src={book.coverUrl ? book.coverUrl : PreviewImg}
+                    alt="북커버 이미지"
                   />
                   <p className="w-full drop-shadow-md">{book.title}</p>
                   <p className="w-full text-sm drop-shadow-md text-default">
