@@ -4,6 +4,7 @@ const Path = {
   SIGN_UP: "/signup",
 
   BOOK_ME: "/books/me",
+  BOOK_FAVORITE: "/books/favorite",
 
   GENRE: "/genre/[gid]",
   GENRE_MORE: "/genre/",
