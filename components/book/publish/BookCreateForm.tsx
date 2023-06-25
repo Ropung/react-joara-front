@@ -5,24 +5,24 @@ import { lorem } from "@/data/dummy";
 import Image from "next/image";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { BookAddFormState, BookAddRequest } from "@/models/api/auth";
+import { BookCreateUseFormProps, BookCreateReq } from "@/models/api/auth";
 import { useBookMutation } from "@/hooks/mutation/useBookMutation";
 import GenreType from "@/constants/genre";
 import PreviewImg from "@/public/img/preview.jpg";
+import useGenresQuery from "@/hooks/query/useGenresQuery";
 
-const BookAddForm = () => {
+const BookCreateForm = () => {
   const { ACTION, FANTASY, ROMANCE } = GenreType;
-  // Book Add Form
   const {
     register,
     handleSubmit,
     watch,
     formState: { isSubmitting, errors },
-  } = useForm<BookAddFormState>({ mode: "onChange" });
+  } = useForm<BookCreateUseFormProps>({ mode: "onChange" });
 
   // Object.keys(obj).map(key => ({ [key]: key }));
 
-  const mutation = useBookMutation();
+  const bookMutation = useBookMutation();
 
   const [photoUrl, setPhotoUrl] = useState("");
 
@@ -35,21 +35,24 @@ const BookAddForm = () => {
     }
   }, [coverImages]);
 
+  const { data: { genres } = {} } = useGenresQuery();
+
   return (
     <form
       className="flex flex-col w-full gap-4 p-8 bg-white rounded-md shadow-md"
       encType="multipart/form-data"
       onSubmit={handleSubmit((data) => {
-        console.log(data);
-        const { coverImages, ...restData } = data;
+        const { coverImages, genreId, ...restData } = data;
 
-        const bookAddFormReq: BookAddRequest = {
+        if (genreId == 0) return alert("장르를 선택해주세요!");
+
+        const bookCreateFormReq: BookCreateReq = {
+          genreIdList: Number(genreId),
           ...restData,
           // coverImage: coverImages?.item(0) ?? undefined,
           coverImage: coverImages && coverImages[0],
         };
-
-        mutation.mutate(bookAddFormReq);
+        bookMutation.mutate(bookCreateFormReq);
       })}
     >
       <section className="flex flex-row items-center justify-between w-full">
@@ -66,16 +69,23 @@ const BookAddForm = () => {
         <div
           className={`w-full flex flex-row justify-between items-center border border-gray-400 rounded-md shadow-md p-4 checked-bg:bg-main`}
         >
-          <p className="font-bold">장르</p>
+          <p className="w-[15%] font-bold">장르</p>
           <select
+            defaultValue={0}
             className="w-[20%] border border-gray-400 rounded-lg p-2 text-sm"
             {...register("genreId", {
-              required: "장르를 선택해주세요.",
+              required: true,
+              validate: (value) => value !== 0 || "장르를 선택해주세요.",
             })}
           >
-            <option value={ACTION}>액션</option>
-            <option value={ROMANCE}>로멘스</option>
-            <option value={FANTASY}>판타지</option>
+            <option value={0}>선택</option>
+            {genres?.map((genre) => {
+              return (
+                <option key={"genreId-" + genre.id} value={genre.id}>
+                  {genre.kor}
+                </option>
+              );
+            })}
           </select>
         </div>
       </fieldset>
@@ -137,26 +147,6 @@ const BookAddForm = () => {
             )}
           </div>
         </fieldset>
-        <fieldset className="flex flex-col items-center justify-center w-full gap-4 p-4 border border-gray-400 rounded-md">
-          <div className="flex flex-row items-center justify-start w-full gap-2">
-            <p className="font-bold w-[15%]">ISBN:</p>
-            <input
-              className="flex flex-1 p-1 border border-gray-400 rounded-md"
-              type="text"
-              placeholder="ISBN 입력"
-              {...register("isbn")}
-            />
-          </div>
-          <div className="flex flex-row items-center justify-start w-full gap-2">
-            <p className="font-bold w-[15%]">CIP:</p>
-            <input
-              className="flex flex-1 p-1 border border-gray-400 rounded-md"
-              type="text"
-              placeholder="CIP 입력"
-              {...register("cip")}
-            />
-          </div>
-        </fieldset>
 
         {/* 표지이미지 */}
         <fieldset
@@ -211,4 +201,4 @@ const BookAddForm = () => {
   );
 };
 
-export default BookAddForm;
+export default BookCreateForm;

@@ -1,4 +1,4 @@
-import { MemberGender } from "@/models/auth";
+import { GenderType } from "@/models/auth";
 
 export interface LoginRequest {
   email: string;
@@ -15,7 +15,7 @@ export interface SignUpRequest {
   name?: string;
   nickname?: string;
   phone?: string;
-  gender?: MemberGender;
+  gender?: GenderType;
   birth?: string;
   createAt?: string;
   updateAt?: string;
@@ -26,20 +26,23 @@ export interface SignUpResponse {
   success: boolean;
 }
 
-// NOTE: 입력폼에서 쓸 타입
-export interface BookAddFormState {
-  coverImages?: FileList;
-  genreId?: string;
+// NOTE: react-hook-form 입력폼에서 쓸 타입
+export interface BookCreateUseFormProps {
+  genreId?: number;
   title?: string;
   description?: string;
-  isbn?: string;
-  cip?: string;
+  coverImages?: FileList;
 }
+
 // NOTE: 요청 보낼 때 쓸 타입
-export type BookAddRequest = Omit<BookAddFormState, "coverImages"> & {
+export type BookCreateReq = Omit<
+  BookCreateUseFormProps,
+  "genreId" | "coverImages"
+> & {
+  genreIdList?: number;
   coverImage?: File;
 };
 
-export interface BookAddResponse {
+export interface BookCreateResponse {
   success: boolean;
 }

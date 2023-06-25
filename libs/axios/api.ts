@@ -30,12 +30,12 @@ export const apiBookMultipart = axios.create({
 
 // [1] interceptor - axios.create(...) 헤더스 유지돼서 전달되는지(아니라면 대안 사용)
 
-// apiMultipart.interceptors.request.use((config: any) => {
+// apiBookMultipart.interceptors.request.use((config: any) => {
 //   return {
 //     ...config,
-//     // headers: {
-//     //   ...config.headers,
-//     //   Authorization: `Bearer ${accessToken}`,
-//     // },
+//     headers: {
+//       ...config.headers,
+//       Authorization: `Bearer ${accessToken}`,
+//     },
 //   };
 // });

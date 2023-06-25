@@ -1,9 +1,9 @@
-import BookAddForm from "@/components/book/publish/BookAddForm";
+import BookCreateForm from "@/components/book/publish/BookCreateForm";
 
 const BookPublishing = () => {
   return (
-    <div className="w-full flex items-center justify-center p-8">
-      <BookAddForm />
+    <div className="flex items-center justify-center w-full p-8">
+      <BookCreateForm />
     </div>
   );
 };
