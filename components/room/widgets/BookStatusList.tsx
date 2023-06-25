@@ -1,6 +1,6 @@
 import React from "react";
 
-const NovelState = () => {
+const BookStatusList = () => {
   const divBoxStyle =
     "flex flex-row cursor-pointer border rounded-md p-2 px-4 gap-2 hover:bg-main hover:text-main-contra";
   const pStlye = "";
@@ -8,7 +8,7 @@ const NovelState = () => {
 
   return (
     <>
-      <section className="flex flex-row justify-start items-center gap-2">
+      <section className="flex flex-row items-center justify-start gap-2">
         <div className={divBoxStyle}>
           <p className={pStlye}>전체</p>
           <span className={spanStyle}>{`-1`}</span>
@@ -26,4 +26,4 @@ const NovelState = () => {
   );
 };
 
-export default NovelState;
+export default BookStatusList;
