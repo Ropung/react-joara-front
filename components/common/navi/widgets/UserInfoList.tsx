@@ -26,12 +26,12 @@ export const UserInfoList = forwardRef<Ref, Props>(function UserInfoList(
   { className, children, ...props },
   forwardedRef
 ) {
-  const { LOGIN } = Path;
+  const { LOGIN, BOOK_FAVORITE } = Path;
   const router = useRouter();
 
   const { data: { profile } = {} } = useMemberQuery();
   const PopStyle =
-    "flex flex-row items-center justify-start w-full gap-2 cursor-pointer hover:text-main";
+    "flex flex-row items-center justify-start py-1 w-full gap-2 cursor-pointer hover:text-main";
 
   return (
     <Popover.Root>
@@ -45,32 +45,32 @@ export const UserInfoList = forwardRef<Ref, Props>(function UserInfoList(
       </Popover.Trigger>
       <Popover.Portal>
         <Popover.Content className="PopoverContent" sideOffset={10}>
-          <div className="mr-4 flex min-w-[20vw] divide-y-2 select-none flex-col items-start justify-center rounded-xl bg-white py-4 border-2">
-            <p className="px-6 font-bold" style={{ marginBottom: 10 }}>
+          <div className="mr-4 flex min-w-[20vw] divide-y-2 select-none flex-col items-start justify-center rounded-xl bg-white py-4 border-2 border-main/50">
+            <p className="px-8 font-bold" style={{ marginBottom: 10 }}>
               {profile?.nickname ?? "Account"}
               <span className="font-normal">님 안녕하세요.</span>
             </p>
             <div className="flex flex-col w-full gap-2 py-2 pl-6">
-              <Link href={Path.BOOK_ME} className={`w-full ${PopStyle}`}>
+              <Link href={Path.BOOK_FAVORITE} className={`w-full ${PopStyle}`}>
                 <BsBookmarkStar />
-                <p>내 서재</p>
-              </Link>
-              <Link href={Path.BOOK_PUBLISH} className={`w-full ${PopStyle}`}>
-                <AiOutlineFolderAdd />
-                <p>신규 소설등록</p>
+                <p>선호작</p>
               </Link>
               <Link href={Path.BOOK_ME} className={`w-full ${PopStyle}`}>
                 <LuFolderCog />
-                <p>내 작품관리</p>
+                <p>작품관리</p>
               </Link>
-              <Link href={Path.BOOK_ME} className={`w-full ${PopStyle}`}>
+              <Link href={Path.BOOK_PUBLISH} className={`w-full ${PopStyle}`}>
+                <AiOutlineFolderAdd />
+                <p>작품등록</p>
+              </Link>
+              {/* <Link href={Path.BOOK_ME} className={`w-full ${PopStyle}`}>
                 <AiOutlineNotification />
                 <p>리뷰/홍보</p>
-              </Link>
-              <Link href={Path.BOOK_ME} className={`w-full ${PopStyle}`}>
+              </Link> */}
+              {/* <Link href={Path.BOOK_ME} className={`w-full ${PopStyle}`}>
                 <RiFolderUserLine />
                 <p>마이페이지</p>
-              </Link>
+              </Link> */}
             </div>
             <p className="w-full border-b border-white"></p>
             <div

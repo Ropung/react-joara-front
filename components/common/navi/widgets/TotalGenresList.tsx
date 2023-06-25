@@ -34,7 +34,7 @@ export const TotalGenresList = forwardRef<Ref, Props>(function TotalGenresList(
       </Popover.Trigger>
       <Popover.Portal>
         <Popover.Content className="w-[95vw] PopoverContent" sideOffset={30}>
-          <div className="p-6 flex flex-col items-start justify-start mr-8 bg-white border-2 divide-y-[1px] select-none min-w-fit min-h-fit rounded-xl">
+          <div className="p-6 flex flex-col items-start justify-start mr-8 bg-white border-2 border-main/50 divide-y-[1px] select-none min-w-fit min-h-fit rounded-xl">
             <p
               className="w-full pl-4 text-xl font-bold text-left"
               style={{ marginBottom: 10 }}

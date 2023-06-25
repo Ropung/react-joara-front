@@ -1,19 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
-import { IoNotificationsOutline } from "react-icons/io5";
-import { useRef } from "react";
-import { BiSearchAlt } from "react-icons/bi";
-import MainLogo from "@/public/logo/mainlogo.png"; //FIXME 임시용
-import { useRouter } from "next/router";
-import Path from "@/constants/path/routes";
+import MainLogo from "@/public/logo/mainlogo.png";
+
 import { UserInfoList } from "./UserInfoList";
+import { NotificationDashboardList } from "./NotificationDashboardList";
+import { SearchView } from "./SearchView";
 
 const MiddleNavi = () => {
-  const searchFormRef = useRef<HTMLInputElement>(null);
-  const { LOGIN, HOME } = Path;
-  // const [isAuthed, setAuthed] = useState<boolean>(!!token.getToken("token"));
-  const router = useRouter();
-
   return (
     <section className="flex flex-row items-center justify-between w-full h-16 overflow-hidden">
       <div className="flex flex-row items-center justify-center gap-6">
@@ -29,8 +22,8 @@ const MiddleNavi = () => {
       </div>
       <div className="flex flex-row items-center justify-end gap-8">
         <div className="flex flex-row items-center justify-end gap-2 text-3xl text-icon">
-          <IoNotificationsOutline className="cursor-pointer hover:text-icon-active" />
-          <BiSearchAlt className="cursor-pointer hover:text-icon-active" />
+          <SearchView className="overflow-hidden rounded-full" />
+          <NotificationDashboardList className="overflow-hidden rounded-full" />
           <UserInfoList className="overflow-hidden rounded-full" />
         </div>
       </div>
