@@ -1,7 +1,5 @@
 import React from "react";
 import { useRouter } from "next/router";
-import Path from "@/constants/path/routes";
-import NovelBooks from "./BookFavoriteList";
 import BookFavoriteList from "./BookFavoriteList";
 import BookStatusList from "../widgets/BookStatusList";
 

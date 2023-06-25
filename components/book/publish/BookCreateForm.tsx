@@ -1,7 +1,5 @@
 import React, { useEffect } from "react";
-
 import { lorem } from "@/data/dummy";
-
 import Image from "next/image";
 import { useState } from "react";
 import { useForm } from "react-hook-form";

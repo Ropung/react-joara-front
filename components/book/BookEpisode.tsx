@@ -1,9 +1,7 @@
 import Path from "@/constants/path/routes";
+import { SomeIdUnion } from "@/models/book";
 import { useRouter } from "next/router";
 import { Dispatch, FC, SetStateAction } from "react";
-import { AiOutlineSetting } from "react-icons/ai";
-
-type SomeUnion = "bid" | "eid";
 
 interface BookInfoProps {
   hasToken: boolean;
@@ -12,35 +10,34 @@ interface BookInfoProps {
 
 const BookEpisode: FC<BookInfoProps> = (props) => {
   const dummyList: number[] = [1, 2, 3, 4, 5];
-  const { hasToken: isAuth, setHasToken: setAuth } = props;
+  const { hasToken, setHasToken } = props;
   const { EPISODE, BOOK_UPDATE_EPISODE_PUBLISH } = Path;
   const router = useRouter();
-  // const bid = router.query.bid as string;
-  const { bid, eid } = router.query as { [key in SomeUnion]: string };
+  const { bid, eid } = router.query as { [key in SomeIdUnion]: string };
 
   return (
     <section className="flex flex-col gap-6">
-      <div className="flex justify-between items-center">
-        <div className="flex gap-2 items-end justify-start">
+      <div className="flex items-center justify-between">
+        <div className="flex items-end justify-start gap-2">
           <h1 className="text-2xl font-bold">작품회차</h1>
           <span>({-100})</span>
         </div>
-        <div className="flex gap-2 justify-end items-center divide-x">
+        <div className="flex items-center justify-end gap-2 divide-x">
           <p className="cursor-pointer">최신순</p>
           <p className="pl-2 cursor-pointer">첫화</p>
         </div>
       </div>
-      <section className="flex flex-col gap-4 items-center justify-between">
-        <ul className="w-full flex flex-1 flex-col divide-y">
+      <section className="flex flex-col items-center justify-between gap-4">
+        <ul className="flex flex-col flex-1 w-full divide-y">
           {dummyList.map((epi) => {
             return (
               <li
                 key={"epi-" + epi}
-                className="flex flex-col gap-4 items-start justify-center hover:bg-gray-100 rounded-md p-4"
+                className="flex flex-col items-start justify-center gap-4 p-4 rounded-md hover:bg-gray-100"
               >
-                <div className="w-full flex flex-row gap-6 justify-between items-center ">
+                <div className="flex flex-row items-center justify-between w-full gap-6 ">
                   <div
-                    className="flex flex-row justify-start items-center gap-2 cursor-pointer hover:text-main"
+                    className="flex flex-row items-center justify-start gap-2 cursor-pointer hover:text-main"
                     onClick={() => {
                       router.push({
                         pathname: EPISODE,
@@ -48,12 +45,12 @@ const BookEpisode: FC<BookInfoProps> = (props) => {
                       });
                     }}
                   >
-                    <h2 className="font-bold text-xl py-2">{epi}화</h2>
+                    <h2 className="py-2 text-xl font-bold">{epi}화</h2>
                     <p>{"작품 에피소드 제목"}</p>
                   </div>
-                  {isAuth && (
+                  {hasToken && (
                     <button
-                      className="py-2 px-4 bg-primary rounded-md text-main-contra hover:bg-primary-active"
+                      className="px-4 py-2 rounded-md bg-primary text-main-contra hover:bg-primary-active"
                       onClick={() => {
                         router.push({
                           pathname: BOOK_UPDATE_EPISODE_PUBLISH,
@@ -80,7 +77,7 @@ const BookEpisode: FC<BookInfoProps> = (props) => {
             return (
               <button
                 key={"page-" + page}
-                className="w-8 h-8 flex items-center justify-center text-lg bg-white text-main p-4 rounded-md border hover:bg-main hover:text-main-contra"
+                className="flex items-center justify-center w-8 h-8 p-4 text-lg bg-white border rounded-md text-main hover:bg-main hover:text-main-contra"
                 onClick={() => {
                   //
                 }}

@@ -22,7 +22,7 @@ export default function Home() {
 
   return (
     <div className="flex items-center justify-center w-full">
-      <main className="w-[80vw] flex flex-col gap-8">
+      <main className="w-[80vw] flex flex-col gap-8 py-4">
         <EventBanner />
         {/* 장르별 작품 목록 */}
         {actionBooks && (
