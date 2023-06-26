@@ -12,7 +12,7 @@ const genreNameByNum = {
   HISTORICAL: 11,
   PARODY: 12,
   SAMURAI: 13,
-  SCI_FI: 14,
+  SF: 14,
   THRILLER: 15,
   SPORTS: 16,
   SUPER_POWER: 17,

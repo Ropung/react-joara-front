@@ -14,7 +14,7 @@ const EventBanner = () => {
             key={`banner-${item.bannerId}`}
             className="flex flex-col w-full gap-2 px-4 "
           >
-            <Image width={120} height={10} src={item.url} alt={item.alt} />
+            <Image width={200} height={10} src={item.url} alt={item.alt} />
             <p>{item.name}</p>
             <p>{item.job}</p>
           </div>

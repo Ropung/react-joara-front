@@ -6,11 +6,11 @@ import Path from "@/constants/path/routes";
 const Layout = (props: PropsWithChildren) => {
   const router = useRouter();
   const { children } = props;
-  const { EPISODE } = Path;
+  const { EPISODE_ONE } = Path;
 
   return (
-    <div className="min-w-screen min-h-screen bg-gray-50 select-none">
-      {router.pathname != EPISODE && <GNB />}
+    <div className="min-h-screen select-none min-w-screen bg-gray-50">
+      {router.pathname != EPISODE_ONE && <GNB />}
       <main className="w-full">{children}</main>
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { lorem } from "@/data/dummy";
 import Image from "next/image";
 import { useState } from "react";
@@ -8,6 +8,9 @@ import { useBookMutation } from "@/hooks/mutation/useBookMutation";
 import GenreType from "@/constants/genre";
 import PreviewImg from "@/public/img/preview.jpg";
 import useGenresQuery from "@/hooks/query/useGenresQuery";
+import { IoCloseCircle, IoCloseOutline } from "react-icons/io5";
+import { RiCloseFill } from "react-icons/ri";
+import { BiCross } from "react-icons/bi";
 
 const BookCreateForm = () => {
   const { ACTION, FANTASY, ROMANCE } = GenreType;
@@ -27,11 +30,26 @@ const BookCreateForm = () => {
   const COVER_IMAGES = "coverImages";
   const coverImages = watch(COVER_IMAGES);
 
+  const [genreNameList, setGenreNameList] = useState<string[]>([]);
+  const [genreIdList, setGenreIdList] = useState<number[]>([]);
+
   useEffect(() => {
     if (coverImages && coverImages.length > 0) {
       setPhotoUrl(URL.createObjectURL(coverImages[0]));
     }
   }, [coverImages]);
+
+  useEffect(() => {
+    const selectedGenres = genres?.filter(({ kor }) =>
+      genreNameList.includes(kor ?? "")
+    );
+    const genreIds = selectedGenres?.map(({ id }) => {
+      if (id == null) throw new Error("Some genre has no id.");
+      return id;
+    }) as number[];
+
+    setGenreIdList(genreIds);
+  }, [genreNameList]);
 
   const { data: { genres } = {} } = useGenresQuery();
 
@@ -40,13 +58,13 @@ const BookCreateForm = () => {
       className="flex flex-col w-full gap-4 p-8 bg-white rounded-md shadow-md"
       encType="multipart/form-data"
       onSubmit={handleSubmit((data) => {
-        const { coverImages, genreId, ...restData } = data;
+        const { coverImages, genreIdList: _no_use, ...restData } = data;
 
-        if (genreId == 0) return alert("장르를 선택해주세요!");
+        if (!genreIdList?.length) return alert("장르를 선택해주세요!");
 
         const bookCreateFormReq: BookCreateReq = {
-          genreIdList: Number(genreId),
           ...restData,
+          genreIdList: `${genreIdList}`,
           // coverImage: coverImages?.item(0) ?? undefined,
           coverImage: coverImages && coverImages[0],
         };
@@ -68,23 +86,61 @@ const BookCreateForm = () => {
           className={`w-full flex flex-row justify-between items-center border border-gray-400 rounded-md shadow-md p-4 checked-bg:bg-main`}
         >
           <p className="w-[15%] font-bold">장르</p>
-          <select
+          <ul className="flex flex-row gap-2">
+            {genreNameList.map((genreName) => (
+              <li
+                key={`genre-name-${genreName}`}
+                className="flex flex-row items-center justify-center gap-2 px-2 py-1 text-white border bg-main rounded-xl"
+              >
+                <p>{genreName}</p>
+                <IoCloseCircle
+                  className="text-white/30 hover:text-white"
+                  onClick={() => {
+                    const newGenreNameList = genreNameList.filter(
+                      (eachGenreName) => eachGenreName !== genreName
+                    );
+                    setGenreNameList(newGenreNameList);
+                  }}
+                />
+              </li>
+            ))}
+          </ul>
+          <input type="hidden" className="border" value={`${genreIdList}`} />
+          <input
+            className="px-2 py-1 border rounded-md"
+            list="genre_list"
+            onKeyUp={(event) => {
+              event.preventDefault();
+              console.log("Key Inputted: ", event.key);
+              const target = event.target as HTMLInputElement;
+              target.value = target.value.trim();
+
+              // if spacebar is pressed
+              const isSpaceDown = event.key === " ";
+              // and value is one of the valid genre names:
+              const isOneOfGenreName = genres
+                ?.map(({ kor }) => kor)
+                .includes(target.value);
+
+              if (isSpaceDown && isOneOfGenreName) {
+                // append genre name to Genre Name List
+                const newGenreNameList = [
+                  ...new Set<string>([...genreNameList, target.value]),
+                ] as string[];
+                setGenreNameList(newGenreNameList);
+                target.value = "";
+              }
+            }}
+          />
+          <datalist
+            id="genre_list"
             defaultValue={0}
-            className="w-[20%] border border-gray-400 rounded-lg p-2 text-sm"
-            {...register("genreId", {
-              required: true,
-              validate: (value) => value !== 0 || "장르를 선택해주세요.",
-            })}
+            // className="w-[20%] border border-gray-400 rounded-lg p-2 text-sm"
           >
-            <option value={0}>선택</option>
             {genres?.map((genre) => {
-              return (
-                <option key={"genreId-" + genre.id} value={genre.id}>
-                  {genre.kor}
-                </option>
-              );
+              return <option key={"genreId-" + genre.id} value={genre.kor} />;
             })}
-          </select>
+          </datalist>
         </div>
       </fieldset>
       <div className="flex flex-col w-full gap-4">

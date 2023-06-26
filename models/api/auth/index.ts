@@ -28,7 +28,7 @@ export interface SignUpResponse {
 
 // NOTE: react-hook-form 입력폼에서 쓸 타입
 export interface BookCreateUseFormProps {
-  genreId?: number;
+  genreIdList?: number[];
   title?: string;
   description?: string;
   coverImages?: FileList;
@@ -37,9 +37,9 @@ export interface BookCreateUseFormProps {
 // NOTE: 요청 보낼 때 쓸 타입
 export type BookCreateReq = Omit<
   BookCreateUseFormProps,
-  "genreId" | "coverImages"
+  "genreIdList" | "coverImages"
 > & {
-  genreIdList?: number;
+  genreIdList?: string;
   coverImage?: File;
 };
 

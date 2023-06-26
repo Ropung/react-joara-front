@@ -1,7 +1,10 @@
 import BookEpisode from "@/components/book/BookEpisode";
 import BookInfo from "@/components/book/BookInfo";
+import AsideBooksBar from "@/components/book/aside/AsideBooksBar";
+import { Size } from "@/constants/genre";
 import useBookOfOneQuery from "@/hooks/query/useBookOfOneQuery";
-import { SomeIdUnion } from "@/models/book";
+import useEpisodeByBookQuery from "@/hooks/query/useEpisodeByBookQuery";
+import { AsideBookListProps, SomeIdUnion } from "@/models/book";
 import token from "@/utils/token";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -18,14 +21,47 @@ const BookOfOne = () => {
   const router = useRouter();
   const routerQuery = router.query as { [key in SomeIdUnion]: string };
   const { data: { book } = {} } = useBookOfOneQuery(Number(routerQuery.bid));
-  // const { data: { episode } = {} } = useEpisodeByBookQuery(Number(routerQuery.bid));
+  const { data: { episodeList, lastPage } = {} } = useEpisodeByBookQuery(
+    Number(routerQuery.bid),
+    Number(Size.TEN),
+    Number(1)
+  );
 
-  console.log(book);
+  // FIXME: fastapi에서 받으면 교체 ㄱㄱ
+  const bookList: AsideBookListProps[] = [
+    {
+      id: 1,
+      genreIdList: [1, 4, 5],
+      title: "추천 작품입니땅 !",
+      genreName: "액션더미",
+      nickname: "추천지은이",
+    },
+    {
+      id: 3,
+      genreIdList: [2, 3, 14],
+      title: "추천 작품 제목",
+      genreName: "액션더미",
+      nickname: "추천지은이",
+    },
+  ];
+
+  // console.log(book);
+  // console.log(episodeList);
   return (
-    <div className="flex flex-col gap-8 px-16 py-8">
+    <div className="flex flex-col gap-8 px-16 py-8 divide-y">
       <BookInfo book={book} hasToken={hasToken} setHasToken={setHasToken} />
-      <p className="w-screen border-b border-gray-100" />
-      <BookEpisode hasToken={hasToken} setHasToken={setHasToken} />
+      <div className="flex flex-row gap-2 py-4">
+        <BookEpisode
+          episodeList={episodeList}
+          hasToken={hasToken}
+          setHasToken={setHasToken}
+        />
+        <aside className="flex flex-col min-w-[340px] p-4 overflow-hidden gap-2">
+          <AsideBooksBar asideTitle="추천작" bookList={bookList} />
+          <AsideBooksBar asideTitle="작가의 다른작품" bookList={bookList} />
+          <AsideBooksBar asideTitle="인기작" bookList={bookList} />
+        </aside>
+      </div>
     </div>
   );
 };

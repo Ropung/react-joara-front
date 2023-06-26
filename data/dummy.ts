@@ -15,14 +15,14 @@ export const bannerList: bannerProps[] = [
     name: "이현종",
   },
   {
-    url: "/img/cat.jpeg",
+    url: "/img/mentalout1.gif",
     alt: "이미지02",
     bannerId: 2,
     job: "데이터분석,백엔드",
     name: "박승인",
   },
   {
-    url: "/img/mococo.jpeg",
+    url: "/img/mentalout2.gif",
     alt: "이미지03",
     bannerId: 3,
     job: "백엔드",
