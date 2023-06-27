@@ -5,6 +5,8 @@ const nextConfig = {
   // basePath: "/react-joara-front",
   reactStrictMode: false,
   images: {
+    domains: ['cdn.myanimelist.net'],
+
     // FIXME 이미지 설정
     // unoptimized: true,
     remotePatterns: [
@@ -13,7 +15,7 @@ const nextConfig = {
         protocol: "http",
         hostname: "cdn.myanimelist.net",
         port: "",
-        pathname: "/r/*",
+        pathname: "/r/100x140/images/*",
       },
     ],
   },
