@@ -6,8 +6,10 @@ import useBookOfOneQuery from "@/hooks/query/useBookOfOneQuery";
 import useEpisodeByBookQuery from "@/hooks/query/useEpisodeByBookQuery";
 import { AsideBookListProps, SomeIdUnion } from "@/models/book";
 import token from "@/utils/token";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import NotFOUND from "@/public/img/not.jpg";
 
 const BookOfOne = () => {
   const acToken = token.get();
@@ -50,12 +52,28 @@ const BookOfOne = () => {
   return (
     <div className="flex flex-col gap-8 px-16 py-8 divide-y">
       <BookInfo book={book} hasToken={hasToken} setHasToken={setHasToken} />
-      <div className="flex flex-row gap-2 py-4">
-        <BookEpisode
-          episodeList={episodeList}
-          hasToken={hasToken}
-          setHasToken={setHasToken}
-        />
+      <div className="flex flex-row justify-between gap-2 py-4">
+        {!!episodeList ? (
+          <BookEpisode
+            episodeList={episodeList}
+            hasToken={hasToken}
+            setHasToken={setHasToken}
+          />
+        ) : (
+          <>
+            <div className="flex flex-col items-center justify-center w-full gap-2">
+              <h1 className="text-3xl font-bold">등록된 회차가 없지롱</h1>
+              <Image
+                className=""
+                src={NotFOUND}
+                alt="회차가 없다는 이미지"
+                width={500}
+                height={200}
+              />
+            </div>
+          </>
+        )}
+
         <aside className="flex flex-col min-w-[340px] p-4 overflow-hidden gap-2">
           <AsideBooksBar asideTitle="추천작" bookList={bookList} />
           <AsideBooksBar asideTitle="작가의 다른작품" bookList={bookList} />
