@@ -8,11 +8,12 @@ const nextConfig = {
     // FIXME 이미지 설정
     // unoptimized: true,
     remotePatterns: [
+      // https://cdn.myanimelist.net/r/100x140/images/anime/1296/96987.webp?s=cd7c77a89344f323491c43a8ae3f172d
       {
         protocol: "http",
-        hostname: "image.yes24.com",
+        hostname: "cdn.myanimelist.net",
         port: "",
-        pathname: "/goods/**",
+        pathname: "/r/*",
       },
     ],
   },
