@@ -17,7 +17,7 @@ const BookEpisode: FC<BookInfoProps> = (props) => {
 
   const { hasToken, setHasToken, episodeList } = props;
 
-  const { EPISODE_ONE, EPISODE_UPDATE } = Path;
+  const { BOOK, EPISODE_UPDATE, EPISODE } = Path;
 
   return (
     <section className="flex flex-col flex-1 gap-4">
@@ -45,8 +45,7 @@ const BookEpisode: FC<BookInfoProps> = (props) => {
                     className="flex flex-row items-center justify-start gap-2 cursor-pointer hover:text-main"
                     onClick={() => {
                       router.push({
-                        pathname: EPISODE_ONE,
-                        query: { bid: epi.bookId },
+                        pathname: `${BOOK}/${epi.bookId}/${EPISODE}/${epi.id}`,
                       });
                     }}
                   >

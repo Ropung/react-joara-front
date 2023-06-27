@@ -53,15 +53,9 @@ const BookOfOne = () => {
     <div className="flex flex-col gap-8 px-16 py-8 divide-y">
       <BookInfo book={book} hasToken={hasToken} setHasToken={setHasToken} />
       <div className="flex flex-row justify-between gap-2 py-4">
-        {!!episodeList ? (
-          <BookEpisode
-            episodeList={episodeList}
-            hasToken={hasToken}
-            setHasToken={setHasToken}
-          />
-        ) : (
+        {!episodeList ? (
           <>
-            <div className="flex flex-col items-center justify-center w-full gap-2">
+            <div className="flex flex-col items-center justify-start w-full gap-2">
               <h1 className="text-3xl font-bold">등록된 회차가 없지롱</h1>
               <Image
                 className=""
@@ -72,6 +66,12 @@ const BookOfOne = () => {
               />
             </div>
           </>
+        ) : (
+          <BookEpisode
+            episodeList={episodeList}
+            hasToken={hasToken}
+            setHasToken={setHasToken}
+          />
         )}
 
         <aside className="flex flex-col min-w-[340px] p-4 overflow-hidden gap-2">

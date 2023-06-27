@@ -6,17 +6,17 @@ import useGenreBooksDetailQuery from "@/hooks/query/useGenreBooksDetailQuery";
 export default function Home() {
   const { data: actionBooks } = useGenreBooksDetailQuery(
     GenreType.ACTION, // 5
-    Size.FIVE,
+    Size.TEN,
     1
   );
   const { data: fantasyBooks } = useGenreBooksDetailQuery(
     GenreType.FANTASY, // 7
-    Size.FIVE,
+    Size.TEN,
     1
   );
   const { data: romanceBooks } = useGenreBooksDetailQuery(
     GenreType.ROMANCE, // 2
-    Size.FIVE,
+    Size.TEN,
     1
   );
 
@@ -26,13 +26,13 @@ export default function Home() {
         <EventBanner />
         {/* 장르별 작품 목록 */}
         {actionBooks && (
-          <GenreNovel genreId={actionBooks.genreId} books={actionBooks} />
+          <GenreNovel genreId={GenreType.ACTION} books={actionBooks} />
         )}
         {fantasyBooks && (
-          <GenreNovel genreId={fantasyBooks.genreId} books={fantasyBooks} />
+          <GenreNovel genreId={GenreType.FANTASY} books={fantasyBooks} />
         )}
         {romanceBooks && (
-          <GenreNovel genreId={romanceBooks.genreId} books={romanceBooks} />
+          <GenreNovel genreId={GenreType.ROMANCE} books={romanceBooks} />
         )}
       </main>
     </div>
