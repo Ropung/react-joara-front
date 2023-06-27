@@ -16,7 +16,8 @@ const Path = {
   BOOK_EPISODE_PUBLISH: "/publish/[bid]/episode",
   EPISODE_UPDATE: "/publish/[bid]/episode/[eid]",
 
-  EPISODE_ONE: "/episode/",
+  EPISODE_LAYOUT: "/books/[bid]/episode/[eid]",
+  EPISODE: "/episode/",
 } as const;
 
 Object.freeze(Path);

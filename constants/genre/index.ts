@@ -102,6 +102,7 @@ export const genreNumByName: { [key in number]: GenreType } = {
 };
 
 export const Size = {
+  ONE: 1,
   FIVE: 5,
   TEN: 10,
   TWENTY: 20,
