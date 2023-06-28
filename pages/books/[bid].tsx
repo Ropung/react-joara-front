@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import NotFOUND from "@/public/img/not.jpg";
 import { SomeIdUnion } from "@/models/type";
 import useBookOfOneQuery from "@/hooks/query/book/useBookOfOneQuery";
-import useBookOfRecommendBooksQuery from "@/hooks/query/book/useBookOfReCommendBooksQuery";
+import useBookOfRecommendBooksQuery from "@/hooks/query/book/useBookOfRecommendBooksQuery";
 
 const BookOfOne = () => {
   const acToken = token.get();

@@ -1,8 +1,8 @@
 import BottomNavViewer from "@/components/episode/BottomNavViewer";
 import TopNavViewer from "@/components/episode/TopNavViewer";
 import { lorem } from "@/data/dummy";
-import useBookOfOneQuery from "@/hooks/query/useBookOfOneQuery";
-import useEpisodeOfOneQuery from "@/hooks/query/useEpisodeOfOneQuery";
+import useBookOfOneQuery from "@/hooks/query/book/useBookOfOneQuery";
+import useEpisodeOfOneQuery from "@/hooks/query/episode/useEpisodeOfOneQuery";
 import { SomeIdUnion } from "@/models/type";
 import { useRouter } from "next/router";
 import { useState } from "react";

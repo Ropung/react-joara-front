@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import Link from "next/link";
 import MainLogo from "@/public/logo/mainlogo.png";
 import { LoginReq } from "@/models/auth";
-import { useUserLoginMutation } from "@/hooks/mutation/userAuthMutation";
+import { useUserLoginMutation } from "@/hooks/mutation/auth/userAuthMutation";
 import token from "@/utils/token";
 
 const LoginForm = () => {

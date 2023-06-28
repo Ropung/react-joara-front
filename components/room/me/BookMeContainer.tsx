@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import Path from "@/constants/path/routes";
 import BookMeList from "./BookMeList";
 import BookStatusList from "../widgets/BookStatusList";
-import useBookOfMyListQuery from "@/hooks/query/useBookOfMyListQuery ";
+import useBookOfMyListQuery from "@/hooks/query/book/useBookOfMyListQuery ";
 
 const BookMeContainer = () => {
   const router = useRouter();

@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import Image from "next/image";
 import MainLogo from "@/public/logo/mainlogo.png";
 import { SignUpReq } from "@/models/auth";
-import { useUserSignUpMutation } from "@/hooks/mutation/userAuthMutation";
+import { useUserSignUpMutation } from "@/hooks/mutation/auth/userAuthMutation";
 import { useState } from "react";
 
 const SignUpForm = () => {
