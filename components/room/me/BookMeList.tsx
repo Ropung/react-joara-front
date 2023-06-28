@@ -14,19 +14,14 @@ interface BookMeListProps {
 
 const BookMeList: FC<BookMeListProps> = ({ bookList }) => {
   const router = useRouter();
-  const { BOOK } = Path;
+  const { BOOK, BOOK_PUBLISH } = Path;
   return (
     <ul className="flex flex-col gap-4">
       {bookList?.map((book) => {
         return (
           <li
             key={`myBook-${book}`}
-            className="flex flex-row items-center justify-start gap-4 p-4 border rounded-md shadow-md border-default hover:border-main"
-            onClick={() => {
-              router.push({
-                pathname: `${BOOK}/${book.id}`,
-              });
-            }}
+            className="relative flex flex-row items-center justify-start gap-4 p-4 border rounded-md shadow-md border-default hover:border-main"
           >
             <Image
               width={150}
@@ -39,7 +34,14 @@ const BookMeList: FC<BookMeListProps> = ({ bookList }) => {
             <section className="flex flex-col items-start justify-between flex-1 gap-2">
               <div className="flex justify-between w-full">
                 <div className="flex flex-col items-start justify-start">
-                  <p className="flex flex-row items-center gap-4 font-bold">
+                  <p
+                    className="flex flex-row items-center gap-4 font-bold cursor-pointer"
+                    onClick={() => {
+                      router.push({
+                        pathname: `${BOOK}/${book.id}`,
+                      });
+                    }}
+                  >
                     <span className="text-xl ">
                       {book.title ?? "Not BookTitle"}
                     </span>
@@ -70,7 +72,6 @@ const BookMeList: FC<BookMeListProps> = ({ bookList }) => {
                     </p>
                   </div>
                 </div>
-                <AiOutlineSetting className="text-3xl text-default hover:text-main" />
               </div>
               <div>
                 <p>{book.description ?? "Not fount description "} </p>
@@ -88,6 +89,14 @@ const BookMeList: FC<BookMeListProps> = ({ bookList }) => {
                 })}
               </ul>
             </section>
+            <AiOutlineSetting
+              className="absolute text-3xl right-5 top-5 text-default hover:text-main hover:scale-125"
+              onClick={() => {
+                router.push({
+                  pathname: `${BOOK_PUBLISH}/${book.id}}`,
+                });
+              }}
+            />
           </li>
         );
       })}
