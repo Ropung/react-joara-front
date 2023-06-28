@@ -1,6 +1,42 @@
 import { EpisodeStatusType } from "../../type";
 
-//  -------------------------------[Command]--------------------------------- //
+// -----------------------------[ Command] -----------------------------------//
+export interface EpisodeCreateUseFormProps {
+  genreIdList?: number[];
+  title?: string;
+  description?: string;
+  coverImages?: FileList;
+}
+export type EpisodeCreateReq = Omit<
+  EpisodeCreateUseFormProps,
+  "genreIdList" | "coverImages"
+> & {
+  genreIdList?: string;
+  coverImage?: File;
+};
+export interface EpisodeUpdateUseFormProps {
+  genreIdList?: number[];
+  title?: string;
+  description?: string;
+  coverImages?: FileList;
+}
+export type EpisodeUpdateReq = Omit<
+  EpisodeUpdateUseFormProps,
+  "genreIdList" | "coverImages"
+> & {
+  genreIdList?: string;
+  coverImage?: File;
+  bookId?: number;
+};
+export interface EpisodeCreateResponse {
+  success: boolean;
+}
+export interface EpisodeUpdateRes {
+  success: boolean;
+}
+export interface EpisodeDeleteRes {
+  success: boolean;
+}
 
 //  -------------------------------[Query]--------------------------------- //
 
@@ -27,10 +63,3 @@ export interface EpisodeDetailedProps {
   updatedAt?: string;
   deletedAt?: string;
 }
-
-// Comment
-export interface EpisodeCommentRes {}
-export interface EpisodeCommentProps {}
-// Reply
-export interface EpisodeReplyRes {}
-export interface EpisodeReplyProps {}

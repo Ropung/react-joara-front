@@ -1,51 +1,44 @@
-// -----------------------------[ Command] -----------------------------------
+// -----------------------------[ Command] -----------------------------------//
 
 import { BookStatusType } from "@/models/type";
-
-// CREATE
-export interface BookCreateUseFormProps {
+export interface BookCreateFormProps {
   genreIdList?: number[];
   title?: string;
   description?: string;
   coverImages?: FileList;
 }
-// NOTE: 요청 보낼 때 쓸 타입
 export type BookCreateReq = Omit<
-  BookCreateUseFormProps,
+  BookCreateFormProps,
   "genreIdList" | "coverImages"
 > & {
   genreIdList?: string;
   coverImage?: File;
 };
-export interface BookCreateResponse {
-  success: boolean;
-}
-
-//UPDATE
-export interface BookUpdateUseFormProps {
+export interface BookUpdateFormProps {
   genreIdList?: number[];
   title?: string;
   description?: string;
   coverImages?: FileList;
 }
 export type BookUpdateReq = Omit<
-  BookUpdateUseFormProps,
+  BookUpdateFormProps,
   "genreIdList" | "coverImages"
 > & {
   genreIdList?: string;
   coverImage?: File;
   bookId?: number;
 };
+export interface BookCreateResponse {
+  success: boolean;
+}
 export interface BookUpdateRes {
   success: boolean;
 }
-
-//DELETE
 export interface BookDeleteRes {
   success: boolean;
 }
 
-// Query ----------------------------------------------------------------
+// Query ----------------------------------------------------------------//
 
 // Genre
 export interface PreviewGenreBooksRes {
