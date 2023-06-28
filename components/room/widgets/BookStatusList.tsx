@@ -1,4 +1,3 @@
-import { MyBookListViewReadModelProps } from "@/models/book";
 import React, { FC } from "react";
 
 interface BookStatusListProps {
