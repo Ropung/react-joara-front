@@ -3,7 +3,7 @@ import * as Popover from "@radix-ui/react-popover";
 import Path from "@/constants/path/routes";
 import { GiCancel } from "react-icons/gi";
 import { useRouter } from "next/router";
-import useMemberQuery from "@/hooks/query/useMemberQuery";
+import useMemberQuery from "@/hooks/query/member/useMemberQuery";
 import { IoNotificationsOutline } from "react-icons/io5";
 
 interface Props {

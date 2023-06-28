@@ -1,12 +1,12 @@
 import Image from "next/image";
 import React, { FC } from "react";
 import Cat from "@public/img/cat.jpeg";
-import { AsideBookListProps } from "@/models/book";
 import { genreNumByName } from "@/constants/genre";
+import { RecommendedBooksQueryProps } from "@/models/books/book";
 
 interface AsideBooksBarProps {
   asideTitle: string;
-  bookList: AsideBookListProps[];
+  bookList: RecommendedBooksQueryProps[];
 }
 
 const AsideBooksBar: FC<AsideBooksBarProps> = (props) => {

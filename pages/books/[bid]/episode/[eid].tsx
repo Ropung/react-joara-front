@@ -1,10 +1,9 @@
 import BottomNavViewer from "@/components/episode/BottomNavViewer";
 import TopNavViewer from "@/components/episode/TopNavViewer";
-import { Size } from "@/constants/genre";
 import { lorem } from "@/data/dummy";
 import useBookOfOneQuery from "@/hooks/query/useBookOfOneQuery";
 import useEpisodeOfOneQuery from "@/hooks/query/useEpisodeOfOneQuery";
-import { SomeIdUnion } from "@/models/book";
+import { SomeIdUnion } from "@/models/type";
 import { useRouter } from "next/router";
 import { useState } from "react";
 

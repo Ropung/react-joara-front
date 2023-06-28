@@ -1,16 +1,15 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import { lorem } from "@/data/dummy";
 import Image from "next/image";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { BookCreateUseFormProps, BookCreateReq } from "@/models/api/auth";
 import { useBookMutation } from "@/hooks/mutation/useBookMutation";
 import GenreType from "@/constants/genre";
 import PreviewImg from "@/public/img/preview.jpg";
-import useGenresQuery from "@/hooks/query/useGenresQuery";
-import { IoCloseCircle, IoCloseOutline } from "react-icons/io5";
-import { RiCloseFill } from "react-icons/ri";
-import { BiCross } from "react-icons/bi";
+import { IoCloseCircle } from "react-icons/io5";
+import { BookCreateUseFormProps } from "@/models/form";
+import useGenresQuery from "@/hooks/query/genre/useGenresQuery";
+import { BookCreateReq } from "@/models/books/book";
 
 const BookCreateForm = () => {
   const { ACTION, FANTASY, ROMANCE } = GenreType;

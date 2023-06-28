@@ -6,10 +6,10 @@ import { AiOutlineLike, AiOutlineSetting } from "react-icons/ai";
 import PreviewImg from "@/public/img/preview.jpg";
 import { HiUserGroup } from "react-icons/hi";
 import { BsBookmarkStar } from "react-icons/bs";
-import { BookDetailedProps } from "@/models/book";
+import { BookDetailedViewReadModelProps } from "@/models/books/book";
 
 interface BookMeListProps {
-  bookList: BookDetailedProps[] | undefined;
+  bookList: BookDetailedViewReadModelProps[] | undefined;
 }
 
 const BookMeList: FC<BookMeListProps> = ({ bookList }) => {

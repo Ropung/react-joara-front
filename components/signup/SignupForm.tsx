@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import Image from "next/image";
 import MainLogo from "@/public/logo/mainlogo.png";
-import { SignUpRequest } from "@/models/api/auth";
+import { SignUpReq } from "@/models/auth";
 import { useUserSignUpMutation } from "@/hooks/mutation/userAuthMutation";
 import { useState } from "react";
 
@@ -16,7 +16,7 @@ const SignUpForm = () => {
     handleSubmit,
     getValues,
     formState: { isSubmitting, isDirty, errors },
-  } = useForm<SignUpRequest>({ mode: "onChange" });
+  } = useForm<SignUpReq>({ mode: "onChange" });
 
   const [indexOfGenderWith, setIndexOfGenderWith] = useState<number>(0);
   const mutation = useUserSignUpMutation();
@@ -34,7 +34,7 @@ const SignUpForm = () => {
         <form
           className="w-full flex flex-col gap-4"
           onSubmit={handleSubmit((data) => {
-            const SignUpFormReq: SignUpRequest = {
+            const SignUpFormReq: SignUpReq = {
               email: data.email,
               password: data.password,
               nickname: data.nickname,

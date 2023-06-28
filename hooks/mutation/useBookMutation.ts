@@ -2,9 +2,8 @@ import { BOOK_CREATE_KEY } from "@/constants/key";
 import API_PATH from "@/constants/path/api";
 import Path from "@/constants/path/routes";
 import { apiBookMultipart } from "@/libs/axios/api";
-import { BookCreateReq, BookCreateResponse } from "@/models/api/auth";
+import { BookCreateReq, BookCreateResponse } from "@/models/books/book";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-
 const { API_BOOK_CREATE } = API_PATH;
 const { BOOK_ME } = Path;
 // 책 추가

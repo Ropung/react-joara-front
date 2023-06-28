@@ -4,13 +4,13 @@ import { useRouter } from "next/router";
 import { Dispatch, FC, SetStateAction, useState } from "react";
 import { AiOutlineSetting } from "react-icons/ai";
 import PreviewImg from "@/public/img/preview.jpg";
-import { BookDetailedProps } from "@/models/book";
 import BookStatusNameByKor from "@/constants/book";
+import { BookDetailedViewReadModelProps } from "@/models/books/book";
 
 interface BookInfoProps {
   hasToken: boolean;
   setHasToken: Dispatch<SetStateAction<boolean>>;
-  book?: BookDetailedProps;
+  book?: BookDetailedViewReadModelProps;
 }
 
 const BookInfo: FC<BookInfoProps> = (props) => {

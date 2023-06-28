@@ -1,7 +1,7 @@
 import React from "react";
 import BookFavoriteList from "./BookFavoriteList";
 import BookStatusList from "../widgets/BookStatusList";
-import useBookOfFavorListQuery from "@/hooks/query/useBookOfFavorListQuery";
+import useBookOfFavorListQuery from "@/hooks/query/book/useBookOfFavorListQuery";
 
 const BookFavoriteContainer = () => {
   const { data: { memberFavorBookList, lastPage } = {} } =

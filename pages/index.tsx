@@ -1,7 +1,7 @@
 import EventBanner from "@/components/event/EventBanner";
 import GenreNovel from "@/components/home/GenreNovel";
 import GenreType, { Size, genreNumByName } from "@/constants/genre";
-import useGenreBooksDetailQuery from "@/hooks/query/useGenreBooksDetailQuery";
+import useGenreBooksDetailQuery from "@/hooks/query/genre/useGenreBooksDetailQuery";
 
 export default function Home() {
   const { data: actionBooks } = useGenreBooksDetailQuery(

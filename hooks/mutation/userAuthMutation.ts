@@ -2,12 +2,7 @@ import { AUTH_KEY } from "@/constants/key";
 import API_PATH from "@/constants/path/api";
 import Path from "@/constants/path/routes";
 import apiAuth from "@/libs/axios/api";
-import {
-  LoginRequest,
-  LoginResponse,
-  SignUpRequest,
-  SignUpResponse,
-} from "@/models/api/auth";
+import { LoginReq, LoginRes, SignUpReq, SignUpRes } from "@/models/auth";
 import token from "@/utils/token";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
@@ -15,9 +10,9 @@ const { API_LOGIN, API_SIGNUP } = API_PATH;
 const { HOME, LOGIN } = Path;
 
 // 로그인
-const loginFetcher = (reqData: LoginRequest) => {
+const loginFetcher = (reqData: LoginReq) => {
   return apiAuth
-    .post<LoginResponse>(API_LOGIN, reqData)
+    .post<LoginRes>(API_LOGIN, reqData)
     .then(({ data }) => {
       token.set(data.token);
       if (data.token.length > 0) {
@@ -44,9 +39,9 @@ export const useUserLoginMutation = () => {
 };
 
 // 회원가입
-const signUpFetcher = (reqData: SignUpRequest) => {
+const signUpFetcher = (reqData: SignUpReq) => {
   return apiAuth
-    .post<SignUpResponse>(API_SIGNUP, reqData)
+    .post<SignUpRes>(API_SIGNUP, reqData)
     .then(({ data }) => {
       if (data.success) {
         alert("회원가입 되셨습니다. 가입하신 계정으로 로그인 해주세요");

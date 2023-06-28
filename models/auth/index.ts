@@ -1,38 +1,38 @@
-export interface MemberProfileRes {
-  memberId?: string;
+import { GenderType } from "@/models/member";
+
+// 로그인
+export interface LoginReq {
+  email: string;
+  password: string;
+}
+export interface LoginRes {
+  token: string;
+}
+
+// 회원가입
+export interface SignUpReq {
   email?: string;
   password?: string;
   passwordConfirm?: string;
   name?: string;
-  nickName?: string;
+  nickname?: string;
   phone?: string;
   gender?: GenderType;
   birth?: string;
   createAt?: string;
   updateAt?: string;
   deleteAt?: string;
-  status?: MemberState;
 }
 
-export interface MemberProfileInfoRes {
-  profile: MemberProfileInfo;
+export interface SignUpRes {
+  success: boolean;
 }
 
-export interface MemberProfileInfo {
-  email?: string;
-  name?: string;
-  nickname?: string;
-  phone?: string;
-  gender?: GenderType;
-  birth?: string;
-  tier?: TierType;
-}
-export type AccountStatus =
-  | "ACTIVE"
-  | "SLEEP"
-  | "BLOCKED"
-  | "REMOVED"
-  | "PENDING";
-export type MemberState = "ACTION" | "SLEEP" | "BLOCK";
-export type GenderType = "M" | "F";
-export type TierType = "BRONZE" | "SILVER" | "GOLD" | "DIAMOND";
+// TODO: 리프레시 토큰 & Oauth
+// export interface RefreshTokenProps {
+//   refreshTokenId?: string;
+//   memberId?: string;
+//   refreshToken?: string;
+//   createAt?: string;
+//   deleteAt?: string;
+// }

@@ -2,7 +2,7 @@ import Path from "@/constants/path/routes";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import PreviewImg from "@/public/img/preview.jpg";
-import useGenreBooksDetailQuery from "@/hooks/query/useGenreBooksDetailQuery";
+import useGenreBooksDetailQuery from "@/hooks/query/genre/useGenreBooksDetailQuery";
 import { useState } from "react";
 import { genreNumByName } from "@/constants/genre";
 import NotFound from "@public/img/not.jpg";

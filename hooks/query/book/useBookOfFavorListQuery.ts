@@ -2,13 +2,13 @@ import { useQuery } from "@tanstack/react-query";
 import { apiBook } from "@/libs/axios/api";
 import API_PATH from "@/constants/path/api";
 import { AUTH_KEY, BOOK_KEY } from "@/constants/key";
-import { FavorBookListDetailedReq } from "@/models/book";
 import token from "@/utils/token";
+import { FavorBookListDetailedRes } from "@/models/books/book";
 
 const { API_BOOK_FAVOR } = API_PATH;
 
 const fetcher = async () => {
-  const { data } = await apiBook.get<FavorBookListDetailedReq>(
+  const { data } = await apiBook.get<FavorBookListDetailedRes>(
     `${API_BOOK_FAVOR}`
   );
   return data;

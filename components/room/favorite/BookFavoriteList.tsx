@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import Path from "@/constants/path/routes";
 import { AiOutlineSetting } from "react-icons/ai";
 import PreviewImg from "@/public/img/preview.jpg";
-import { MemberFavorBookProps } from "@/models/book";
+import { MemberFavorBookProps } from "@/models/books/book";
 
 interface BookFavoriteListProps {
   memberFavorBookList?: MemberFavorBookProps[];

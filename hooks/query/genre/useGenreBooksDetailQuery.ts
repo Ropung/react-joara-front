@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { apiBook } from "@/libs/axios/api";
 import API_PATH from "@/constants/path/api";
 import { BOOK_KEY, GENRE_BOOK_KEY } from "@/constants/key";
-import { PreviewGenreBooksRes } from "@/models/book";
+import { PreviewGenreBooksRes } from "@/models/books/book";
 
 const { API_GENRE_BOOK } = API_PATH;
 // "/api/boards"

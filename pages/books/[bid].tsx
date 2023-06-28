@@ -2,14 +2,15 @@ import BookEpisode from "@/components/book/BookEpisode";
 import BookInfo from "@/components/book/BookInfo";
 import AsideBooksBar from "@/components/book/aside/AsideBooksBar";
 import { Size } from "@/constants/genre";
-import useBookOfOneQuery from "@/hooks/query/useBookOfOneQuery";
-import useEpisodeByBookQuery from "@/hooks/query/useEpisodeByBookQuery";
-import { AsideBookListProps, SomeIdUnion } from "@/models/book";
+import useEpisodeByBookQuery from "@/hooks/query/episode/useEpisodeByBookQuery";
 import token from "@/utils/token";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import NotFOUND from "@/public/img/not.jpg";
+import { SomeIdUnion } from "@/models/type";
+import { RecommendedBooksQueryProps } from "@/models/books/book";
+import useBookOfOneQuery from "@/hooks/query/book/useBookOfOneQuery";
 
 const BookOfOne = () => {
   const acToken = token.get();
@@ -30,7 +31,7 @@ const BookOfOne = () => {
   );
 
   // FIXME: fastapi에서 받으면 교체 ㄱㄱ
-  const bookList: AsideBookListProps[] = [
+  const bookList: RecommendedBooksQueryProps[] = [
     {
       id: 1,
       genreIdList: [1, 4, 5],

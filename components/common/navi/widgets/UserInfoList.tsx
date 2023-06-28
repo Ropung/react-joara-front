@@ -13,7 +13,7 @@ import { BiLogOut } from "react-icons/bi";
 import { BsBookmarkStar } from "react-icons/bs";
 import { LuFolderCog } from "react-icons/lu";
 import { RiFolderUserLine } from "react-icons/ri";
-import useMemberQuery from "@/hooks/query/useMemberQuery";
+import useMemberQuery from "@/hooks/query/member/useMemberQuery";
 
 interface Props {
   children?: ReactNode;

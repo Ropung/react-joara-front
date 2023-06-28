@@ -2,13 +2,13 @@ import { ReactNode, forwardRef, useRef, useState } from "react";
 import * as Popover from "@radix-ui/react-popover";
 import Path from "@/constants/path/routes";
 import { useRouter } from "next/router";
-import useMemberQuery from "@/hooks/query/useMemberQuery";
+import useMemberQuery from "@/hooks/query/member/useMemberQuery";
 import { BiSearchAlt } from "react-icons/bi";
 import Image from "next/image";
 import MainLogo from "@/public/logo/mainlogo.png"; //FIXME 임시용
 import { GrFormSearch } from "react-icons/gr";
 import { FaChevronLeft } from "react-icons/fa";
-import useGenresQuery from "@/hooks/query/useGenresQuery";
+import useGenresQuery from "@/hooks/query/genre/useGenresQuery";
 
 interface Props {
   children?: ReactNode;

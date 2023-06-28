@@ -1,5 +1,5 @@
 import Path from "@/constants/path/routes";
-import { SomeIdUnion } from "@/models/book";
+import { SomeIdUnion } from "@/models/type";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { FC, useState } from "react";

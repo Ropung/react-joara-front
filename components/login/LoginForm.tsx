@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
 import MainLogo from "@/public/logo/mainlogo.png";
-import { LoginRequest } from "@/models/api/auth";
+import { LoginReq } from "@/models/auth";
 import { useUserLoginMutation } from "@/hooks/mutation/userAuthMutation";
 import token from "@/utils/token";
 
@@ -15,7 +15,7 @@ const LoginForm = () => {
     register,
     handleSubmit,
     formState: { isSubmitting, isDirty, errors },
-  } = useForm<LoginRequest>({ mode: "onChange" });
+  } = useForm<LoginReq>({ mode: "onChange" });
 
   const { SIGN_UP } = Path;
   const mutation = useUserLoginMutation();

@@ -2,8 +2,6 @@ import Path from "@/constants/path/routes";
 import { useRouter } from "next/router";
 import GenreType from "@/constants/genre";
 import { TotalGenresList } from "./TotalGenresList";
-import useGenresQuery from "@/hooks/query/useGenresQuery";
-import { GenreProps } from "@/models/book";
 
 const CategoryNavi = () => {
   const { GENRE } = Path;

@@ -2,9 +2,9 @@ import React, { FC, useEffect } from "react";
 import Image from "next/image";
 import Path from "@/constants/path/routes";
 import { useRouter } from "next/router";
-import { PreviewGenreBooksRes } from "@/models/book";
 import PreviewImg from "@/public/img/preview.jpg";
 import { genreNumByName } from "@/constants/genre";
+import { PreviewGenreBooksRes } from "@/models/books/book";
 
 interface GenreNovelProps {
   genreId: number;

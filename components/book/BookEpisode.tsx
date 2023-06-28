@@ -1,5 +1,6 @@
 import Path from "@/constants/path/routes";
-import { EpisodeDetailedProps, SomeIdUnion } from "@/models/book";
+import { EpisodeDetailedProps } from "@/models/books/episode";
+import { SomeIdUnion } from "@/models/type";
 import { useRouter } from "next/router";
 import { Dispatch, FC, SetStateAction } from "react";
 
