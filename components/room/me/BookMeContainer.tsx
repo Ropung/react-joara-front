@@ -9,7 +9,7 @@ const BookMeContainer = () => {
   const router = useRouter();
   const { BOOK_PUBLISH } = Path;
 
-  const [bookStatus, setBookStatus] = useState<boolean>(false);
+  // const [bookStatus, setBookStatus] = useState<boolean>(false);
   const { data: { bookList, lastPage } = {} } = useBookOfMyListQuery();
   // console.log(bookList);
 
@@ -29,7 +29,7 @@ const BookMeContainer = () => {
       </section>
       <div className="flex flex-row items-center justify-between">
         <h1 className="flex-1 text-xl font-bold">작품 목록</h1>
-        <BookStatusList bookStatus={bookStatus} setBookStatus={setBookStatus} />
+        <BookStatusList />
       </div>
       {/* 작품 목록 */}
       <section className="flex flex-col w-full gap-4">

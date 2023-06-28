@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import apiAuth, { apiBook } from "@/libs/axios/api";
 import API_PATH from "@/constants/path/api";
-import { MEMBER_KEY } from "@/constants/key";
+import { AUTH_KEY, MEMBER_KEY } from "@/constants/key";
 import { MemberProfileInfoRes } from "@/models/auth";
 
 const { API_MEMBER_PROFILE } = API_PATH;
@@ -15,7 +15,7 @@ const fetcher = async () => {
 
 const useMemberQuery = () => {
   return useQuery({
-    queryKey: [MEMBER_KEY],
+    queryKey: [MEMBER_KEY, AUTH_KEY],
     queryFn: () => fetcher(),
     // enabled: !!page,
   });

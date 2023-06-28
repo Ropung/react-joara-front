@@ -1,10 +1,13 @@
 import React from "react";
-import { useRouter } from "next/router";
 import BookFavoriteList from "./BookFavoriteList";
 import BookStatusList from "../widgets/BookStatusList";
+import useBookOfFavorListQuery from "@/hooks/query/useBookOfFavorListQuery";
 
 const BookFavoriteContainer = () => {
-  const router = useRouter();
+  const { data: { memberFavorBookList, lastPage } = {} } =
+    useBookOfFavorListQuery();
+  console.log(memberFavorBookList);
+
   return (
     <>
       {/* 내 작품관리 */}
@@ -14,9 +17,10 @@ const BookFavoriteContainer = () => {
           <BookStatusList />
         </div>
       </section>
+
       {/* 작품 목록 */}
       <section className="flex flex-col w-full gap-4">
-        <BookFavoriteList />
+        <BookFavoriteList memberFavorBookList={memberFavorBookList} />
       </section>
     </>
   );

@@ -2,17 +2,19 @@ import { useQuery } from "@tanstack/react-query";
 import { apiBook } from "@/libs/axios/api";
 import API_PATH from "@/constants/path/api";
 import { AUTH_KEY, BOOK_KEY } from "@/constants/key";
-import { MyBookListDetailedReq } from "@/models/book";
+import { FavorBookListDetailedReq } from "@/models/book";
 import token from "@/utils/token";
 
-const { API_BOOK_ME } = API_PATH;
+const { API_BOOK_FAVOR } = API_PATH;
 
 const fetcher = async () => {
-  const { data } = await apiBook.get<MyBookListDetailedReq>(`${API_BOOK_ME}`);
+  const { data } = await apiBook.get<FavorBookListDetailedReq>(
+    `${API_BOOK_FAVOR}`
+  );
   return data;
 };
 
-const useBookOfMyListQuery = () => {
+const useBookOfFavorListQuery = () => {
   return useQuery({
     queryKey: [BOOK_KEY, AUTH_KEY, token.get],
     queryFn: () => fetcher(),
@@ -20,4 +22,4 @@ const useBookOfMyListQuery = () => {
   });
 };
 
-export default useBookOfMyListQuery;
+export default useBookOfFavorListQuery;

@@ -15,6 +15,10 @@ export interface MyBookListDetailedReq {
   bookList?: BookDetailedProps[];
   lastPage?: number;
 }
+export interface FavorBookListDetailedReq {
+  memberFavorBookList?: MemberFavorBookProps[];
+  lastPage?: number;
+}
 export interface BookDetailedProps {
   id?: number;
   genreIdList?: number[];
@@ -32,6 +36,17 @@ export interface BookDetailedProps {
   updatedAt?: Date;
   deletedAt?: Date;
   score?: number;
+}
+export interface MemberFavorBookProps {
+  id: string;
+  bookId: number; // add
+  genreIdList: number[];
+  memberId: string;
+  nickname: string;
+  bookTitle: string;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date;
 }
 
 export interface EpisodeReadReq {
@@ -52,9 +67,9 @@ export interface EpisodeDetailedProps {
   viewCount?: number;
   heartCount?: number;
   status?: EpisodeStatusType;
-  createdAt?: string;
-  updatedAt?: string;
-  deletedAt?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
+  deletedAt?: Date;
 }
 
 export type BookStatusType =

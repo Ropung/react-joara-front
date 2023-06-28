@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 
 interface BookStatusListProps {
-  bookStatus: boolean;
-  setBookStatus: React.Dispatch<React.SetStateAction<boolean>>;
+  // bookStatus: boolean;
+  // setBookStatus: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const BookStatusList: FC<BookStatusListProps> = () => {

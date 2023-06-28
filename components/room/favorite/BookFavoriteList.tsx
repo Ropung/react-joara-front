@@ -1,19 +1,30 @@
-import React from "react";
+import React, { FC } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import Path from "@/constants/path/routes";
 import { AiOutlineSetting } from "react-icons/ai";
 import PreviewImg from "@/public/img/preview.jpg";
+import { MemberFavorBookProps } from "@/models/book";
 
-const BookFavoriteList = () => {
+interface BookFavoriteListProps {
+  memberFavorBookList?: MemberFavorBookProps[];
+}
+
+const BookFavoriteList: FC<BookFavoriteListProps> = ({
+  memberFavorBookList,
+}) => {
   const router = useRouter();
   const { BOOK } = Path;
   return (
     <ul className="flex flex-col gap-4">
+      {/* {memberFavorBookList?.map((favorBook) => {
+        return ( */}
       <li
+        // key={`favor-book-${favorBook.id}`}
         className="flex flex-row items-center justify-start gap-4 p-4 border rounded-md shadow-md border-default hover:border-main"
         onClick={() => {
           router.push({
+            // pathname: BOOK + "/" + favorBook.bookId ?? -1,
             pathname: BOOK + "/" + 1,
           });
         }}
@@ -49,6 +60,8 @@ const BookFavoriteList = () => {
           </ul>
         </section>
       </li>
+      {/* );
+      })} */}
     </ul>
   );
 };

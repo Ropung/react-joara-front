@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { apiBook } from "@/libs/axios/api";
 import API_PATH from "@/constants/path/api";
-import { EPISODE_KEY } from "@/constants/key";
+import { BOOK_KEY, EPISODE_KEY } from "@/constants/key";
 import { EpisodeDetailedReq } from "@/models/book";
 
 const { API_BOOK, API_EPISODE } = API_PATH;
@@ -15,7 +15,7 @@ const fetcher = async (bookId: number, size: number, page: number) => {
 
 const useEpisodeByBookQuery = (bookId: number, size: number, page: number) => {
   return useQuery({
-    queryKey: [EPISODE_KEY, bookId, size, page],
+    queryKey: [EPISODE_KEY, BOOK_KEY, bookId, size, page],
     queryFn: () => fetcher(bookId, size, page),
     // enabled: !!page,
   });
