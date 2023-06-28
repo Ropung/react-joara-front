@@ -4,21 +4,21 @@ import Cat from "@public/img/cat.jpeg";
 import { genreNumByName } from "@/constants/genre";
 import { RecommendedBooksQueryProps } from "@/models/books/book";
 
-interface AsideBooksBarProps {
+interface AsideRecommendBooksProps {
   asideTitle: string;
-  bookList: RecommendedBooksQueryProps[];
+  recommendBooks?: RecommendedBooksQueryProps[];
 }
 
-const AsideBooksBar: FC<AsideBooksBarProps> = (props) => {
-  const { asideTitle, bookList } = props;
+const AsideRecommendBooks: FC<AsideRecommendBooksProps> = (props) => {
+  const { asideTitle, recommendBooks } = props;
   return (
     <>
       <p className="text-2xl font-bold">{asideTitle}</p>
       <ul className="flex flex-col w-full gap-6 p-4 bg-white border rounded-xl">
-        {bookList.map((book) => {
+        {recommendBooks?.map((book) => {
           return (
             <li
-              key={book.id}
+              key={`recommend-${book.id}`}
               className="flex flex-row gap-2 p-2 cursor-pointer hover:bg-main/20"
             >
               <Image
@@ -29,7 +29,6 @@ const AsideBooksBar: FC<AsideBooksBarProps> = (props) => {
               />
               <div className="flex flex-col justify-between flex-1">
                 <p className="text-lg font-bold">{book.title}</p>
-                {/* FIXME: 태그 & 장르 뿌려주기 */}
                 <ul className="flex flex-wrap gap-1">
                   {book.genreIdList?.map((genreId) => {
                     return (
@@ -51,4 +50,4 @@ const AsideBooksBar: FC<AsideBooksBarProps> = (props) => {
   );
 };
 
-export default AsideBooksBar;
+export default AsideRecommendBooks;

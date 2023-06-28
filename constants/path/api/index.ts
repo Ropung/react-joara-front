@@ -19,6 +19,8 @@ const API_PATH = {
   API_BOOK_UPDATE: "/books",
   API_BOOK_DELETE: "/books",
 
+  API_BOOK_RECOMMEND: "/books",
+
   // Episodes
   API_EPISODE: "/episode",
 

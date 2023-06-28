@@ -60,12 +60,13 @@ export interface MyBookListDetailedRes {
 
 // TODO: Recommend
 export interface RecommendedBooksQueryRes {
-  books: BookListViewReadModelProps[];
+  books: RecommendedBooksQueryProps[];
 }
 export interface RecommendedBooksQueryProps {
   id?: number;
   genreIdList?: number[];
-  genreName?: string;
+  genreNameList?: string[];
+  episodeSize?: number;
   nickname?: string;
   title?: string;
   coverUrl?: string;
