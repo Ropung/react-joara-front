@@ -1,10 +1,10 @@
 import { ReactNode, forwardRef } from "react";
 import * as Popover from "@radix-ui/react-popover";
 import { RxHamburgerMenu } from "react-icons/rx";
-import useGenresQuery from "@/hooks/query/useGenresQuery";
 import { useRouter } from "next/router";
 import Path from "@/constants/path/routes";
 import GenreType from "@/constants/genre";
+import useGenresQuery from "@/hooks/query/genre/useGenresQuery";
 
 interface Props {
   children?: React.ReactNode;

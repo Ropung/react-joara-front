@@ -7,7 +7,6 @@ import { BiSearchAlt } from "react-icons/bi";
 import Image from "next/image";
 import MainLogo from "@/public/logo/mainlogo.png"; //FIXME 임시용
 import { GrFormSearch } from "react-icons/gr";
-import { FaChevronLeft } from "react-icons/fa";
 import useGenresQuery from "@/hooks/query/genre/useGenresQuery";
 
 interface Props {
