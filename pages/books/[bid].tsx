@@ -47,8 +47,6 @@ const BookOfOne = () => {
     },
   ];
 
-  // console.log(book);
-  // console.log(episodeList);
   return (
     <div className="flex flex-col gap-8 px-16 py-8 divide-y">
       <BookInfo book={book} hasToken={hasToken} setHasToken={setHasToken} />
@@ -58,7 +56,6 @@ const BookOfOne = () => {
             <div className="flex flex-col items-center justify-start w-full gap-2">
               <h1 className="text-3xl font-bold">등록된 회차가 없지롱</h1>
               <Image
-                className=""
                 src={NotFOUND}
                 alt="회차가 없다는 이미지"
                 width={500}
@@ -69,6 +66,7 @@ const BookOfOne = () => {
         ) : (
           <BookEpisode
             episodeList={episodeList}
+            episodeSize={book?.episodeSize ?? 0}
             hasToken={hasToken}
             setHasToken={setHasToken}
           />

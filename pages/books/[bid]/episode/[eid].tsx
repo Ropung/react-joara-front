@@ -1,32 +1,42 @@
 import BottomNavViewer from "@/components/episode/BottomNavViewer";
 import TopNavViewer from "@/components/episode/TopNavViewer";
+import { Size } from "@/constants/genre";
+import { lorem } from "@/data/dummy";
+import useBookOfOneQuery from "@/hooks/query/useBookOfOneQuery";
+import useEpisodeOfOneQuery from "@/hooks/query/useEpisodeOfOneQuery";
+import { SomeIdUnion } from "@/models/book";
+import { useRouter } from "next/router";
 import { useState } from "react";
-
-// type SomeUnion = "bid" | "eid";
 
 const Episode = () => {
   const [onNavi, setNavi] = useState<boolean>(true);
 
-  // const router = useRouter();
-  // const routerQurey = router.query as { [key in SomeUnion]: string };
+  const router = useRouter();
+  const routerQuery = router.query as { [key in SomeIdUnion]: string };
+
+  const { data: { book } = {} } = useBookOfOneQuery(Number(routerQuery.bid));
+  const { data: { bookTitle, content, epiTitle } = {} } = useEpisodeOfOneQuery(
+    Number(routerQuery.bid),
+    Number(routerQuery.eid)
+  );
 
   return (
     <>
       {onNavi && (
         <>
-          <TopNavViewer />
-          <BottomNavViewer />
+          <TopNavViewer bookTitle={bookTitle} epiTitle={epiTitle} />
+          <BottomNavViewer episodeSize={book?.episodeSize ?? 0} />
         </>
       )}
       <section
-        className={`w-full h-full flex justify-center items-center bg-main bg-opacity-30 py-[5rem]`}
+        className={`w-full min-h-[100vw] flex justify-center items-start bg-main bg-opacity-30 py-[5rem]`}
         onClick={() => {
           setNavi(!onNavi);
         }}
       >
         <div className="w-[80vw] h-full flex flex-col gap-8 pb-20 scrollbar-hide">
-          <h1 className="py-8 text-lg font-bold">{`제목`}</h1>
-          <p className="">{`Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis possimus quasi atque dignissimos fugiat ipsam odit. Sit, accusamus! Sapiente, corrupti provident nisi unde aspernatur quia quaerat repellendus magni dignissimos vero.Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis possimus quasi atque dignissimos fugiat ipsam odit. Sit, accusamus! Sapiente, corrupti provident nisi unde aspernatur quia quaerat repellendus magni dignissimos vero.Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis possimus quasi atque dignissimos fugiat ipsam odit. Sit, accusamus! Sapiente, corrupti provident nisi unde aspernatur quia quaerat repellendus magni dignissimos vero.Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis possimus quasi atque dignissimos fugiat ipsam odit. Sit, accusamus! Sapiente, corrupti provident nisi unde aspernatur quia quaerat repellendus magni dignissimos veroLorem ipsum dolor sit amet consectetur adipisicing elit. Corporis possimus quasi atque dignissimos fugiat ipsam odit. Sit, accusamus! Sapiente, corrupti provident nisi unde aspernatur quia quaerat repellendus magni dignissimos vero.Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis possimus quasi atque dignissimos fugiat ipsam odit. Sit, accusamus! Sapiente, corrupti provident nisi unde aspernatur quia quaerat repellendus magni dignissimos veroLorem ipsum dolor sit amet consectetur adipisicing elit. Corporis possimus quasi atque dignissimos fugiat ipsam odit. Sit, accusamus! Sapiente, corrupti provident nisi unde aspernatur quia quaerat repellendus magni dignissimos vero.Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis possimus quasi atque dignur quia quaerat repellendus magni dignissimos vero.Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis possimus quasi atque dignissimos fugiat ipsam odit. Sit, accusamus! Sapiente, corrupti provident nisi unde aspernatur quia quaerat repellendus magni dignissimos vero.Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis possimus quasi atque dignissimos fugiat ipsam odit. Sit, accusamus! Sapiente, corrupti provident nisi unde aspernatur quia quaerat repellendus magni dignissimos veroLorem ipsum dolor sit amet consectetur adipisicing elit. Corporis possimus quasi atque dignissimos fugiat ipsam odit. Sit, accusamus! Sapiente, corrupti provident nisi unde aspernatur quia quaerat repellendus magni dignissimos vero.Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis possimus quasi atque dignissimos fugiat ipsam odit. Sit, accusamus! Sapiente, corrupti provident nisi unde aspernatur quia quaerat repellendus magni dignissimos veroLorem ipsum dolor sit amet consectetur adipisicing elit. Corporis possimus quasi atque dignissimos fugiat ipsam odit. Sit, accusamus! Sapiente, corrupti provident nisi unde aspernatur quia quaerat repellendus magni dignissimos vero.Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis possimus quasi atque dignur quia quaerat repellendus magni dignissimos vero.Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis possimus quasi atque dignissimos fugiat ipsam odit. Sit, accusamus! Sapiente, corrupti provident nisi unde aspernatur quia quaerat repellendus magni dignissimos vero.Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis possimus quasi atque dignissimos fugiat ipsam odit. Sit, accusamus! Sapiente, corrupti provident nisi unde aspernatur quia quaerat repellendus magni dignissimos veroLorem ipsum dolor sit amet consectetur adipisicing elit. Corporis possimus quasi atque dignissimos fugiat ipsam odit. Sit, accusamus! Sapiente, corrupti provident nisi unde aspernatur quia quaerat repellendus magni dignissimos vero.Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis possimus quasi atque dignissimos fugiat ipsam odit. Sit, accusamus! Sapiente, corrupti provident nisi unde aspernatur quia quaerat repellendus magni dignissimos veroLorem ipsum dolor sit amet consectetur adipisicing elit. Corporis possimus quasi atque dignissimos fugiat ipsam odit. Sit, accusamus! Sapiente, corrupti provident nisi unde aspernatur quia quaerat repellendus magni dignissimos vero.Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis possimus quasi atque dignur quia quaerat repellendus magni dignissimos vero.Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis possimus quasi atque dignissimos fugiat ipsam odit. Sit, accusamus! Sapiente, corrupti provident nisi unde aspernatur quia quaerat repellendus magni dignissimos vero.Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis possimus quasi atque dignissimos fugiat ipsam odit. Sit, accusamus! Sapiente, corrupti provident nisi unde aspernatur quia quaerat repellendus magni dignissimos veroLorem ipsum dolor sit amet consectetur adipisicing elit. Corporis possimus quasi atque dignissimos fugiat ipsam odit. Sit, accusamus! Sapiente, corrupti provident nisi unde aspernatur quia quaerat repellendus magni dignissimos vero.Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis possimus quasi atque dignissimos fugiat ipsam odit. Sit, accusamus! Sapiente, corrupti provident nisi unde aspernatur quia quaerat repellendus magni dignissimos veroLorem ipsum dolor sit amet consectetur adipisicing elit. Corporis possimus quasi atque dignissimos fugiat ipsam odit. Sit, accusamus! Sapiente, corrupti provident nisi unde aspernatur quia quaerat repellendus magni dignissimos vero.Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis possimus quasi atque dignur quia quaerat repellendus magni dignissimos vero.Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis possimus quasi atque dignissimos fugiat ipsam odit. Sit, accusamus! Sapiente, corrupti provident nisi unde aspernatur quia quaerat repellendus magni dignissimos vero.Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis possimus quasi atque dignissimos fugiat ipsam odit. Sit, accusamus! Sapiente, corrupti provident nisi unde aspernatur quia quaerat repellendus magni dignissimos veroLorem ipsum dolor sit amet consectetur adipisicing elit. Corporis possimus quasi atque dignissimos fugiat ipsam odit. Sit, accusamus! Sapiente, corrupti provident nisi unde aspernatur quia quaerat repellendus magni dignissimos vero.Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis possimus quasi atque dignissimos fugiat ipsam odit. Sit, accusamus! Sapiente, corrupti provident nisi unde aspernatur quia quaerat repellendus magni dignissimos veroLorem ipsum dolor sit amet consectetur adipisicing elit. Corporis possimus quasi atque dignissimos fugiat ipsam odit. Sit, accusamus! Sapiente, corrupti provident nisi unde aspernatur quia quaerat repellendus magni dignissimos vero.Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis possimus quasi atque dignissimos fugiat ipsam odit. Sit, accusamus! Sapiente, corrupti provident nisi unde aspernatur quia quaerat repellendus magni dignissimos vero`}</p>
+          <h1 className="py-8 text-lg font-bold">{epiTitle}</h1>
+          <p className="">{content ?? lorem.dummy_short}</p>
         </div>
       </section>
     </>

@@ -32,8 +32,8 @@ export interface EpisodeDetailedReq {
 export interface BookDetailedProps {
   id?: number;
   genreIdList?: number[];
-  // added
   genreNameList?: string[];
+  episodeSize?: number;
   nickname?: string;
   title?: string;
   description?: string;
@@ -47,6 +47,12 @@ export interface BookDetailedProps {
   deletedAt?: Date;
   score?: number;
 }
+export interface EpisodeReadReq {
+  bookTitle?: string;
+  epiTitle?: string;
+  content?: string;
+}
+
 export interface EpisodeDetailedProps {
   id?: string;
   bookId?: number;

@@ -5,6 +5,7 @@ import { Dispatch, FC, SetStateAction } from "react";
 
 interface BookInfoProps {
   hasToken: boolean;
+  episodeSize: number;
   setHasToken: Dispatch<SetStateAction<boolean>>;
   episodeList: EpisodeDetailedProps[] | undefined;
 }
@@ -15,7 +16,7 @@ const BookEpisode: FC<BookInfoProps> = (props) => {
 
   const routerQuery = router.query as { [key in SomeIdUnion]: string };
 
-  const { hasToken, setHasToken, episodeList } = props;
+  const { hasToken, setHasToken, episodeList, episodeSize } = props;
 
   const { BOOK, EPISODE_UPDATE, EPISODE } = Path;
 
@@ -24,7 +25,7 @@ const BookEpisode: FC<BookInfoProps> = (props) => {
       <div className="flex items-center justify-between">
         <div className="flex items-end justify-start gap-2">
           <h1 className="text-2xl font-bold">작품회차</h1>
-          <span>({episodeList?.length})</span>
+          <span>({episodeSize})</span>
         </div>
         <div className="flex items-center justify-end gap-2 divide-x">
           <p className="cursor-pointer hover:text-main">최신순</p>
@@ -45,7 +46,7 @@ const BookEpisode: FC<BookInfoProps> = (props) => {
                     className="flex flex-row items-center justify-start gap-2 cursor-pointer hover:text-main"
                     onClick={() => {
                       router.push({
-                        pathname: `${BOOK}/${epi.bookId}/${EPISODE}/${epi.id}`,
+                        pathname: `${BOOK}/${epi.bookId}/${EPISODE}/${epi.epiNum}`,
                       });
                     }}
                   >
@@ -82,21 +83,23 @@ const BookEpisode: FC<BookInfoProps> = (props) => {
           })}
         </ul>
         {/* 페이지 네이션 */}
-        <div className="flex flex-row gap-4">
-          {dummyList.map((page) => {
-            return (
-              <button
-                key={"page-" + page}
-                className="flex items-center justify-center w-8 h-8 p-4 text-lg bg-white border rounded-md text-main hover:bg-main hover:text-main-contra"
-                onClick={() => {
-                  //
-                }}
-              >
-                {page}
-              </button>
-            );
-          })}
-        </div>
+        {episodeSize > 1 && (
+          <div className="flex flex-row gap-4">
+            {dummyList.map((page) => {
+              return (
+                <button
+                  key={"page-" + page}
+                  className="flex items-center justify-center w-8 h-8 p-4 text-lg bg-white border rounded-md text-main hover:bg-main hover:text-main-contra"
+                  onClick={() => {
+                    //
+                  }}
+                >
+                  {page}
+                </button>
+              );
+            })}
+          </div>
+        )}
       </section>
     </section>
   );

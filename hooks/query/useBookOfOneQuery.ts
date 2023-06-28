@@ -13,7 +13,7 @@ const fetcher = async (bookId: number) => {
 
 const useBookOfOneQuery = (bookId: number) => {
   return useQuery({
-    queryKey: [BOOK_KEY],
+    queryKey: [BOOK_KEY, bookId],
     queryFn: () => fetcher(bookId),
     // enabled: !!page,
   });

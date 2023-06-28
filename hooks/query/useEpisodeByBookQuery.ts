@@ -15,7 +15,7 @@ const fetcher = async (bookId: number, size: number, page: number) => {
 
 const useEpisodeByBookQuery = (bookId: number, size: number, page: number) => {
   return useQuery({
-    queryKey: [EPISODE_KEY],
+    queryKey: [EPISODE_KEY, bookId, size, page],
     queryFn: () => fetcher(bookId, size, page),
     // enabled: !!page,
   });
