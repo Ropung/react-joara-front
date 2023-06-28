@@ -16,8 +16,8 @@ const API_PATH = {
   API_BOOK_ME: "/books/me",
   API_BOOK_FAVOR: "/books/favorite",
   API_BOOK_CREATE: "/books",
-  API_BOOK_UPDATE: "/books",
-  API_BOOK_DELETE: "/books",
+  API_BOOK_UPDATE: "/books/",
+  API_BOOK_DELETE: "/books/",
 
   API_BOOK_RECOMMEND: "/books",
 

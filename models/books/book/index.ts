@@ -3,9 +3,6 @@
 import { BookStatusType } from "@/models/type";
 
 // CREATE
-export interface BookCreateResponse {
-  success: boolean;
-}
 export interface BookCreateUseFormProps {
   genreIdList?: number[];
   title?: string;
@@ -20,14 +17,30 @@ export type BookCreateReq = Omit<
   genreIdList?: string;
   coverImage?: File;
 };
+export interface BookCreateResponse {
+  success: boolean;
+}
 
 //UPDATE
-export interface BookUpdateReq {}
+export interface BookUpdateUseFormProps {
+  genreIdList?: number[];
+  title?: string;
+  description?: string;
+  coverImages?: FileList;
+}
+export type BookUpdateReq = Omit<
+  BookUpdateUseFormProps,
+  "genreIdList" | "coverImages"
+> & {
+  genreIdList?: string;
+  coverImage?: File;
+  bookId?: number;
+};
 export interface BookUpdateRes {
   success: boolean;
 }
+
 //DELETE
-export interface BookDeleteReq {}
 export interface BookDeleteRes {
   success: boolean;
 }

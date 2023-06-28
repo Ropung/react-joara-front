@@ -1,4 +1,4 @@
-import { BOOK_CREATE_KEY } from "@/constants/key";
+import { BOOK_CREATE_KEY, BOOK_KEY, BOOK_UPDATE_KEY } from "@/constants/key";
 import API_PATH from "@/constants/path/api";
 import Path from "@/constants/path/routes";
 import { apiBookMultipart } from "@/libs/axios/api";
@@ -19,7 +19,7 @@ const bookCreateFetcher = (reqData: BookCreateReq) => {
     .catch(console.error);
 };
 
-export const useBookMutation = () => {
+export const useBookCreateMutation = () => {
   const queryClient = useQueryClient();
 
   return useMutation(bookCreateFetcher, {
@@ -27,7 +27,7 @@ export const useBookMutation = () => {
       return alert(error);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries<string>([BOOK_CREATE_KEY]);
+      queryClient.invalidateQueries<string>([BOOK_KEY]);
     },
   });
 };

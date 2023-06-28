@@ -3,14 +3,17 @@ import { lorem } from "@/data/dummy";
 import Image from "next/image";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useBookCreateMutation } from "@/hooks/mutation/book/useBookCreateMutation";
-import PreviewImg from "@/public/img/preview.jpg";
 import { IoCloseCircle } from "react-icons/io5";
 import { BookCreateUseFormProps } from "@/models/form";
 import useGenresQuery from "@/hooks/query/genre/useGenresQuery";
-import { BookCreateReq } from "@/models/books/book";
+import { BookCreateReq, BookUpdateReq } from "@/models/books/book";
+import { useRouter } from "next/router";
+import { SomeIdUnion } from "@/models/type";
+import BaseImg from "@/public/img/preview.jpg";
+import useBookOfOneQuery from "@/hooks/query/book/useBookOfOneQuery";
+import { useBookUpdateMutation } from "@/hooks/mutation/book/useBookUpdateMutation";
 
-const BookCreateForm = () => {
+const BookUpdateForm = () => {
   const {
     register,
     handleSubmit,
@@ -18,17 +21,12 @@ const BookCreateForm = () => {
     formState: { isSubmitting, errors },
   } = useForm<BookCreateUseFormProps>({ mode: "onChange" });
 
-  // Object.keys(obj).map(key => ({ [key]: key }));
-
-  const bookMutation = useBookCreateMutation();
-
   const [photoUrl, setPhotoUrl] = useState("");
+  const [genreNameList, setGenreNameList] = useState<string[]>([]);
+  const [genreIdList, setGenreIdList] = useState<number[]>([]);
 
   const COVER_IMAGES = "coverImages";
   const coverImages = watch(COVER_IMAGES);
-
-  const [genreNameList, setGenreNameList] = useState<string[]>([]);
-  const [genreIdList, setGenreIdList] = useState<number[]>([]);
 
   useEffect(() => {
     if (coverImages && coverImages.length > 0) {
@@ -48,34 +46,43 @@ const BookCreateForm = () => {
     setGenreIdList(genreIds);
   }, [genreNameList]);
 
+  const router = useRouter();
+  const routerQuery = router.query as { [key in SomeIdUnion]: string };
+
   const { data: { genres } = {} } = useGenresQuery();
+  const { data: { book } = {} } = useBookOfOneQuery(Number(routerQuery.bid));
+  const bookMutation = useBookUpdateMutation();
+
+  useEffect(() => {
+    setGenreNameList(book?.genreNameList ?? []);
+  }, []);
 
   return (
     <form
       className="flex flex-col w-full gap-4 p-8 bg-white rounded-md shadow-md"
       encType="multipart/form-data"
       onSubmit={handleSubmit((data) => {
+        if (!genreIdList?.length) return alert("장르를 선택해주세요!");
         const { coverImages, genreIdList: _no_use, ...restData } = data;
 
-        if (!genreIdList?.length) return alert("장르를 선택해주세요!");
-
-        const bookCreateFormReq: BookCreateReq = {
+        const bookUpdateFormReq: BookUpdateReq = {
           ...restData,
+          bookId: Number(routerQuery.bid),
           genreIdList: `${genreIdList}`,
           // coverImage: coverImages?.item(0) ?? undefined,
           coverImage: coverImages && coverImages[0],
         };
-        bookMutation.mutate(bookCreateFormReq);
+        bookMutation.mutate(bookUpdateFormReq);
       })}
     >
       <section className="flex flex-row items-center justify-between w-full">
-        <h1 className="text-2xl font-bold">작품등록</h1>
+        <h1 className="text-2xl font-bold">작품수정</h1>
         <button
           type="submit"
           disabled={isSubmitting}
           className="px-6 py-4 font-bold border shadow-md rounded-xl hover:text-main-contra hover:bg-main"
         >
-          등록하기
+          수정하기
         </button>
       </section>
       <fieldset className="flex flex-col w-full gap-4 text-lg">
@@ -148,6 +155,7 @@ const BookCreateForm = () => {
           <div className="flex flex-col flex-1 gap-2">
             <input
               type="text"
+              defaultValue={book?.title}
               className="px-4 py-2 border border-gray-400 rounded-lg"
               placeholder="20자 이하로 작성 가능합니다."
               {...register("title", {
@@ -176,6 +184,7 @@ const BookCreateForm = () => {
           {/* 작품소개 textarea */}
           <div className="flex flex-col flex-1">
             <textarea
+              defaultValue={book?.description}
               className="flex flex-1 w-full px-4 py-2 text-sm border border-gray-400 rounded-lg outline-none resize-none placeholder:text-base"
               rows={5}
               placeholder="작품 줄거리를 입력하세요."
@@ -212,8 +221,7 @@ const BookCreateForm = () => {
             <Image
               width={200}
               height={305}
-              src={(photoUrl as string) || PreviewImg}
-              // src={book.coverUrl ?? }
+              src={book?.coverUrl ? book.coverUrl : BaseImg}
               className={`w-[100px] border rounded-md ${
                 !!photoUrl ? "border-gray-300" : ""
               }`}
@@ -245,11 +253,11 @@ const BookCreateForm = () => {
           disabled={isSubmitting}
           className="px-6 py-4 font-bold border shadow-md rounded-xl hover:text-main-contra bg-main text-main-contra hover:bg-black"
         >
-          작품 등록하기
+          작품 수정하기
         </button>
       </div>
     </form>
   );
 };
 
-export default BookCreateForm;
+export default BookUpdateForm;
