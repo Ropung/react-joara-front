@@ -1,6 +1,12 @@
-import React from "react";
+import { MyBookListViewReadModelProps } from "@/models/book";
+import React, { FC } from "react";
 
-const BookStatusList = () => {
+interface BookStatusListProps {
+  bookStatus: boolean;
+  setBookStatus: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const BookStatusList: FC<BookStatusListProps> = () => {
   const divBoxStyle =
     "flex flex-row cursor-pointer border rounded-md p-2 px-4 gap-2 hover:bg-main hover:text-main-contra";
   const pStlye = "";

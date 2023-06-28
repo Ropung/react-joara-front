@@ -1,19 +1,15 @@
 const token = {
   get: () => {
-    if (typeof window !== "undefined") {
-      return localStorage.getItem("token");
-    }
-    return null;
+    if (typeof window === "undefined") return null;
+    return localStorage.getItem("token");
   },
   set: (token: string) => {
-    if (typeof window !== "undefined") {
-      localStorage.setItem("token", token);
-    }
+    if (typeof window === "undefined") return;
+    localStorage.setItem("token", token);
   },
   remove: () => {
-    if (typeof window !== "undefined") {
-      localStorage.removeItem("token");
-    }
+    if (typeof window === "undefined") return;
+    localStorage.removeItem("token");
   },
 };
 

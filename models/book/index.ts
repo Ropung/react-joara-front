@@ -8,25 +8,11 @@ export interface GenreProps {
   eng?: string;
 }
 
-export interface BookProps {
-  bookId?: string;
-  memberId?: string;
-  genreId?: string;
-  title?: string;
-  description?: string;
-  cover_url?: string;
-  avgScore?: number;
-  isbn?: string;
-  cip?: string;
-  createAt?: string;
-  updateAt?: string;
-  deleteAt?: string;
-}
 export interface BookDetailedReq {
   book?: BookDetailedProps;
 }
-export interface EpisodeDetailedReq {
-  episodeList?: EpisodeDetailedProps[];
+export interface MyBookListDetailedReq {
+  bookList?: BookDetailedProps[];
   lastPage?: number;
 }
 export interface BookDetailedProps {
@@ -47,12 +33,16 @@ export interface BookDetailedProps {
   deletedAt?: Date;
   score?: number;
 }
+
 export interface EpisodeReadReq {
   bookTitle?: string;
   epiTitle?: string;
   content?: string;
 }
-
+export interface EpisodeDetailedReq {
+  episodeList?: EpisodeDetailedProps[];
+  lastPage?: number;
+}
 export interface EpisodeDetailedProps {
   id?: string;
   bookId?: number;
