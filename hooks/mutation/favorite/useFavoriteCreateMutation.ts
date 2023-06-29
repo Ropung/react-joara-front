@@ -9,9 +9,9 @@ const { BOOK_ME } = Path;
 // 책 추가
 const favoriteCreateFetcher = (bookId: number) => {
   return apiBookMultipart
-    .post<FavoriteCreateRes>(API_FAVORITE_CREATE, bookId)
-    .then(({ data: resData }) => {
-      if (resData.success) {
+    .post<FavoriteCreateRes>(API_FAVORITE_CREATE, { data: bookId })
+    .then(({ data }) => {
+      if (data.success) {
         alert("선호작이 등록 되었습니다.");
         window.location.href = BOOK_ME;
       } else alert("선호작을 삭제 합니다.");
