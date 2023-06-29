@@ -5,6 +5,7 @@ import Path from "@/constants/path/routes";
 import { AiOutlineSetting } from "react-icons/ai";
 import PreviewImg from "@/public/img/preview.jpg";
 import { MemberFavorBookProps } from "@/models/books/book";
+import { genreNumByName } from "@/constants/genre";
 
 interface BookFavoriteListProps {
   memberFavorBookList?: MemberFavorBookProps[];
@@ -33,7 +34,7 @@ const BookFavoriteList: FC<BookFavoriteListProps> = ({
               width={100}
               height={150}
               src={favorBook.coverUrl ? favorBook.coverUrl : PreviewImg}
-              alt="소설더미이미지"
+              alt={`${favorBook.bookTitle} 이미지`}
             />
             <section className="flex flex-col items-start justify-between flex-1 gap-2">
               <div className="flex justify-between w-full">
@@ -55,7 +56,7 @@ const BookFavoriteList: FC<BookFavoriteListProps> = ({
                       key={`favorite-genre-${genreId}`}
                       className="px-4 py-1 text-sm border rounded-md hover:bg-main hover:text-main-contra"
                     >
-                      {genreId}
+                      {genreNumByName[genreId]}
                     </li>
                   );
                 })}
