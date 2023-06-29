@@ -2,7 +2,7 @@
 export interface ReplyCreateUseFormProps {}
 export type ReplyCreateReq = {};
 export interface ReplyUpdateUseFormProps {}
-export type EpisodeUpdateReq = {};
+export type ReplyUpdateReq = {};
 
 export interface ReplyCreateRes {
   success: boolean;

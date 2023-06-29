@@ -1,19 +1,12 @@
-import { BOOK_KEY, BOOK_UPDATE_KEY } from "@/constants/key";
-import API_PATH from "@/constants/path/api";
-import Path from "@/constants/path/routes";
-import { apiBook, apiBookMultipart } from "@/libs/axios/api";
-import {
-  BookDeleteRes,
-  BookUpdateReq,
-  BookUpdateRes,
-} from "@/models/books/book";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-const { API_EPISODE_DELETE } = API_PATH;
-const { BOOK_ME } = Path;
+import { EPISODE_DELETE_KEY } from "@/constants/key";
+import { apiBook } from "@/libs/axios/api";
 
-const episodeDeleteFetcher = async (bookId: number) => {
-  const { data: result } = await apiBook.delete<BookDeleteRes>(
-    `${API_EPISODE_DELETE}/${bookId}`
+import { EpisodeDeleteRes } from "@/models/books/episode";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+
+const episodeDeleteFetcher = async (bookId: number, eid: string) => {
+  const { data: result } = await apiBook.delete<EpisodeDeleteRes>(
+    `books/${bookId}/episode/${eid}`
   );
   return result;
 };
@@ -21,12 +14,16 @@ const episodeDeleteFetcher = async (bookId: number) => {
 export const useEpisodeDeleteMutation = () => {
   const queryClient = useQueryClient();
 
-  return useMutation(episodeDeleteFetcher, {
-    onError: (error) => {
-      return alert(error);
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries<string>([BOOK_KEY]);
-    },
-  });
+  return useMutation(
+    ({ bid, eid }: { bid: number; eid: string }) =>
+      episodeDeleteFetcher(bid, eid),
+    {
+      onError: (error) => {
+        return alert(error);
+      },
+      onSuccess: () => {
+        queryClient.invalidateQueries<string>([EPISODE_DELETE_KEY]);
+      },
+    }
+  );
 };

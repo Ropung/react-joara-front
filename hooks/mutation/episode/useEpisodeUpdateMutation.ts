@@ -1,33 +1,46 @@
 import { BOOK_KEY } from "@/constants/key";
-import API_PATH from "@/constants/path/api";
-import Path from "@/constants/path/routes";
-import { apiBookMultipart } from "@/libs/axios/api";
-import { BookUpdateReq, BookUpdateRes } from "@/models/books/book";
+import { apiBook } from "@/libs/axios/api";
+import { EpisodeUpdateReq, EpisodeUpdateRes } from "@/models/books/episode";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-const { API_EPISODE_UPDATE } = API_PATH;
-const { BOOK_ME } = Path;
 
-const episodeUpdateFetcher = (reqData: BookUpdateReq) => {
-  return apiBookMultipart
-    .put<BookUpdateRes>(API_EPISODE_UPDATE + reqData.bookId, reqData)
+const episodeUpdateFetcher = (
+  bid: number,
+  eid: string,
+  reqData: EpisodeUpdateReq
+) => {
+  // FIXME
+  console.log(eid);
+
+  return apiBook
+    .put<EpisodeUpdateRes>(`/books/${bid}/episode/${eid}`, reqData)
     .then(({ data }) => {
-      if (data.success) {
-        alert("책이 성공적으로 수정되었습니다.");
-        window.location.href = BOOK_ME;
-      } else alert("수정에 실패했습니다. ");
+      data.success
+        ? alert("에피소드가 성공적으로 수정되었습니다.")
+        : alert("수정에 실패했습니다. ");
     })
     .catch(console.error);
 };
 
-export const useBookUpdateMutation = () => {
+export const useEpisodeUpdateMutation = () => {
   const queryClient = useQueryClient();
 
-  return useMutation(episodeUpdateFetcher, {
-    onError: (error) => {
-      return alert(error);
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries<string>([BOOK_KEY]);
-    },
-  });
+  return useMutation(
+    ({
+      bid,
+      eid,
+      epiValue,
+    }: {
+      bid: number;
+      eid: string;
+      epiValue: EpisodeUpdateReq;
+    }) => episodeUpdateFetcher(bid, eid, epiValue),
+    {
+      onError: (error) => {
+        return alert(error);
+      },
+      onSuccess: () => {
+        queryClient.invalidateQueries<string>([BOOK_KEY]);
+      },
+    }
+  );
 };

@@ -1,4 +1,5 @@
 import Path from "@/constants/path/routes";
+import { useEpisodeDeleteMutation } from "@/hooks/mutation/episode/useEpisodeDeleteMutation";
 import { EpisodeDetailedProps } from "@/models/books/episode";
 import { SomeIdUnion } from "@/models/type";
 import { useRouter } from "next/router";
@@ -16,10 +17,27 @@ const BookEpisode: FC<BookInfoProps> = (props) => {
   const router = useRouter();
 
   const { hasToken, setHasToken, episodeList, episodeSize } = props;
+  const { BOOK, EPISODE } = Path;
 
-  const { BOOK, EPISODE_UPDATE, EPISODE } = Path;
+  const { bid, eid } = router.query as { [key in SomeIdUnion]: string };
 
-  // console.log(episodeList);
+  const { mutate: episodeDeleteMutation } = useEpisodeDeleteMutation();
+
+  const handleSubmit = () => {
+    if (!bid || !eid) return;
+    episodeDeleteMutation(
+      { bid: Number(bid), eid },
+      {
+        onSuccess: () => {
+          alert("삭제 되었습니다.");
+          router.push(`${BOOK}/${bid}`);
+        },
+        onError: (e) => {
+          alert(e);
+        },
+      }
+    );
+  };
 
   return (
     <section className="flex flex-col flex-1 gap-4">
@@ -29,8 +47,22 @@ const BookEpisode: FC<BookInfoProps> = (props) => {
           <span>({episodeSize})</span>
         </div>
         <div className="flex items-center justify-end gap-2 divide-x">
-          <p className="cursor-pointer hover:text-main">최신순</p>
-          <p className="pl-2 cursor-pointer hover:text-main">첫화</p>
+          <p
+            className="cursor-pointer hover:text-main"
+            onClick={() => {
+              //
+            }}
+          >
+            최신순
+          </p>
+          <p
+            className="pl-2 cursor-pointer hover:text-main"
+            onClick={() => {
+              //
+            }}
+          >
+            첫화
+          </p>
         </div>
       </div>
       {/* 에피소드 List */}
@@ -62,9 +94,10 @@ const BookEpisode: FC<BookInfoProps> = (props) => {
                       <button
                         className="px-4 py-2 rounded-md bg-primary text-main-contra hover:bg-primary-active"
                         onClick={() => {
-                          router.push(
-                            `/publish/${epi.bookId}/episode/${epi.id}`
-                          );
+                          router.push({
+                            pathname: `/publish/${epi.bookId}/episode/${epi.epiNum}`,
+                            query: { eid: epi.id },
+                          });
                         }}
                       >
                         수정
@@ -72,9 +105,11 @@ const BookEpisode: FC<BookInfoProps> = (props) => {
                       <button
                         className="px-4 py-2 rounded-md bg-danger text-main-contra hover:bg-danger-active"
                         onClick={() => {
-                          router.push({
-                            //
-                          });
+                          confirm(
+                            "삭제 하시겠어요? ( 삭제하면 작품이 비활성화 됩니다. )"
+                          )
+                            ? handleSubmit()
+                            : alert("삭제 취소했습니다.");
                         }}
                       >
                         삭제

@@ -5,7 +5,7 @@ import { BOOK_KEY, EPISODE_KEY } from "@/constants/key";
 import { EpisodeReadRes } from "@/models/books/episode";
 
 const { API_BOOK, API_EPISODE } = API_PATH;
-// "/api/boards"
+
 const fetcher = async (bookId: number, epiNum: number) => {
   const { data } = await apiBook.get<EpisodeReadRes>(
     `${API_BOOK}/${bookId}${API_EPISODE}/${epiNum}`

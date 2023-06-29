@@ -7,28 +7,19 @@ export interface EpisodeCreateUseFormProps {
   description?: string;
   coverImages?: FileList;
 }
-export type EpisodeCreateReq = Omit<
-  EpisodeCreateUseFormProps,
-  "genreIdList" | "coverImages"
-> & {
-  genreIdList?: string;
-  coverImage?: File;
+export type EpisodeCreateReq = {
+  epiTitle?: string;
+  content?: string;
+  quote?: string;
 };
-export interface EpisodeUpdateUseFormProps {
-  genreIdList?: number[];
-  title?: string;
-  description?: string;
-  coverImages?: FileList;
+
+export interface EpisodeUpdateReq {
+  epiTitle?: string;
+  content?: string;
+  quote?: string;
 }
-export type EpisodeUpdateReq = Omit<
-  EpisodeUpdateUseFormProps,
-  "genreIdList" | "coverImages"
-> & {
-  genreIdList?: string;
-  coverImage?: File;
-  bookId?: number;
-};
-export interface EpisodeCreateResponse {
+
+export interface EpisodeCreateRes {
   success: boolean;
 }
 export interface EpisodeUpdateRes {
@@ -45,7 +36,9 @@ export interface EpisodeReadRes {
   bookTitle?: string;
   epiTitle?: string;
   content?: string;
+  quote?: string;
 }
+
 export interface EpisodeDetailedRes {
   episodeList?: EpisodeDetailedProps[];
   lastPage?: number;
