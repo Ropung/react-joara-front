@@ -2,10 +2,10 @@ import Path from "@/constants/path/routes";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import PreviewImg from "@/public/img/preview.jpg";
-import useGenreBooksDetailQuery from "@/hooks/query/genre/useGenreBooksDetailQuery";
 import { useState } from "react";
 import { genreNumByName } from "@/constants/genre";
 import NotFound from "@public/img/not.jpg";
+import useGenreBooksDetailQuery from "@/hooks/query/genre/useGenreBooksDetailQuery";
 
 const GenreOnePage = () => {
   const { BOOK } = Path;
@@ -26,28 +26,29 @@ const GenreOnePage = () => {
       <p className="text-3xl font-bold">{genreNumByName[Number(gid)]}</p>
       <div className="flex flex-col gap-12">
         {/* Genre List */}
-        <ul className="flex flex-wrap w-full overflow-hidden">
+        <ul className="flex flex-wrap flex-1 w-full justify-stretch">
           {bookList?.map((book) => (
             <li
               key={"books-" + book.id}
-              className="w-1/5 p-2 cursor-pointer"
+              className="w-[16.5%] cursor-pointer hover:scale-110 hover:bg-black/90 hover:rounded-xl overflow-hidden hover:text-white hover:font-bold duration-75 p-2"
               onClick={() => {
                 router.push({
                   pathname: BOOK + "/" + book.id,
                 });
               }}
             >
-              <div className="relative flex flex-col w-full">
+              <div className="flex flex-col items-center justify-start w-full">
                 <Image
-                  sizes="w-full"
-                  width={40}
-                  height={50}
-                  className="relative w-full"
+                  width={200}
+                  height={300}
+                  className="w-full"
                   src={book.coverUrl ? book.coverUrl : PreviewImg}
                   alt="북커버 이미지"
                 />
-                <p className="w-full drop-shadow-md">{book.title}</p>
-                <p className="w-full text-sm drop-shadow-md text-default">
+                <p className="w-full px-1 pt-2 overflow-hidden drop-shadow-md whitespace-nowrap text-ellipsis">
+                  {book.title}
+                </p>
+                <p className="w-full px-1 pb-2 text-sm drop-shadow-md text-main">
                   {book.nickname}
                 </p>
               </div>
@@ -74,7 +75,7 @@ const GenreOnePage = () => {
           <section className="flex flex-col items-center w-full gap-2">
             <h1 className="text-6xl">등록된 작품이 없지롱</h1>
             <Image
-              width={400}
+              width={500}
               height={200}
               src={NotFound}
               alt="작품이 존재하지 않습니다"

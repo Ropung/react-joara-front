@@ -1,22 +1,32 @@
 import EventBanner from "@/components/event/EventBanner";
 import GenreNovel from "@/components/home/GenreNovel";
-import GenreType, { Size, genreNumByName } from "@/constants/genre";
+import GenreType, { Size } from "@/constants/genre";
 import useGenreBooksDetailQuery from "@/hooks/query/genre/useGenreBooksDetailQuery";
 
 export default function Home() {
   const { data: actionBooks } = useGenreBooksDetailQuery(
     GenreType.ACTION, // 5
-    Size.TEN,
+    Size.FIVE,
     1
   );
   const { data: fantasyBooks } = useGenreBooksDetailQuery(
     GenreType.FANTASY, // 7
-    Size.TEN,
+    Size.FIVE,
     1
   );
   const { data: romanceBooks } = useGenreBooksDetailQuery(
     GenreType.ROMANCE, // 2
-    Size.TEN,
+    Size.FIVE,
+    1
+  );
+  const { data: dramaBooks } = useGenreBooksDetailQuery(
+    GenreType.DRAMA, // 1
+    Size.FIVE,
+    1
+  );
+  const { data: schoolBooks } = useGenreBooksDetailQuery(
+    GenreType.SCHOOL, // 3
+    Size.FIVE,
     1
   );
 
@@ -33,6 +43,9 @@ export default function Home() {
         )}
         {romanceBooks && (
           <GenreNovel genreId={GenreType.ROMANCE} books={romanceBooks} />
+        )}
+        {romanceBooks && (
+          <GenreNovel genreId={GenreType.SCHOOL} books={schoolBooks} />
         )}
       </main>
     </div>

@@ -6,7 +6,7 @@ import useBookOfFavorListQuery from "@/hooks/query/book/useBookOfFavorListQuery"
 const BookFavoriteContainer = () => {
   const { data: { memberFavorBookList, lastPage } = {} } =
     useBookOfFavorListQuery();
-  console.log(memberFavorBookList);
+  // console.log(memberFavorBookList);
 
   return (
     <>

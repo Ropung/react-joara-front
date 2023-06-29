@@ -85,11 +85,12 @@ export interface FavorBookListDetailedRes {
 }
 export interface MemberFavorBookProps {
   id: string;
-  bookId: number; // add
+  bookId: number;
   genreIdList: number[];
   memberId: string;
   nickname: string;
   bookTitle: string;
+  coverUrl: string;
   createdAt: string;
   updatedAt: string;
   deletedAt: string;

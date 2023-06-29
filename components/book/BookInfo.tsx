@@ -2,10 +2,11 @@ import Path from "@/constants/path/routes";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { Dispatch, FC, SetStateAction, useState } from "react";
-import { AiOutlineSetting } from "react-icons/ai";
+import { AiFillHeart, AiOutlineHeart, AiOutlineSetting } from "react-icons/ai";
 import PreviewImg from "@/public/img/preview.jpg";
 import BookStatusNameByKor from "@/constants/book";
 import { BookDetailedViewReadModelProps } from "@/models/books/book";
+import { BsBookmark, BsFillBookmarkStarFill } from "react-icons/bs";
 
 interface BookInfoProps {
   hasToken: boolean;
@@ -14,12 +15,14 @@ interface BookInfoProps {
 }
 
 const BookInfo: FC<BookInfoProps> = (props) => {
+  const btnStyle =
+    "px-6 py-2 font-bold transition rounded-md bg-main text-main-contra hover:scale-105";
+  const reactIconStyle = "cursor-pointer hover:scale-110 text-3xl";
   const { hasToken, setHasToken, book } = props;
   const router = useRouter();
   const { BOOK_EPISODE_PUBLISH, BOOK_UPDATE_PUBLISH } = Path;
 
-  const btnStyle =
-    "px-6 py-2 font-bold transition rounded-md bg-main text-main-contra hover:scale-105";
+  const [isBookMark, setBookMark] = useState<boolean>(true);
 
   return (
     <section className="flex flex-col ">
@@ -40,6 +43,7 @@ const BookInfo: FC<BookInfoProps> = (props) => {
                   }
                 >
                   {BookStatusNameByKor[book?.status ?? "PENDING"]}
+<<<<<<< Updated upstream
             </button>
             {hasToken && (
                 <AiOutlineSetting
@@ -60,13 +64,49 @@ const BookInfo: FC<BookInfoProps> = (props) => {
 
               </div>
 
+=======
+                </button>
+              </div>
+              <div className="flex flex-row gap-4">
+                <div className="flex flex-col items-center justify-center">
+                  {!isBookMark ? (
+                    <BsFillBookmarkStarFill
+                      className={`${reactIconStyle}`}
+                      onClick={() => {
+                        setBookMark(!isBookMark);
+                      }}
+                    />
+                  ) : (
+                    <BsBookmark
+                      className={`${reactIconStyle} text-black/50`}
+                      onClick={() => {
+                        setBookMark(!isBookMark);
+                      }}
+                    />
+                  )}
+                  <p className="text-lg text-black/50">
+                    {book?.totalHeartCount ?? -1}
+                  </p>
+                </div>
+                {hasToken && (
+                  <AiOutlineSetting
+                    className="text-4xl cursor-pointer hover:text-main"
+                    onClick={() => {
+                      router.push({
+                        pathname: BOOK_UPDATE_PUBLISH,
+                        query: { bid: book?.id },
+                      });
+                    }}
+                  />
+                )}
+              </div>
+>>>>>>> Stashed changes
             </div>
-            <div className="flex flex-row items-center justify-between w-full gap-2 text-icon">
+            <div className="flex flex-col w-full gap-2 text-icon">
               <p className="w-fit">작가: {book?.nickname}</p>
-              <div className="flex justify-end flex-1 gap-4">
-                <p>평점: {book?.score ?? 0}점</p>
-                <p>좋아요: {book?.totalHeartCount ?? 0}개</p>
-                <p>조회수: {book?.totalViewCount ?? 0}회</p>
+              <div className="flex justify-start flex-1 gap-4">
+                <p>평점: {book?.score ?? -1}점</p>
+                <p>조회수: {book?.totalViewCount ?? -1}회</p>
               </div>
             </div>
             <p className="flex flex-col items-start flex-1 w-full min-h-[150px]">

@@ -42,7 +42,7 @@ const BookOfOne = () => {
         {!episodeList ? (
           <>
             <div className="flex flex-col items-center justify-start w-full gap-2">
-              <h1 className="text-3xl font-bold">등록된 회차가 없지롱</h1>
+              <h1 className="text-3xl font-bold">등록된 회차가 없습니다.</h1>
               <Image
                 src={NotFOUND}
                 alt="회차가 없다는 이미지"
@@ -60,7 +60,11 @@ const BookOfOne = () => {
           />
         )}
 
+<<<<<<< Updated upstream
         <aside className="flex flex-col max-w-[340px] min-w-[340px] p-4 overflow-hidden gap-2">
+=======
+        <aside className="flex flex-col min-w-[340px] p-4 overflow-hidden gap-2 ju">
+>>>>>>> Stashed changes
           <AsideRecommendBooks
             asideTitle="추천작"
             recommendBooks={recommendBooks}

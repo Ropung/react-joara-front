@@ -38,28 +38,31 @@ const GenreNovel: FC<GenreNovelProps> = (Props) => {
             </div>
           </div>
           {/* Novel List */}
-          <ul className="flex flex-row w-full gap-2 overflow-hidden">
+          <ul className="flex flex-row w-full overflow-hidden">
             {books?.bookList?.map((book, index) => (
               <li
                 key={"bookGenreMain" + index}
-                className="w-1/5 cursor-pointer"
+                className="flex flex-col items-center justify-start w-1/5 p-4 cursor-pointer"
                 onClick={() => {
                   router.push({
                     pathname: BOOK + "/" + book.id,
                   });
                 }}
               >
-                <div className="relative flex flex-col w-full">
+                <div className="flex flex-col w-full">
                   <Image
-                    sizes="w-full"
-                    width={40}
-                    height={50}
-                    className="relative w-full"
+                    width={200}
+                    height={300}
                     src={book.coverUrl ? book.coverUrl : PreviewImg}
                     alt="북커버 이미지"
                   />
-                  <p className="w-full drop-shadow-md">{book.title}</p>
+                  <p className="w-full overflow-hidden drop-shadow-md whitespace-nowrap text-ellipsis">
+                    {book.title}
+                  </p>
                   <p className="w-full text-sm drop-shadow-md text-default">
+                    {/* overflow: hidden;
+                  text-overflow: ellipsis;
+                  white-space: nowrap; */}
                     {book.nickname}
                   </p>
                 </div>
