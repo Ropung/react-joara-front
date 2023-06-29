@@ -26,6 +26,7 @@ export const apiBookMultipart = axios.create({
   baseURL: "http://localhost:8090",
   headers: {
     "Content-Type": "multipart/form-data",
+    Accept: "application/json",
     Authorization: `Bearer ${accessToken as string}`,
   },
 });

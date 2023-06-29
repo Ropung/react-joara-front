@@ -1,16 +1,21 @@
-import { BOOK_KEY, FAVORITE_DELETE_KEY } from "@/constants/key";
+import { FAVORITE_DELETE_KEY } from "@/constants/key";
 import API_PATH from "@/constants/path/api";
-import { apiBook, apiBookMultipart } from "@/libs/axios/api";
-import { FavorBookListDetailedRes } from "@/models/books/book";
+import { apiBookMultipart } from "@/libs/axios/api";
+import { FavoriteDeleteReq, FavoriteDeleteRes } from "@/models/books/favorite";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 const { API_FAVORITE_DELETE } = API_PATH;
 
-const favoriteDeleteFetcher = async (bookId: number) => {
-  const { data: result } =
-    await apiBookMultipart.delete<FavorBookListDetailedRes>(
-      `${API_FAVORITE_DELETE}`
-    );
-  return result;
+const favoriteDeleteFetcher = async (reqData: FavoriteDeleteReq) => {
+  const { data } = await apiBookMultipart.delete<FavoriteDeleteRes>(
+    `${API_FAVORITE_DELETE}`,
+    {
+      data: {
+        bookId: reqData.bookId,
+      },
+      // withCredentials: true,
+    }
+  );
+  return data;
 };
 
 export const useFavoriteDeleteMutation = () => {

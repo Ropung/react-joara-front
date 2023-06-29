@@ -9,6 +9,7 @@ import { BookDetailedViewReadModelProps } from "@/models/books/book";
 import { BsBookmark, BsFillBookmarkStarFill } from "react-icons/bs";
 import { useFavoriteDeleteMutation } from "@/hooks/mutation/favorite/useFavoriteDeleteMutation";
 import { useFavoriteCreateMutation } from "@/hooks/mutation/favorite/useFavoriteCreateMutation";
+import { FavoriteCreateReq, FavoriteDeleteReq } from "@/models/books/favorite";
 
 interface BookInfoProps {
   hasToken: boolean;
@@ -59,7 +60,10 @@ const BookInfo: FC<BookInfoProps> = (props) => {
                       className={`${reactIconStyle}`}
                       onClick={() => {
                         if (!book?.id) return;
-                        favoriteCreateMutation.mutate(book?.id);
+                        const reqData: FavoriteDeleteReq = {
+                          bookId: book?.id,
+                        };
+                        favoriteDeleteMutation.mutate(reqData);
                         setBookMark(!isBookMark);
                       }}
                     />
@@ -68,7 +72,11 @@ const BookInfo: FC<BookInfoProps> = (props) => {
                       className={`${reactIconStyle} text-black/50`}
                       onClick={() => {
                         if (!book?.id) return;
-                        favoriteDeleteMutation.mutate(book?.id);
+
+                        const reqData: FavoriteCreateReq = {
+                          bookId: book?.id,
+                        };
+                        favoriteCreateMutation.mutate(reqData);
                         setBookMark(!isBookMark);
                       }}
                     />
