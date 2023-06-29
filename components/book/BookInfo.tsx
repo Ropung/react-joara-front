@@ -20,7 +20,7 @@ const BookInfo: FC<BookInfoProps> = (props) => {
   const reactIconStyle = "cursor-pointer hover:scale-110 text-3xl";
   const { hasToken, setHasToken, book } = props;
   const router = useRouter();
-  const { BOOK_EPISODE_PUBLISH, BOOK_UPDATE_PUBLISH } = Path;
+  const { BOOK_PUBLISH, BOOK_UPDATE_PUBLISH, EPISODE } = Path;
 
   const [isBookMark, setBookMark] = useState<boolean>(true);
 
@@ -36,16 +36,16 @@ const BookInfo: FC<BookInfoProps> = (props) => {
         />
         <section className="flex flex-col items-start flex-1">
           <div className="flex flex-col items-start justify-between w-full min-h-full gap-2">
+            <button
+              className={
+                "px-4 py-2 font-bold transition rounded-md bg-main text-main-contra hover:scale-105 text-sm"
+              }
+            >
+              {BookStatusNameByKor[book?.status ?? "PENDING"]}
+            </button>
             <div className="flex flex-row items-start justify-between w-full">
               <div className="flex flex-row justify-start w-full gap-2">
                 <h1 className="text-3xl font-bold">{book?.title}</h1>
-                <button
-                  className={
-                    "px-2 font-bold transition rounded-md bg-main text-main-contra hover:scale-105 text-sm"
-                  }
-                >
-                  {BookStatusNameByKor[book?.status ?? "PENDING"]}
-                </button>
               </div>
               <div className="flex flex-row gap-4">
                 <div className="flex flex-col items-center justify-center">
@@ -119,8 +119,7 @@ const BookInfo: FC<BookInfoProps> = (props) => {
               className={btnStyle}
               onClick={() => {
                 router.push({
-                  pathname: BOOK_EPISODE_PUBLISH,
-                  // query: { bid: routerQurey.bid },
+                  pathname: `${BOOK_PUBLISH}/${book?.id}/${EPISODE}`,
                 });
               }}
             >
