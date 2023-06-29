@@ -2,11 +2,13 @@ import Path from "@/constants/path/routes";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { Dispatch, FC, SetStateAction, useState } from "react";
-import { AiFillHeart, AiOutlineHeart, AiOutlineSetting } from "react-icons/ai";
+import { AiOutlineSetting } from "react-icons/ai";
 import PreviewImg from "@/public/img/preview.jpg";
 import BookStatusNameByKor from "@/constants/book";
 import { BookDetailedViewReadModelProps } from "@/models/books/book";
 import { BsBookmark, BsFillBookmarkStarFill } from "react-icons/bs";
+import { useFavoriteDeleteMutation } from "@/hooks/mutation/favorite/useFavoriteDeleteMutation";
+import { useFavoriteCreateMutation } from "@/hooks/mutation/favorite/useFavoriteCreateMutation";
 
 interface BookInfoProps {
   hasToken: boolean;
@@ -23,6 +25,9 @@ const BookInfo: FC<BookInfoProps> = (props) => {
   const { BOOK_PUBLISH, BOOK_UPDATE_PUBLISH, EPISODE } = Path;
 
   const [isBookMark, setBookMark] = useState<boolean>(true);
+
+  const favoriteCreateMutation = useFavoriteCreateMutation();
+  const favoriteDeleteMutation = useFavoriteDeleteMutation();
 
   return (
     <section className="flex flex-col ">
@@ -53,6 +58,8 @@ const BookInfo: FC<BookInfoProps> = (props) => {
                     <BsFillBookmarkStarFill
                       className={`${reactIconStyle}`}
                       onClick={() => {
+                        if (!book?.id) return;
+                        favoriteCreateMutation.mutate(book?.id);
                         setBookMark(!isBookMark);
                       }}
                     />
@@ -60,6 +67,8 @@ const BookInfo: FC<BookInfoProps> = (props) => {
                     <BsBookmark
                       className={`${reactIconStyle} text-black/50`}
                       onClick={() => {
+                        if (!book?.id) return;
+                        favoriteDeleteMutation.mutate(book?.id);
                         setBookMark(!isBookMark);
                       }}
                     />

@@ -1,13 +1,7 @@
-import { BOOK_KEY, BOOK_UPDATE_KEY } from "@/constants/key";
+import { BOOK_KEY } from "@/constants/key";
 import API_PATH from "@/constants/path/api";
-import Path from "@/constants/path/routes";
-import { apiBook, apiBookMultipart } from "@/libs/axios/api";
-import {
-  BookDeleteRes,
-  BookUpdateReq,
-  BookUpdateRes,
-  FavorBookListDetailedRes,
-} from "@/models/books/book";
+import { apiBook } from "@/libs/axios/api";
+import { FavorBookListDetailedRes } from "@/models/books/book";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 const { API_FAVORITE_DELETE } = API_PATH;
 
