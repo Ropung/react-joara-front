@@ -36,16 +36,15 @@ const BookInfo: FC<BookInfoProps> = (props) => {
         />
         <section className="flex flex-col items-start flex-1">
           <div className="flex flex-col items-start justify-between w-full min-h-full gap-2">
-            <div className="w-full flex flex-row justify-between items-centera">
-            <button
-                  className={
-                    "px-4 py-2 font-bold transition rounded-md bg-main text-main-contra hover:scale-105 text-sm"
-                  }
-                >
-                  {BookStatusNameByKor[book?.status ?? "PENDING"]}
-<<<<<<< Updated upstream
-            </button>
-            {hasToken && (
+            <div className="flex flex-row justify-between w-full items-centera">
+              <button
+                className={
+                  "px-4 py-2 font-bold transition rounded-md bg-main text-main-contra hover:scale-105 text-sm"
+                }
+              >
+                {BookStatusNameByKor[book?.status ?? "PENDING"]}
+              </button>
+              {hasToken && (
                 <AiOutlineSetting
                   className="text-3xl cursor-pointer hover:text-main"
                   onClick={() => {
@@ -56,51 +55,11 @@ const BookInfo: FC<BookInfoProps> = (props) => {
                   }}
                 />
               )}
-              </div>
+            </div>
             <div className="flex flex-row items-start justify-between w-full">
-
               <div className="flex flex-row justify-start w-full gap-2">
                 <h1 className="text-3xl font-bold">{book?.title}</h1>
-
               </div>
-
-=======
-                </button>
-              </div>
-              <div className="flex flex-row gap-4">
-                <div className="flex flex-col items-center justify-center">
-                  {!isBookMark ? (
-                    <BsFillBookmarkStarFill
-                      className={`${reactIconStyle}`}
-                      onClick={() => {
-                        setBookMark(!isBookMark);
-                      }}
-                    />
-                  ) : (
-                    <BsBookmark
-                      className={`${reactIconStyle} text-black/50`}
-                      onClick={() => {
-                        setBookMark(!isBookMark);
-                      }}
-                    />
-                  )}
-                  <p className="text-lg text-black/50">
-                    {book?.totalHeartCount ?? -1}
-                  </p>
-                </div>
-                {hasToken && (
-                  <AiOutlineSetting
-                    className="text-4xl cursor-pointer hover:text-main"
-                    onClick={() => {
-                      router.push({
-                        pathname: BOOK_UPDATE_PUBLISH,
-                        query: { bid: book?.id },
-                      });
-                    }}
-                  />
-                )}
-              </div>
->>>>>>> Stashed changes
             </div>
             <div className="flex flex-col w-full gap-2 text-icon">
               <p className="w-fit">작가: {book?.nickname}</p>
