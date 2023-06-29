@@ -14,7 +14,7 @@ const BookFavoriteContainer = () => {
       <section className="flex flex-row items-center justify-between">
         <h1 className="text-2xl font-bold">내 선호작</h1>
         <div className="flex flex-row items-center justify-between">
-          <BookStatusList />
+          <BookStatusList allCount={memberFavorBookList?.length} />
         </div>
       </section>
 
