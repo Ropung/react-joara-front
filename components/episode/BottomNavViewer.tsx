@@ -13,29 +13,40 @@ import { BsBookmarkStar } from "react-icons/bs";
 import { VscListUnordered } from "react-icons/vsc";
 
 interface BottomNavViewerProps {
+  episodeId?: string;
   episodeSize: number;
 }
 
-const BottomNavViewer: FC<BottomNavViewerProps> = ({ episodeSize }) => {
+const BottomNavViewer: FC<BottomNavViewerProps> = ({
+  episodeSize,
+  episodeId,
+}) => {
   const { BOOK, EPISODE, BOOK_ONE } = Path;
   const router = useRouter();
-  const routerQuery = router.query as { [key in SomeIdUnion]: string };
+  const { bid, eid } = router.query as { [key in SomeIdUnion]: string };
 
   return (
     <nav className="w-screen fixed bottom-0 right-0 left-0 z-[100] h-20 bg-main bg-opacity-80 select-none px-8 border-b shadow-md">
       <div className="grid items-center w-full h-full grid-cols-3 px-8">
         <div className="w-full col-span-1">
           <div className="flex items-center justify-start w-full gap-2 text-5xl">
-            <AiOutlineLike className="cursor-pointer" />
-            <BsBookmarkStar className="cursor-pointer" />
-            <AiOutlineComment className="cursor-pointer" />
+            <AiOutlineLike className="cursor-pointer hover:scale-110" />
+            <BsBookmarkStar className="cursor-pointer hover:scale-110" />
+            <AiOutlineComment
+              className="cursor-pointer hover:scale-110"
+              onClick={() => {
+                router.push({
+                  pathname: `/books/${bid}/episode/${episodeId}/comment`,
+                });
+              }}
+            />
           </div>
         </div>
         <div className="w-full col-span-1">
           {episodeSize === 1 ? (
             <div className="flex items-center justify-center w-full gap-4">
               <Link
-                href={`${BOOK}/${routerQuery.bid}`}
+                href={`${BOOK}/${bid}`}
                 className="px-4 py-2 text-lg font-bold cursor-pointer bg-main rounded-xl hover:scale-110 hover:animate-bounce"
               >
                 목록으로
@@ -46,17 +57,17 @@ const BottomNavViewer: FC<BottomNavViewerProps> = ({ episodeSize }) => {
               <AiFillLeftCircle
                 className="text-4xl cursor-pointer hover:scale-125 hover:animate-spin"
                 onClick={() => {
-                  1 < Number(routerQuery.eid)
+                  1 < Number(eid)
                     ? router.push({
-                        pathname: `${BOOK}/${Number(
-                          routerQuery.bid
-                        )}/${EPISODE}/${Number(routerQuery.eid) - 1}`,
+                        pathname: `/${BOOK}/${Number(bid)}/${EPISODE}/${
+                          Number(eid) - 1
+                        }`,
                       })
                     : alert("첫화 입니다.");
                 }}
               />
               <Link
-                href={`${BOOK}/${routerQuery.bid}`}
+                href={`${BOOK}/${bid}`}
                 className="px-4 py-2 text-lg font-bold cursor-pointer bg-main rounded-xl hover:scale-110 hover:animate-bounce"
               >
                 목록으로
@@ -64,11 +75,11 @@ const BottomNavViewer: FC<BottomNavViewerProps> = ({ episodeSize }) => {
               <AiFillRightCircle
                 className="text-4xl cursor-pointer hover:scale-125 hover:animate-spin"
                 onClick={() => {
-                  episodeSize > Number(routerQuery.eid)
+                  episodeSize > Number(eid)
                     ? router.push({
-                        pathname: `${BOOK}/${Number(
-                          routerQuery.bid
-                        )}/${EPISODE}/${Number(routerQuery.eid) + 1}`,
+                        pathname: `${BOOK}/${Number(bid)}/${EPISODE}/${
+                          Number(eid) + 1
+                        }`,
                       })
                     : alert("마지막화 입니다.");
                 }}

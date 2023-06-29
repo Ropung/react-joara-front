@@ -33,6 +33,7 @@ export interface EpisodeDeleteRes {
 
 // Episode
 export interface EpisodeReadRes {
+  id?: string;
   bookTitle?: string;
   epiTitle?: string;
   content?: string;

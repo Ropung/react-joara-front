@@ -13,6 +13,11 @@ const favoriteDeleteFetcher = async (reqData: FavoriteDeleteReq) => {
       //  withCredentials: true,
     }
   );
+
+  data
+    ? alert("선호작 취소요청이 되었습니다.")
+    : alert("선호작 취소가 실패하였습니다.");
+
   return data;
 };
 

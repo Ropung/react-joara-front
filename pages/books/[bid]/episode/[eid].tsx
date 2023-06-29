@@ -14,17 +14,17 @@ const Episode = () => {
   const routerQuery = router.query as { [key in SomeIdUnion]: string };
 
   const { data: { book } = {} } = useBookOfOneQuery(Number(routerQuery.bid));
-  const { data: { bookTitle, content, epiTitle } = {} } = useEpisodeOfOneQuery(
-    Number(routerQuery.bid),
-    Number(routerQuery.eid)
-  );
-
+  const { data: { bookTitle, content, epiTitle, id, quote } = {} } =
+    useEpisodeOfOneQuery(Number(routerQuery.bid), Number(routerQuery.eid));
   return (
     <>
       {onNavi && (
         <>
           <TopNavViewer bookTitle={bookTitle} epiTitle={epiTitle} />
-          <BottomNavViewer episodeSize={book?.episodeSize ?? 0} />
+          <BottomNavViewer
+            episodeId={id}
+            episodeSize={book?.episodeSize ?? 0}
+          />
         </>
       )}
       <section
