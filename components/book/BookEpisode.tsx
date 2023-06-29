@@ -15,11 +15,11 @@ const BookEpisode: FC<BookInfoProps> = (props) => {
   const dummyList: number[] = [1, 2, 3, 4, 5];
   const router = useRouter();
 
-  const routerQuery = router.query as { [key in SomeIdUnion]: string };
-
   const { hasToken, setHasToken, episodeList, episodeSize } = props;
 
   const { BOOK, EPISODE_UPDATE, EPISODE } = Path;
+
+  // console.log(episodeList);
 
   return (
     <section className="flex flex-col flex-1 gap-4">
@@ -36,7 +36,7 @@ const BookEpisode: FC<BookInfoProps> = (props) => {
       {/* 에피소드 List */}
       <section className="flex flex-col items-center justify-between gap-4 p-4 bg-white border rounded-xl">
         <ul className="flex flex-col flex-1 w-full divide-y">
-          {episodeList?.map((epi, index) => {
+          {episodeList?.map((epi) => {
             return (
               <li
                 key={"episode-" + epi.id}
@@ -58,17 +58,28 @@ const BookEpisode: FC<BookInfoProps> = (props) => {
                     <p>{epi.status}</p>
                   </div>
                   {hasToken && (
-                    <button
-                      className="px-4 py-2 rounded-md bg-primary text-main-contra hover:bg-primary-active"
-                      onClick={() => {
-                        router.push({
-                          pathname: EPISODE_UPDATE,
-                          query: { bid: epi.bookId, eid: routerQuery.eid },
-                        });
-                      }}
-                    >
-                      수정
-                    </button>
+                    <div className="flex flex-row gap-2">
+                      <button
+                        className="px-4 py-2 rounded-md bg-primary text-main-contra hover:bg-primary-active"
+                        onClick={() => {
+                          router.push(
+                            `/publish/${epi.bookId}/episode/${epi.id}`
+                          );
+                        }}
+                      >
+                        수정
+                      </button>
+                      <button
+                        className="px-4 py-2 rounded-md bg-danger text-main-contra hover:bg-danger-active"
+                        onClick={() => {
+                          router.push({
+                            //
+                          });
+                        }}
+                      >
+                        삭제
+                      </button>
+                    </div>
                   )}
                 </div>
 

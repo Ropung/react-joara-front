@@ -136,7 +136,7 @@ const BookInfo: FC<BookInfoProps> = (props) => {
               className={btnStyle}
               onClick={() => {
                 router.push({
-                  pathname: `${BOOK_PUBLISH}/${book?.id}/${EPISODE}`,
+                  pathname: `${BOOK_PUBLISH}/${book?.id}/episode`,
                 });
               }}
             >
