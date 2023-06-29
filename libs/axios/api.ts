@@ -7,7 +7,8 @@ const apiAuth = axios.create({
   baseURL: "http://localhost:8080",
   headers: {
     "Content-Type": "application/json",
-    Authorization: `Bearer ${accessToken}`,
+    Accept: "application/json",
+    Authorization: `Bearer ${accessToken as string}`,
   },
 });
 export default apiAuth;
@@ -16,7 +17,8 @@ export const apiBook = axios.create({
   baseURL: "http://localhost:8090",
   headers: {
     "Content-Type": "application/json",
-    Authorization: `Bearer ${accessToken}`,
+    Accept: "application/json",
+    Authorization: `Bearer ${accessToken as string}`,
   },
 });
 
@@ -24,7 +26,7 @@ export const apiBookMultipart = axios.create({
   baseURL: "http://localhost:8090",
   headers: {
     "Content-Type": "multipart/form-data",
-    Authorization: `Bearer ${accessToken}`,
+    Authorization: `Bearer ${accessToken as string}`,
   },
 });
 
