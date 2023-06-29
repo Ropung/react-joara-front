@@ -16,6 +16,7 @@ const Episode = () => {
   const { data: { book } = {} } = useBookOfOneQuery(Number(routerQuery.bid));
   const { data: { bookTitle, content, epiTitle, id, quote } = {} } =
     useEpisodeOfOneQuery(Number(routerQuery.bid), Number(routerQuery.eid));
+
   return (
     <>
       {onNavi && (

@@ -30,6 +30,8 @@ const BookCreateForm = () => {
   const [genreNameList, setGenreNameList] = useState<string[]>([]);
   const [genreIdList, setGenreIdList] = useState<number[]>([]);
 
+  const { data: { genres } = {} } = useGenresQuery();
+
   useEffect(() => {
     if (coverImages && coverImages.length > 0) {
       setPhotoUrl(URL.createObjectURL(coverImages[0]));
@@ -46,16 +48,14 @@ const BookCreateForm = () => {
     }) as number[];
 
     setGenreIdList(genreIds);
-  }, [genreNameList]);
-
-  const { data: { genres } = {} } = useGenresQuery();
+  }, [genreNameList, genres]);
 
   return (
     <form
       className="flex flex-col w-full gap-4 p-8 bg-white rounded-md shadow-md"
       encType="multipart/form-data"
       onSubmit={handleSubmit((data) => {
-        const { coverImages, genreIdList: _no_use, ...restData } = data;
+        const { coverImages, ...restData } = data;
 
         if (!genreIdList?.length) return alert("장르를 선택해주세요!");
 
@@ -113,7 +113,7 @@ const BookCreateForm = () => {
               target.value = target.value.trim();
 
               // if spacebar is pressed
-              const isSpaceDown = event.key === " ";
+              const isSpaceDown = event.key === "enter";
               // and value is one of the valid genre names:
               const isOneOfGenreName = genres
                 ?.map(({ kor }) => kor)

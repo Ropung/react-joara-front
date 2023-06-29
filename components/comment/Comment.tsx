@@ -1,33 +1,69 @@
-import { useState, useRef, MutableRefObject } from "react";
+import {
+  useState,
+  useRef,
+  MutableRefObject,
+  ChangeEvent,
+  useEffect,
+} from "react";
 import Path from "@/constants/path/routes";
 import { useRouter } from "next/router";
 import CommentItem from "./widgets/CommentItem";
 import { SomeIdUnion } from "@/models/type";
+import { useCommentCreateMutation } from "@/hooks/mutation/comment/useCommentCreateMutation";
+import { useCommentUpdateMutation } from "@/hooks/mutation/comment/useCommentUpdateMutation";
+import { useCommentDeleteMutation } from "@/hooks/mutation/comment/useCommentDeleteMutation";
+import { CommentCreateReq } from "@/models/books/comment";
+import useCommentsQuery from "@/hooks/query/comment/useCommentsQuery ";
+import { Size } from "@/constants/genre";
 
 const Comment = () => {
   const router = useRouter();
   const {} = Path;
 
+  const [commentValue, setCommentValue] = useState<CommentCreateReq>({});
+
   const { bid, eid } = router.query as { [key in SomeIdUnion]: string };
   const commentCreateRef = useRef<HTMLTextAreaElement>(null);
 
-  // const { mutate: episodeDeleteMutation } = useEpisodeDeleteMutation();
+  const { data: { commentList, lastPage } = {} } = useCommentsQuery(
+    Number(bid),
+    eid,
+    Size.TEN,
+    1
+  );
+  const { mutate: commentCreateMutation } = useCommentCreateMutation();
+  const { mutate: commentUpdateMutation } = useCommentUpdateMutation();
+  const { mutate: commentDeleteMutation } = useCommentDeleteMutation();
 
-  // const handleSubmit = () => {
-  //   if (!bid || !eid) return;
-  //   episodeDeleteMutation(
-  //     { bid: Number(bid), eid },
-  //     {
-  //       onSuccess: () => {
-  //         alert("삭제 되었습니다.");
-  //         router.push(`${BOOK}/${bid}`);
-  //       },
-  //       onError: (e) => {
-  //         alert(e);
-  //       },
-  //     }
-  //   );
-  // };
+  console.log(commentList);
+
+  const handleCreateSubmit = () => {
+    if (!bid || !eid || !commentValue)
+      throw new Error("내용이 비었거나 잘못된 요청입니다.");
+    commentCreateMutation(
+      { bookId: Number(bid), episodeId: eid, commentValue },
+      {
+        onSuccess: () => {
+          if (commentCreateRef.current) {
+            commentCreateRef.current.value = "";
+          }
+        },
+        onError: (e) => {
+          alert(e);
+        },
+      }
+    );
+  };
+
+  const handleCommentValueChange = (evt: ChangeEvent<HTMLTextAreaElement>) => {
+    const val = evt.target?.value;
+    const id = evt.target?.id;
+
+    setCommentValue((prevEpiValue: CommentCreateReq) => ({
+      ...prevEpiValue,
+      [id]: val,
+    }));
+  };
 
   return (
     <section className="flex flex-col w-full gap-4">
@@ -41,10 +77,13 @@ const Comment = () => {
           className="flex-auto w-full px-2 py-1 text-sm border rounded-sm focus:outline-none focus:border-main rounded-l-md"
           ref={commentCreateRef}
           placeholder="댓글을 입력해주세요."
+          onChange={(e) => {
+            handleCommentValueChange(e);
+          }}
         />
         <button
           className="basis-[120px] shrink-0 border-black rounded-xl bg-main/50 hover:bg-main font-bold"
-          // onClick={}
+          onClick={handleCreateSubmit}
         >
           댓글 쓰기
         </button>

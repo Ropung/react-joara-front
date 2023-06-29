@@ -14,6 +14,7 @@ export const BOOK_DELETE_KEY = "book_delete";
 export const FAVORITE_KEY = "book_favorite";
 export const FAVORITE_CREATE_KEY = "book_favorite_create";
 export const FAVORITE_DELETE_KEY = "book_favorite_delete";
+
 // Recommend
 export const BOOK_RECOMMEND_KEY = "book_recommend";
 
@@ -22,3 +23,9 @@ export const EPISODE_KEY = "episode";
 export const EPISODE_CREATE_KEY = "episode_create";
 export const EPISODE_UPDATE_KEY = "episode_update";
 export const EPISODE_DELETE_KEY = "episode_delete";
+
+// Comment
+export const COMMENT_KEY = "comment";
+export const COMMENT_CREATE_KEY = "comment_create";
+export const COMMENT_UPDATE_KEY = "comment_update";
+export const COMMENT_DELETE_KEY = "comment_delete";
