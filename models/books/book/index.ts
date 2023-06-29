@@ -24,7 +24,7 @@ export type BookUpdateReq = Omit<
   BookUpdateFormProps,
   "genreIdList" | "coverImages"
 > & {
-  genreIdList?: string;
+  genreIdList?: number[];
   coverImage?: File;
   bookId?: number;
 };

@@ -13,7 +13,8 @@ const { BOOK_ME } = Path;
 
 const bookDeleteFetcher = async (bookId: number) => {
   const { data: result } = await apiBook.delete<BookDeleteRes>(
-    `${API_BOOK_DELETE}/${bookId}`
+    API_BOOK_DELETE,
+    { data: { bookId } }
   );
   return result;
 };

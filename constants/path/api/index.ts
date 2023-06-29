@@ -18,26 +18,26 @@ const API_PATH = {
   API_BOOK_RECOMMEND: "/recommend",
 
   API_BOOK_CREATE: "/books",
-  API_BOOK_UPDATE: "/books/",
-  API_BOOK_DELETE: "/books/",
+  API_BOOK_UPDATE: "/books",
+  API_BOOK_DELETE: "/books",
 
   // Episodes
   API_EPISODE: "/episode",
   API_EPISODE_CREATE: "/episode",
-  API_EPISODE_UPDATE: "/episode/",
-  API_EPISODE_DELETE: "/episode/",
+  API_EPISODE_UPDATE: "/episode",
+  API_EPISODE_DELETE: "/episode",
 
   // Comment
   API_COMMENT: "/comment",
   API_COMMENT_CREATE: "/comment",
-  API_COMMENT_UPDATE: "/comment/",
-  API_COMMENT_DELETE: "/comment/",
+  API_COMMENT_UPDATE: "/comment",
+  API_COMMENT_DELETE: "/comment",
 
   // Reply
   API_REPLY: "/reply",
   API_REPLY_CREATE: "/reply",
-  API_REPLY_UPDATE: "/reply/",
-  API_REPLY_DELETE: "/reply/",
+  API_REPLY_UPDATE: "/reply",
+  API_REPLY_DELETE: "/reply",
 
   // Favorite
   API_FAVORITE: "/favorite",

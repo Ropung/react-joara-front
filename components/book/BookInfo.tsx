@@ -82,7 +82,7 @@ const BookInfo: FC<BookInfoProps> = (props) => {
                     />
                   )}
                   <p className="text-lg text-black/50">
-                    {book?.totalHeartCount ?? -1}
+                    {(book?.totalHeartCount ?? -1) + (!isBookMark ? 1 : 0)}
                   </p>
                 </div>
                 {hasToken && (

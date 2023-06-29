@@ -18,7 +18,7 @@ export const apiBook = axios.create({
   headers: {
     "Content-Type": "application/json",
     Accept: "application/json",
-    Authorization: `Bearer ${accessToken as string}`,
+    Authorization: `Bearer ${accessToken}`,
   },
 });
 
@@ -27,7 +27,7 @@ export const apiBookMultipart = axios.create({
   headers: {
     "Content-Type": "multipart/form-data",
     Accept: "application/json",
-    Authorization: `Bearer ${accessToken as string}`,
+    Authorization: `Bearer ${accessToken}`,
   },
 });
 

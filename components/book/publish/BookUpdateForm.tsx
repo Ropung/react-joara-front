@@ -6,12 +6,14 @@ import { useForm } from "react-hook-form";
 import { IoCloseCircle } from "react-icons/io5";
 import { BookCreateUseFormProps } from "@/models/form";
 import useGenresQuery from "@/hooks/query/genre/useGenresQuery";
-import { BookCreateReq, BookUpdateReq } from "@/models/books/book";
+import { BookUpdateReq } from "@/models/books/book";
 import { useRouter } from "next/router";
 import { SomeIdUnion } from "@/models/type";
 import BaseImg from "@/public/img/preview.jpg";
 import useBookOfOneQuery from "@/hooks/query/book/useBookOfOneQuery";
 import { useBookUpdateMutation } from "@/hooks/mutation/book/useBookUpdateMutation";
+import { useBookDeleteMutation } from "@/hooks/mutation/book/useBookDeleteMutation";
+import Path from "@/constants/path/routes";
 
 const BookUpdateForm = () => {
   const {
@@ -21,6 +23,11 @@ const BookUpdateForm = () => {
     formState: { isSubmitting, errors },
   } = useForm<BookCreateUseFormProps>({ mode: "onChange" });
 
+  const router = useRouter();
+  const routerQuery = router.query as { [key in SomeIdUnion]: string };
+
+  const { HOME } = Path;
+
   const [photoUrl, setPhotoUrl] = useState("");
   const [genreNameList, setGenreNameList] = useState<string[]>([]);
   const [genreIdList, setGenreIdList] = useState<number[]>([]);
@@ -28,11 +35,31 @@ const BookUpdateForm = () => {
   const COVER_IMAGES = "coverImages";
   const coverImages = watch(COVER_IMAGES);
 
+  const bookUpdateMutation = useBookUpdateMutation();
+  const { mutate: bookDeleteMutation } = useBookDeleteMutation();
+  const handleBookDelete = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
+    if (!routerQuery.bid) return;
+
+    bookDeleteMutation(Number(routerQuery.bid), {
+      onSuccess: () => {
+        router.push(HOME);
+      },
+      onError: (e) => {
+        alert(e);
+      },
+    });
+  };
   useEffect(() => {
     if (coverImages && coverImages.length > 0) {
       setPhotoUrl(URL.createObjectURL(coverImages[0]));
     }
   }, [coverImages]);
+
+  const { data: { genres } = {} } = useGenresQuery();
+  const { data: { book } = {} } = useBookOfOneQuery(Number(routerQuery.bid));
 
   useEffect(() => {
     const selectedGenres = genres?.filter(({ kor }) =>
@@ -42,20 +69,12 @@ const BookUpdateForm = () => {
       if (id == null) throw new Error("Some genre has no id.");
       return id;
     }) as number[];
-
     setGenreIdList(genreIds);
-  }, [genreNameList]);
-
-  const router = useRouter();
-  const routerQuery = router.query as { [key in SomeIdUnion]: string };
-
-  const { data: { genres } = {} } = useGenresQuery();
-  const { data: { book } = {} } = useBookOfOneQuery(Number(routerQuery.bid));
-  const bookMutation = useBookUpdateMutation();
+  }, [genreNameList, genres]);
 
   useEffect(() => {
     setGenreNameList(book?.genreNameList ?? []);
-  }, []);
+  }, [book]);
 
   return (
     <form
@@ -63,16 +82,16 @@ const BookUpdateForm = () => {
       encType="multipart/form-data"
       onSubmit={handleSubmit((data) => {
         if (!genreIdList?.length) return alert("장르를 선택해주세요!");
-        const { coverImages, genreIdList: _no_use, ...restData } = data;
+        const { coverImages, ...restData } = data;
 
         const bookUpdateFormReq: BookUpdateReq = {
           ...restData,
           bookId: Number(routerQuery.bid),
-          genreIdList: `${genreIdList}`,
+          genreIdList: genreIdList,
           // coverImage: coverImages?.item(0) ?? undefined,
           coverImage: coverImages && coverImages[0],
         };
-        bookMutation.mutate(bookUpdateFormReq);
+        bookUpdateMutation.mutate(bookUpdateFormReq);
       })}
     >
       <section className="flex flex-row items-center justify-between w-full">
@@ -91,23 +110,25 @@ const BookUpdateForm = () => {
         >
           <p className="w-[15%] font-bold">장르</p>
           <ul className="flex flex-row gap-2">
-            {genreNameList.map((genreName) => (
-              <li
-                key={`genre-name-${genreName}`}
-                className="flex flex-row items-center justify-center gap-2 px-2 py-1 text-white border bg-main rounded-xl"
-              >
-                <p>{genreName}</p>
-                <IoCloseCircle
-                  className="text-white/30 hover:text-white"
-                  onClick={() => {
-                    const newGenreNameList = genreNameList.filter(
-                      (eachGenreName) => eachGenreName !== genreName
-                    );
-                    setGenreNameList(newGenreNameList);
-                  }}
-                />
-              </li>
-            ))}
+            {genreNameList?.map((genreName) => {
+              return (
+                <li
+                  key={`genre-name-${genreName}`}
+                  className="flex flex-row items-center justify-center gap-2 px-2 py-1 text-white border bg-main rounded-xl"
+                >
+                  <p>{genreName}</p>
+                  <IoCloseCircle
+                    className="text-white/30 hover:text-white"
+                    onClick={() => {
+                      const newGenreNameList = genreNameList.filter(
+                        (eachGenreName) => eachGenreName !== genreName
+                      );
+                      setGenreNameList(newGenreNameList);
+                    }}
+                  />
+                </li>
+              );
+            })}
           </ul>
           <input type="hidden" className="border" value={`${genreIdList}`} />
           <input
@@ -248,13 +269,21 @@ const BookUpdateForm = () => {
             </section>
           </section>
         </fieldset>
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="px-6 py-4 font-bold border shadow-md rounded-xl hover:text-main-contra bg-main text-main-contra hover:bg-black"
-        >
-          작품 수정하기
-        </button>
+        <div className="flex gap-2 flew-row">
+          <button
+            className="px-6 py-4 font-bold text-black bg-white border shadow-md rounded-xl hover:text-main-contra hover:bg-main"
+            onClick={(e) => handleBookDelete(e)}
+          >
+            삭제하기
+          </button>
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="px-6 py-4 font-bold border shadow-md rounded-xl hover:text-main-contra bg-main text-main-contra hover:bg-black"
+          >
+            수정하기
+          </button>
+        </div>
       </div>
     </form>
   );

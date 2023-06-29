@@ -9,10 +9,8 @@ const favoriteDeleteFetcher = async (reqData: FavoriteDeleteReq) => {
   const { data } = await apiBookMultipart.delete<FavoriteDeleteRes>(
     `${API_FAVORITE_DELETE}`,
     {
-      data: {
-        bookId: reqData.bookId,
-      },
-      // withCredentials: true,
+      data: reqData,
+      //  withCredentials: true,
     }
   );
   return data;

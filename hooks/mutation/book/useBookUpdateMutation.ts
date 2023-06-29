@@ -1,19 +1,19 @@
 import { BOOK_KEY } from "@/constants/key";
 import API_PATH from "@/constants/path/api";
 import Path from "@/constants/path/routes";
-import { apiBookMultipart } from "@/libs/axios/api";
+import { apiBook } from "@/libs/axios/api";
 import { BookUpdateReq, BookUpdateRes } from "@/models/books/book";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 const { API_BOOK_UPDATE } = API_PATH;
-const { BOOK_ME } = Path;
+const { BOOK } = Path;
 
 const bookUpdateFetcher = (reqData: BookUpdateReq) => {
-  return apiBookMultipart
-    .put<BookUpdateRes>(API_BOOK_UPDATE + reqData.bookId, reqData)
+  return apiBook
+    .put<BookUpdateRes>(API_BOOK_UPDATE, reqData)
     .then(({ data }) => {
       if (data.success) {
         alert("책이 성공적으로 수정되었습니다.");
-        window.location.href = BOOK_ME;
+        window.location.href = `${BOOK}/${reqData.bookId}`;
       } else alert("수정에 실패했습니다. ");
     })
     .catch(console.error);
