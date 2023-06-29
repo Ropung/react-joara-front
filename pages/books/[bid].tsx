@@ -60,7 +60,7 @@ const BookOfOne = () => {
           />
         )}
 
-        <aside className="flex flex-col min-w-[340px] p-4 overflow-hidden gap-2">
+        <aside className="flex flex-col max-w-[340px] min-w-[340px] p-4 overflow-hidden gap-2">
           <AsideRecommendBooks
             asideTitle="추천작"
             recommendBooks={recommendBooks}

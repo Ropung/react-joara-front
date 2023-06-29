@@ -25,26 +25,23 @@ const BookInfo: FC<BookInfoProps> = (props) => {
     <section className="flex flex-col ">
       <div className="flex flex-row items-start justify-between w-full gap-8 py-4">
         <Image
-          width={150}
-          height={200}
-          className="w-[25%]"
+          width={250}
+          height={375}
+          className="min-w-[250px] max-w-[250px] min-h-[375px] max-h-[375px]"
           src={book?.coverUrl ? book?.coverUrl : PreviewImg}
           alt={book?.title + "표지 이미지"}
         />
         <section className="flex flex-col items-start flex-1">
           <div className="flex flex-col items-start justify-between w-full min-h-full gap-2">
-            <div className="flex flex-row items-start justify-between w-full">
-              <div className="flex flex-row justify-start w-full gap-2">
-                <h1 className="text-3xl font-bold">{book?.title}</h1>
-                <button
+            <div className="w-full flex flex-row justify-between items-centera">
+            <button
                   className={
-                    "px-2 font-bold transition rounded-md bg-main text-main-contra hover:scale-105 text-sm"
+                    "px-4 py-2 font-bold transition rounded-md bg-main text-main-contra hover:scale-105 text-sm"
                   }
                 >
                   {BookStatusNameByKor[book?.status ?? "PENDING"]}
-                </button>
-              </div>
-              {hasToken && (
+            </button>
+            {hasToken && (
                 <AiOutlineSetting
                   className="text-3xl cursor-pointer hover:text-main"
                   onClick={() => {
@@ -55,6 +52,14 @@ const BookInfo: FC<BookInfoProps> = (props) => {
                   }}
                 />
               )}
+              </div>
+            <div className="flex flex-row items-start justify-between w-full">
+
+              <div className="flex flex-row justify-start w-full gap-2">
+                <h1 className="text-3xl font-bold">{book?.title}</h1>
+
+              </div>
+
             </div>
             <div className="flex flex-row items-center justify-between w-full gap-2 text-icon">
               <p className="w-fit">작가: {book?.nickname}</p>
