@@ -39,23 +39,26 @@ const BookFavoriteList: FC<BookFavoriteListProps> = ({
               <div className="flex justify-between w-full">
                 <div className="flex flex-col items-start justify-start">
                   <p className="flex flex-row items-center gap-2 font-bold">
-                    <span className="text-xl ">{"소설제목"}</span>
-                    <span className="text-main">{"작가이름"}</span>
+                    <span className="text-xl ">{favorBook.bookTitle}</span>
+                    <span className="text-main">{favorBook.nickname}</span>
                   </p>
                   <p className="flex flex-row gap-1 text-default">
-                    <span>{"조회수"}</span>
-                    <span>{"좋아효"}</span>
-                    <span>{"장르"}</span>
-                    <span>{"일자"}</span>
+                    <span>{favorBook.createdAt}</span>
                   </p>
                 </div>
-                <AiOutlineSetting className="text-3xl text-default hover:text-main" />
               </div>
 
               <ul className="flex flex-row items-center justify-start gap-2">
-                <li className="px-4 py-1 text-sm border rounded-md hover:bg-main hover:text-main-contra">
-                  {"태그"}
-                </li>
+                {favorBook.genreIdList.map((genreId) => {
+                  return (
+                    <li
+                      key={`favorite-genre-${genreId}`}
+                      className="px-4 py-1 text-sm border rounded-md hover:bg-main hover:text-main-contra"
+                    >
+                      {genreId}
+                    </li>
+                  );
+                })}
               </ul>
             </section>
           </li>
