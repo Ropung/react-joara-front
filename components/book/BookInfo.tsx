@@ -36,15 +36,15 @@ const BookInfo: FC<BookInfoProps> = (props) => {
         />
         <section className="flex flex-col items-start flex-1">
           <div className="flex flex-col items-start justify-between w-full min-h-full gap-2">
-            <button
-              className={
-                "px-4 py-2 font-bold transition rounded-md bg-main text-main-contra hover:scale-105 text-sm"
-              }
-            >
-              {BookStatusNameByKor[book?.status ?? "PENDING"]}
-            </button>
             <div className="flex flex-row items-start justify-between w-full">
               <div className="flex flex-row justify-start w-full gap-2">
+                <button
+                  className={
+                    "px-4 py-2 font-bold transition rounded-md bg-main text-main-contra hover:scale-105 text-sm"
+                  }
+                >
+                  {BookStatusNameByKor[book?.status ?? "PENDING"]}
+                </button>
                 <h1 className="text-3xl font-bold">{book?.title}</h1>
               </div>
               <div className="flex flex-row gap-4">

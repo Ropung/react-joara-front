@@ -39,6 +39,11 @@ const API_PATH = {
   API_REPLY_UPDATE: "/reply/",
   API_REPLY_DELETE: "/reply/",
 
+  // Favorite
+  API_FAVORITE: "/favorite",
+  API_FAVORITE_CREATE: "/books/favorite",
+  API_FAVORITE_DELETE: "/books/favorite",
+
   // API_CREATE_PROFILE_IMAGE: "/users/img",
   // API_UPDATE_USER_INFO: "/users/update",
   // API_UPDATE_PROFILE_IMAGE: "/users/img/update",

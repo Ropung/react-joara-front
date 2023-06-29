@@ -28,7 +28,7 @@ export type BookUpdateReq = Omit<
   coverImage?: File;
   bookId?: number;
 };
-export interface BookCreateResponse {
+export interface BookCreateRes {
   success: boolean;
 }
 export interface BookUpdateRes {

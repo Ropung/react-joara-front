@@ -1,28 +1,28 @@
-import { BOOK_CREATE_KEY, BOOK_KEY, BOOK_UPDATE_KEY } from "@/constants/key";
+import { BOOK_KEY } from "@/constants/key";
 import API_PATH from "@/constants/path/api";
 import Path from "@/constants/path/routes";
 import { apiBookMultipart } from "@/libs/axios/api";
-import { BookCreateReq, BookCreateRes } from "@/models/books/book";
+import { FavoriteCreateRes } from "@/models/books/favorite";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-const { API_REPLY_CREATE } = API_PATH;
+const { API_FAVORITE_CREATE } = API_PATH;
 const { BOOK_ME } = Path;
 // 책 추가
-const replyCreateFetcher = (reqData: BookCreateReq) => {
+const favoriteCreateFetcher = (bookId: number) => {
   return apiBookMultipart
-    .post<BookCreateRes>(API_REPLY_CREATE, reqData)
+    .post<FavoriteCreateRes>(API_FAVORITE_CREATE, bookId)
     .then(({ data }) => {
       if (data.success) {
-        alert("책이 성공적으로 등록되었습니다.");
+        alert("선호작이 등록 되었습니다.");
         window.location.href = BOOK_ME;
-      } else alert("중복된 제목이거나 등록에 실패했습니다. ");
+      } else alert("선호작을 삭제 합니다.");
     })
     .catch(console.error);
 };
 
-export const useReplyCreateMutation = () => {
+export const useFavoriteCreateMutation = () => {
   const queryClient = useQueryClient();
 
-  return useMutation(replyCreateFetcher, {
+  return useMutation(favoriteCreateFetcher, {
     onError: (error) => {
       return alert(error);
     },
