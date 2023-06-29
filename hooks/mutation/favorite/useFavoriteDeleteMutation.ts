@@ -1,4 +1,4 @@
-import { BOOK_KEY } from "@/constants/key";
+import { BOOK_KEY, FAVORITE_DELETE_KEY } from "@/constants/key";
 import API_PATH from "@/constants/path/api";
 import { apiBook } from "@/libs/axios/api";
 import { FavorBookListDetailedRes } from "@/models/books/book";
@@ -21,7 +21,7 @@ export const useFavoriteDeleteMutation = () => {
       return alert(error);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries<string>([BOOK_KEY]);
+      queryClient.invalidateQueries<string>([FAVORITE_DELETE_KEY]);
     },
   });
 };

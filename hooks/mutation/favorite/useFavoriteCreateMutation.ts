@@ -1,15 +1,15 @@
-import { BOOK_KEY } from "@/constants/key";
+import { BOOK_KEY, FAVORITE_CREATE_KEY } from "@/constants/key";
 import API_PATH from "@/constants/path/api";
 import Path from "@/constants/path/routes";
-import { apiBookMultipart } from "@/libs/axios/api";
+import { apiBook } from "@/libs/axios/api";
 import { FavoriteCreateRes } from "@/models/books/favorite";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 const { API_FAVORITE_CREATE } = API_PATH;
 const { BOOK_ME } = Path;
 // 책 추가
 const favoriteCreateFetcher = (bookId: number) => {
-  return apiBookMultipart
-    .post<FavoriteCreateRes>(API_FAVORITE_CREATE, bookId)
+  return apiBook
+    .post<FavoriteCreateRes>(API_FAVORITE_CREATE, { data: { bookId } })
     .then(({ data }) => {
       if (data.success) {
         alert("선호작이 등록 되었습니다.");
@@ -27,7 +27,7 @@ export const useFavoriteCreateMutation = () => {
       return alert(error);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries<string>([BOOK_KEY]);
+      queryClient.invalidateQueries<string>([FAVORITE_CREATE_KEY]);
     },
   });
 };
