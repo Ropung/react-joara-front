@@ -8,7 +8,7 @@ const { API_BOOK, API_BOOK_RECOMMEND } = API_PATH;
 // "/api/boards"
 const fetcher = async (bookId: number) => {
   const { data } = await apiBook.get<RecommendedBooksQueryRes>(
-    `${API_BOOK}/${bookId}/${API_BOOK_RECOMMEND}`
+    `${API_BOOK}/${bookId+API_BOOK_RECOMMEND}`
   );
   return data;
 };

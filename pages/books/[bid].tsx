@@ -32,7 +32,8 @@ const BookOfOne = () => {
   const { data: { books: recommendBooks } = {} } = useBookOfRecommendBooksQuery(
     Number(routerQuery.bid)
   );
-  console.log(recommendBooks);
+  // console.log(routerQuery.bid);
+  // console.log(recommendBooks);
 
   return (
     <div className="flex flex-col gap-8 px-16 py-8 divide-y">
