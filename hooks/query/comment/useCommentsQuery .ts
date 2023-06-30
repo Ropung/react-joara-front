@@ -22,7 +22,7 @@ const useCommentsQuery = (
   page: number
 ) => {
   return useQuery({
-    queryKey: [COMMENT_KEY, size, page],
+    queryKey: [COMMENT_KEY],
     queryFn: () => fetcher(bookId, episodeId, size, page),
     // enabled: !!page,
   });

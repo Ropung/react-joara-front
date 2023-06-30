@@ -18,26 +18,29 @@ import { Size } from "@/constants/genre";
 
 const Comment = () => {
   const router = useRouter();
-  const {} = Path;
-
-  const [commentValue, setCommentValue] = useState<CommentCreateReq>({});
-
   const { bid, eid } = router.query as { [key in SomeIdUnion]: string };
   const commentCreateRef = useRef<HTMLTextAreaElement>(null);
 
   const { data: { commentList, lastPage } = {} } = useCommentsQuery(
     Number(bid),
     eid,
-    Size.TEN,
+    Size.TWENTY,
     1
   );
+  console.log(commentList);
+
+  const [commentValue, setCommentValue] = useState<CommentCreateReq>({});
+  const handleCommentValueChange = (evt: ChangeEvent<HTMLTextAreaElement>) => {
+    const val = evt.target?.value;
+    const id = evt.target?.id;
+
+    setCommentValue((prevEpiValue: CommentCreateReq) => ({
+      ...prevEpiValue,
+      [id]: val,
+    }));
+  };
   const { mutate: commentCreateMutation } = useCommentCreateMutation();
-  const { mutate: commentUpdateMutation } = useCommentUpdateMutation();
-  const { mutate: commentDeleteMutation } = useCommentDeleteMutation();
-
-  // console.log(commentList);
-
-  const handleCreateSubmit = () => {
+  const handleCreateSubmit = async () => {
     if (!bid || !eid || !commentValue)
       throw new Error("내용이 비었거나 잘못된 요청입니다.");
     commentCreateMutation(
@@ -55,20 +58,13 @@ const Comment = () => {
     );
   };
 
-  const handleCommentValueChange = (evt: ChangeEvent<HTMLTextAreaElement>) => {
-    const val = evt.target?.value;
-    const id = evt.target?.id;
-
-    setCommentValue((prevEpiValue: CommentCreateReq) => ({
-      ...prevEpiValue,
-      [id]: val,
-    }));
-  };
-
   return (
     <section className="flex flex-col w-full gap-4">
       <h1>
-        댓글<span className="font-bold text-main">({-1})</span>
+        댓글
+        <span className="font-bold text-main">
+          ({commentList?.length ?? 0})
+        </span>
       </h1>
       {/* 댓글 입력영역 */}
       <div className="min-h-[70px] flex justify-between gap-2">
@@ -95,7 +91,7 @@ const Comment = () => {
           return (
             <CommentItem
               key={`comment-${comment.id}`}
-              id={comment.id}
+              commentId={comment.id}
               epiId={comment.epiId}
               memberId={comment.memberId}
               nickname={comment.nickname}

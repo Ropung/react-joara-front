@@ -1,33 +1,45 @@
-import { BOOK_KEY } from "@/constants/key";
-import API_PATH from "@/constants/path/api";
-import Path from "@/constants/path/routes";
+import { COMMENT_UPDATE_KEY } from "@/constants/key";
 import { apiBookMultipart } from "@/libs/axios/api";
-import { BookUpdateReq, BookUpdateRes } from "@/models/books/book";
+import { CommentUpdateReq, CommentUpdateRes } from "@/models/books/comment";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-const { API_COMMENT_UPDATE } = API_PATH;
-const { BOOK_ME } = Path;
 
-const commentUpdateFetcher = (reqData: BookUpdateReq) => {
+const commentUpdateFetcher = (
+  bookId: number,
+  episodeId: string,
+  commentId: string,
+  commentContent: string
+) => {
   return apiBookMultipart
-    .put<BookUpdateRes>(API_COMMENT_UPDATE + reqData.bookId, reqData)
-    .then(({ data }) => {
-      if (data.success) {
-        alert("책이 성공적으로 수정되었습니다.");
-        window.location.href = BOOK_ME;
-      } else alert("수정에 실패했습니다. ");
-    })
+    .put<CommentUpdateRes>(
+      `books/${bookId}/episode/${episodeId}/comment/${commentId}}`,
+      commentContent
+    )
+    .then(({ data }) => {})
     .catch(console.error);
 };
 
 export const useCommentUpdateMutation = () => {
   const queryClient = useQueryClient();
 
-  return useMutation(commentUpdateFetcher, {
-    onError: (error) => {
-      return alert(error);
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries<string>([BOOK_KEY]);
-    },
-  });
+  return useMutation(
+    ({
+      bookId,
+      episodeId,
+      commentId,
+      reqData,
+    }: {
+      bookId: number;
+      episodeId: string;
+      commentId: string;
+      reqData: string;
+    }) => commentUpdateFetcher(bookId, episodeId, commentId, reqData),
+    {
+      onError: (error) => {
+        return alert(error);
+      },
+      onSuccess: () => {
+        queryClient.invalidateQueries<string>([COMMENT_UPDATE_KEY]);
+      },
+    }
+  );
 };

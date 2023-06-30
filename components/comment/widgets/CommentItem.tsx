@@ -1,13 +1,18 @@
-import React, { FC, useState } from "react";
+import React, { FC, useRef, useState } from "react";
 import { RiDeleteBin5Line, RiEditBoxLine } from "react-icons/ri";
 import api from "@/libs/axios/api";
 import { FaUserCircle } from "react-icons/fa";
 import { dateParse } from "@/utils/common/parser";
 import { CommentRes, CommentStatus } from "@/models/books/comment";
+import { useCommentUpdateMutation } from "@/hooks/mutation/comment/useCommentUpdateMutation";
+import { useCommentDeleteMutation } from "@/hooks/mutation/comment/useCommentDeleteMutation";
+import { useRouter } from "next/router";
+import Path from "@/constants/path/routes";
+import { SomeIdUnion } from "@/models/type";
 
 interface CommentItemProps {
   key?: string;
-  id?: string;
+  commentId?: string;
   epiId?: string;
   memberId?: string;
   nickname?: string;
@@ -24,7 +29,7 @@ const CommentItem: FC<CommentItemProps> = (props) => {
     createdAt,
     deletedAt,
     epiId,
-    id,
+    commentId,
     key,
     memberId,
     nickname,
@@ -35,35 +40,62 @@ const CommentItem: FC<CommentItemProps> = (props) => {
   const [commentContent, setCommentContent] = useState<string>(content ?? "");
   const [isCommentEdit, setIsCommentEdit] = useState<boolean>(false);
 
+  const router = useRouter();
+  const {} = Path;
+
+  const { bid, eid } = router.query as { [key in SomeIdUnion]: string };
+
+  const commentUpdataRef = useRef<HTMLTextAreaElement>(null);
+
   const handleOnKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.code === "Enter") {
       handleUpdateComment();
     }
   };
 
+  const { mutate: commentUpdateMutation } = useCommentUpdateMutation();
+  const { mutate: commentDeleteMutation } = useCommentDeleteMutation();
+
   const handleUpdateComment = async () => {
+    if (!bid || !epiId || !commentId || !commentContent)
+      throw new Error("내용이 비었거나 잘못된 요청입니다.");
+
     setIsCommentEdit(!isCommentEdit);
 
-    // isCommentEdit &&
-    //   (await api
-    //     .put<StatusResponse>(`${API_COMMENT_UPDATE}/${props.id}`, {
-    //       content: commentContent,
-    //     })
-    //     .then((res) => console.log(res))
-    //     .catch((error) => console.log(error)));
+    isCommentEdit &&
+      commentUpdateMutation(
+        {
+          bookId: Number(bid),
+          episodeId: epiId,
+          commentId: commentId,
+          reqData: commentContent,
+        },
+        {
+          onSuccess: () => {},
+          onError: (e) => {
+            alert(e);
+          },
+        }
+      );
   };
-
   const handleDeleteComment = async (
     e: React.MouseEvent<HTMLButtonElement>
   ) => {
-    // if (confirm("정말로 삭제 하시겠습니까?")) {
-    //   await api
-    //     .delete<StatusResponse>(`${API_COMMENT_DELETE}/${props.id}`)
-    //     .then((res) => {
-    //       console.log(res);
-    //     })
-    //     .catch((error) => console.log(error));
-    // }
+    if (!bid || !eid || !commentId) throw new Error("잘못된 요청입니다.");
+    if (!confirm("정말로 삭제 하시겠습니까?")) return;
+    commentDeleteMutation(
+      {
+        bookId: Number(bid),
+        episodeId: epiId ?? "",
+        commentId: commentId ?? "",
+      },
+      {
+        onSuccess: () => {},
+        onError: (e) => {
+          alert(e);
+        },
+      }
+    );
   };
 
   return (
@@ -102,6 +134,7 @@ const CommentItem: FC<CommentItemProps> = (props) => {
             <textarea
               className="w-full p-2 border rounded-md focus:outline-none focus:border-main"
               defaultValue={commentContent}
+              ref={commentUpdataRef}
               onChange={(e) => setCommentContent(e.target.value)}
               onKeyDown={handleOnKeyDown}
             />
