@@ -113,7 +113,7 @@ const BookCreateForm = () => {
               target.value = target.value.trim();
 
               // if spacebar is pressed
-              const isSpaceDown = event.key === "enter";
+              const isSpaceDown = event.key === " ";
               // and value is one of the valid genre names:
               const isOneOfGenreName = genres
                 ?.map(({ kor }) => kor)
