@@ -1,8 +1,4 @@
-import {
-  COMMENT_DELETE_KEY,
-  COMMENT_KEY,
-  COMMENT_UPDATE_KEY,
-} from "@/constants/key";
+import { BOOK_COMMENT_KEY } from "@/constants/key";
 import { apiBookMultipart } from "@/libs/axios/api";
 import { CommentDeleteRes } from "@/models/books/comment";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -38,7 +34,7 @@ export const useCommentDeleteMutation = () => {
         return alert(error);
       },
       onSuccess: () => {
-        queryClient.invalidateQueries<string>([COMMENT_DELETE_KEY]);
+        queryClient.invalidateQueries<string>([BOOK_COMMENT_KEY]);
       },
     }
   );

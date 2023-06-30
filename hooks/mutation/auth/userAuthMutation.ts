@@ -1,4 +1,9 @@
-import { AUTH_KEY } from "@/constants/key";
+import {
+  BOOK_COMMENT_KEY,
+  BOOK_FAVORITE_LIST_KEY,
+  BOOK_MY_LIST_KEY,
+  MEMBER_PROFILE_KEY,
+} from "@/constants/key";
 import API_PATH from "@/constants/path/api";
 import Path from "@/constants/path/routes";
 import apiAuth from "@/libs/axios/api";
@@ -31,9 +36,14 @@ export const useUserLoginMutation = () => {
     },
     onSuccess: () => {
       if (token.get() == null || token.get()?.length === 0) {
-        return alert("인가되지 않은 사용자입니다.");
+        return alert(
+          "사용자 정보가 존재하지않습니다. 회원가입또는 아이디 비밀번호를 확인해주세요. "
+        );
       }
-      queryClient.invalidateQueries<string>([AUTH_KEY]);
+      queryClient.invalidateQueries<string>([MEMBER_PROFILE_KEY]);
+      queryClient.invalidateQueries<string>([BOOK_MY_LIST_KEY]);
+      queryClient.invalidateQueries<string>([BOOK_FAVORITE_LIST_KEY]);
+      queryClient.invalidateQueries<string>([BOOK_COMMENT_KEY]);
     },
   });
 };
@@ -62,7 +72,7 @@ export const useUserSignUpMutation = () => {
       return error;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries<string>([AUTH_KEY]);
+      queryClient.invalidateQueries<string>([MEMBER_PROFILE_KEY]);
     },
   });
 };

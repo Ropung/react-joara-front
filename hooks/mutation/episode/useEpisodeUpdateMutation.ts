@@ -1,4 +1,8 @@
-import { BOOK_KEY } from "@/constants/key";
+import {
+  BOOK_ONE_KEY,
+  EPISODE_LIST_KEY,
+  EPISODE_ONE_KEY,
+} from "@/constants/key";
 import { apiBook } from "@/libs/axios/api";
 import { EpisodeUpdateReq, EpisodeUpdateRes } from "@/models/books/episode";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -39,7 +43,8 @@ export const useEpisodeUpdateMutation = () => {
         return alert(error);
       },
       onSuccess: () => {
-        queryClient.invalidateQueries<string>([BOOK_KEY]);
+        queryClient.invalidateQueries<string>([EPISODE_LIST_KEY]);
+        queryClient.invalidateQueries<string>([EPISODE_ONE_KEY]);
       },
     }
   );

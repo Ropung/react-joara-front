@@ -1,4 +1,4 @@
-import { BOOK_KEY, FAVORITE_CREATE_KEY } from "@/constants/key";
+import { BOOK_FAVORITE_LIST_KEY, BOOK_ONE_KEY } from "@/constants/key";
 import API_PATH from "@/constants/path/api";
 import Path from "@/constants/path/routes";
 import { apiBook, apiBookMultipart } from "@/libs/axios/api";
@@ -26,7 +26,8 @@ export const useFavoriteCreateMutation = () => {
       return alert(error);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries<string>([FAVORITE_CREATE_KEY]);
+      queryClient.invalidateQueries<string>([BOOK_ONE_KEY]);
+      queryClient.invalidateQueries<string>([BOOK_FAVORITE_LIST_KEY]);
     },
   });
 };

@@ -1,6 +1,6 @@
-import { COMMENT_UPDATE_KEY } from "@/constants/key";
+import { BOOK_COMMENT_KEY } from "@/constants/key";
 import { apiBookMultipart } from "@/libs/axios/api";
-import { CommentUpdateReq, CommentUpdateRes } from "@/models/books/comment";
+import { CommentUpdateRes } from "@/models/books/comment";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const commentUpdateFetcher = (
@@ -38,7 +38,7 @@ export const useCommentUpdateMutation = () => {
         return alert(error);
       },
       onSuccess: () => {
-        queryClient.invalidateQueries<string>([COMMENT_UPDATE_KEY]);
+        queryClient.invalidateQueries<string>([BOOK_COMMENT_KEY]);
       },
     }
   );

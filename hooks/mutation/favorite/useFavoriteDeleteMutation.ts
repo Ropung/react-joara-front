@@ -1,4 +1,4 @@
-import { FAVORITE_DELETE_KEY } from "@/constants/key";
+import { BOOK_FAVORITE_LIST_KEY, BOOK_ONE_KEY } from "@/constants/key";
 import API_PATH from "@/constants/path/api";
 import { apiBookMultipart } from "@/libs/axios/api";
 import { FavoriteDeleteReq, FavoriteDeleteRes } from "@/models/books/favorite";
@@ -29,7 +29,8 @@ export const useFavoriteDeleteMutation = () => {
       return alert(error);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries<string>([FAVORITE_DELETE_KEY]);
+      queryClient.invalidateQueries<string>([BOOK_ONE_KEY]);
+      queryClient.invalidateQueries<string>([BOOK_FAVORITE_LIST_KEY]);
     },
   });
 };

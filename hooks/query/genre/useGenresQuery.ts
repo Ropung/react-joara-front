@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { apiBook } from "@/libs/axios/api";
 import API_PATH from "@/constants/path/api";
-import { BOOK_KEY, GENRE_KEY } from "@/constants/key";
+import { GENRE_LIST_KEY } from "@/constants/key";
 import { GenreListRes } from "@/models/books/genre";
 
 const { API_GENRE } = API_PATH;
@@ -13,7 +13,7 @@ const fetcher = async () => {
 
 const useGenresQuery = () => {
   return useQuery({
-    queryKey: [GENRE_KEY, BOOK_KEY],
+    queryKey: [GENRE_LIST_KEY],
     queryFn: () => fetcher(),
     // enabled: !!page,
   });

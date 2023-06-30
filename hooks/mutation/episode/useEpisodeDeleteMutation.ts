@@ -1,4 +1,4 @@
-import { EPISODE_DELETE_KEY } from "@/constants/key";
+import { EPISODE_LIST_KEY, EPISODE_ONE_KEY } from "@/constants/key";
 import { apiBook } from "@/libs/axios/api";
 
 import { EpisodeDeleteRes } from "@/models/books/episode";
@@ -22,7 +22,8 @@ export const useEpisodeDeleteMutation = () => {
         return alert(error);
       },
       onSuccess: () => {
-        queryClient.invalidateQueries<string>([EPISODE_DELETE_KEY]);
+        queryClient.invalidateQueries<string>([EPISODE_LIST_KEY]);
+        queryClient.invalidateQueries<string>([EPISODE_ONE_KEY]);
       },
     }
   );

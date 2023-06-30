@@ -33,9 +33,9 @@ const TopNavViewer: FC<TopNavViewerProps> = ({ bookTitle, epiTitle }) => {
             <p className="text-xl text-dark whitespace-nowrap">
               {bookTitle ?? "Not Found Title"}
             </p>
-            <p className="text-xl text-dark/80">{`EP-${routerQuery.eid}. ${
-              epiTitle ?? "Not Found Episode"
-            } `}</p>
+            <p className="text-xl text-dark/80 whitespace-nowrap">{`EP-${
+              routerQuery.eid
+            }. ${epiTitle ?? "Not Found Episode"} `}</p>
           </div>
         </div>
         <div className="w-full col-span-1">

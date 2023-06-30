@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { apiBook } from "@/libs/axios/api";
-import { COMMENT_KEY } from "@/constants/key";
 import { CommentRes } from "@/models/books/comment";
+import { BOOK_COMMENT_KEY } from "@/constants/key";
 
 const fetcher = async (
   bookId: number,
@@ -22,7 +22,7 @@ const useCommentsQuery = (
   page: number
 ) => {
   return useQuery({
-    queryKey: [COMMENT_KEY],
+    queryKey: [BOOK_COMMENT_KEY, bookId, episodeId, size, page],
     queryFn: () => fetcher(bookId, episodeId, size, page),
     // enabled: !!page,
   });

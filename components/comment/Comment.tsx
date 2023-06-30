@@ -13,7 +13,7 @@ import { useCommentCreateMutation } from "@/hooks/mutation/comment/useCommentCre
 import { useCommentUpdateMutation } from "@/hooks/mutation/comment/useCommentUpdateMutation";
 import { useCommentDeleteMutation } from "@/hooks/mutation/comment/useCommentDeleteMutation";
 import { CommentCreateReq } from "@/models/books/comment";
-import useCommentsQuery from "@/hooks/query/comment/useCommentsQuery ";
+import useCommentsQuery from "@/hooks/query/book/useCommentsQuery ";
 import { Size } from "@/constants/genre";
 
 const Comment = () => {
