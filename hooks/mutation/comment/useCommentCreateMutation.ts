@@ -1,4 +1,4 @@
-import { COMMENT_KEY } from "@/constants/key";
+import { COMMENT_CREATE_KEY, COMMENT_KEY } from "@/constants/key";
 import { apiBook } from "@/libs/axios/api";
 import { CommentCreateReq, CommentCreateRes } from "@/models/books/comment";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -13,11 +13,7 @@ const commentCreateFetcher = (
       `/books/${bookId}/episode/${episodeId}/comment`,
       commentValue
     )
-    .then(({ data }) => {
-      data.success
-        ? alert("댓글이 성공적으로 등록되었습니다.")
-        : alert("중복된 제목이거나 등록에 실패했습니다. ");
-    })
+    .then(({ data }) => {})
     .catch(console.error);
 };
 
@@ -39,7 +35,10 @@ export const useCommentCreateMutation = () => {
         return alert(error);
       },
       onSuccess: () => {
-        queryClient.invalidateQueries<string>([COMMENT_KEY]);
+        queryClient.invalidateQueries<string>([
+          COMMENT_KEY,
+          COMMENT_CREATE_KEY,
+        ]);
       },
     }
   );

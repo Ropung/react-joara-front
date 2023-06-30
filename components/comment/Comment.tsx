@@ -35,7 +35,7 @@ const Comment = () => {
   const { mutate: commentUpdateMutation } = useCommentUpdateMutation();
   const { mutate: commentDeleteMutation } = useCommentDeleteMutation();
 
-  console.log(commentList);
+  // console.log(commentList);
 
   const handleCreateSubmit = () => {
     if (!bid || !eid || !commentValue)
@@ -91,33 +91,22 @@ const Comment = () => {
 
       {/* 댓글 영역 */}
       <ul className="flex flex-col w-full gap-4">
-        <CommentItem
-          key={"comment.id"}
-          id={1}
-          idx={1}
-          boardId={"props.boardId"}
-          content={"comment.content"}
-          userId={"userId"}
-          commentUserInfo={"comment.users"}
-        />
-        <CommentItem
-          key={"comment.id"}
-          id={1}
-          idx={1}
-          boardId={"props.boardId"}
-          content={"comment.content"}
-          userId={"userId"}
-          commentUserInfo={"comment.users"}
-        />
-        <CommentItem
-          key={"comment.id"}
-          id={1}
-          idx={1}
-          boardId={"props.boardId"}
-          content={"comment.content"}
-          userId={"userId"}
-          commentUserInfo={"comment.users"}
-        />
+        {commentList?.map((comment) => {
+          return (
+            <CommentItem
+              key={`comment-${comment.id}`}
+              id={comment.id}
+              epiId={comment.epiId}
+              memberId={comment.memberId}
+              nickname={comment.nickname}
+              content={comment.content}
+              status={comment.status}
+              createdAt={comment.createdAt}
+              updatedAt={comment.updatedAt}
+              deletedAt={comment.deletedAt}
+            />
+          );
+        })}
       </ul>
     </section>
   );
