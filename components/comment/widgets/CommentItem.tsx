@@ -1,17 +1,18 @@
-import React, { FC, useRef, useState } from "react";
+import React, { ChangeEvent, FC, useRef, useState } from "react";
 import { RiDeleteBin5Line, RiEditBoxLine } from "react-icons/ri";
-import api from "@/libs/axios/api";
 import { FaUserCircle } from "react-icons/fa";
 import { dateParse } from "@/utils/common/parser";
-import { CommentRes, CommentStatus } from "@/models/books/comment";
+import { CommentStatus } from "@/models/books/comment";
 import { useCommentUpdateMutation } from "@/hooks/mutation/comment/useCommentUpdateMutation";
 import { useCommentDeleteMutation } from "@/hooks/mutation/comment/useCommentDeleteMutation";
 import { useRouter } from "next/router";
-import Path from "@/constants/path/routes";
 import { SomeIdUnion } from "@/models/type";
+import ReplyItemList from "@/components/reply/ReplyItemList";
+import { ReplyCreateReq } from "@/models/books/reply";
+import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
+import useReplysQuery from "@/hooks/query/comment/useReplysQuery";
 
 interface CommentItemProps {
-  key?: string;
   commentId?: string;
   epiId?: string;
   memberId?: string;
@@ -30,7 +31,6 @@ const CommentItem: FC<CommentItemProps> = (props) => {
     deletedAt,
     epiId,
     commentId,
-    key,
     memberId,
     nickname,
     status,
@@ -38,14 +38,21 @@ const CommentItem: FC<CommentItemProps> = (props) => {
   } = props;
 
   const [commentContent, setCommentContent] = useState<string>(content ?? "");
-  const [isCommentEdit, setIsCommentEdit] = useState<boolean>(false);
 
+  const [isCommentEdit, setIsCommentEdit] = useState<boolean>(false);
+  const [moreReply, setMoreReply] = useState<boolean>(false);
+  const [commentValue, setCommentValue] = useState<ReplyCreateReq>({});
   const router = useRouter();
-  const {} = Path;
 
   const { bid, eid } = router.query as { [key in SomeIdUnion]: string };
+  const { data: { replyList, lastPage } = {} } = useReplysQuery(
+    Number(bid),
+    eid,
+    commentId ?? ""
+  );
 
-  const commentUpdataRef = useRef<HTMLTextAreaElement>(null);
+  const commentCreateRef = useRef<HTMLTextAreaElement>(null);
+  const commentUpdateRef = useRef<HTMLTextAreaElement>(null);
 
   const handleOnKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.code === "Enter") {
@@ -55,6 +62,34 @@ const CommentItem: FC<CommentItemProps> = (props) => {
 
   const { mutate: commentUpdateMutation } = useCommentUpdateMutation();
   const { mutate: commentDeleteMutation } = useCommentDeleteMutation();
+
+  const handleReplyValueChange = (evt: ChangeEvent<HTMLTextAreaElement>) => {
+    const val = evt.target?.value;
+    const id = evt.target?.id;
+
+    setCommentValue((prevEpiValue: ReplyCreateReq) => ({
+      ...prevEpiValue,
+      [id]: val,
+    }));
+  };
+
+  const handleReplyCreateSubmit = async () => {
+    if (!bid || !eid || !commentValue)
+      throw new Error("내용이 비었거나 잘못된 요청입니다.");
+    // useReplyCreateMutation(
+    //   { bookId: Number(bid), episodeId: eid, commentValue },
+    //   {
+    //     onSuccess: () => {
+    //       if (commentCreateRef.current) {
+    //         commentCreateRef.current.value = "";
+    //       }
+    //     },
+    //     onError: (e) => {
+    //       alert(e);
+    //     },
+    //   }
+    // );
+  };
 
   const handleUpdateComment = async () => {
     if (!bid || !epiId || !commentId || !commentContent)
@@ -78,6 +113,7 @@ const CommentItem: FC<CommentItemProps> = (props) => {
         }
       );
   };
+
   const handleDeleteComment = async (
     e: React.MouseEvent<HTMLButtonElement>
   ) => {
@@ -99,7 +135,7 @@ const CommentItem: FC<CommentItemProps> = (props) => {
   };
 
   return (
-    <li key={key} className={`"border-t"}`}>
+    <li key={`comment-${commentId}`} className={`border-t`}>
       <div className="flex justify-between p-2">
         <div className="flex flex-col w-full gap-4">
           <figure className="flex justify-between w-full">
@@ -109,12 +145,12 @@ const CommentItem: FC<CommentItemProps> = (props) => {
               </div>
               <figcaption className="flex flex-row items-center gap-2">
                 <p className="text-lg font-semibold text-main">{nickname}</p>
-                <small className="text-sm text-gray-400">
-                  {dateParse(createdAt ?? "")}
-                </small>
               </figcaption>
             </div>
             <div className="flex items-center gap-2">
+              <small className="text-sm text-gray-400">
+                {dateParse(createdAt ?? "")}
+              </small>
               <button
                 className="flex items-center justify-center text-2xl text-main"
                 onClick={handleUpdateComment}
@@ -129,18 +165,55 @@ const CommentItem: FC<CommentItemProps> = (props) => {
               </button>
             </div>
           </figure>
-
           {isCommentEdit ? (
             <textarea
               className="w-full p-2 border rounded-md focus:outline-none focus:border-main"
               defaultValue={commentContent}
-              ref={commentUpdataRef}
+              ref={commentUpdateRef}
               onChange={(e) => setCommentContent(e.target.value)}
               onKeyDown={handleOnKeyDown}
             />
           ) : (
             <p className="p-2 pr-4">{commentContent}</p>
           )}
+          <div className="flex items-center justify-end">
+            <p
+              className="flex flex-row items-center gap-2 cursor-pointer"
+              onClick={() => {
+                setMoreReply(!moreReply);
+              }}
+            >
+              <span> 답글달기</span>
+              <AiFillCaretUp
+                className={`duration-200 ${moreReply && "rotate-180"}`}
+              />
+            </p>
+          </div>
+          {/* 대댓글 입력영역 */}
+          {moreReply ? (
+            <div className="min-h-[70px] flex justify-between gap-2">
+              <textarea
+                id="content"
+                className="flex-auto w-full px-2 py-1 text-sm border rounded-sm focus:outline-none focus:border-main rounded-l-md"
+                ref={commentCreateRef}
+                placeholder="댓글을 입력해주세요."
+                onChange={(e) => {
+                  handleReplyValueChange(e);
+                }}
+              />
+              <button
+                className="basis-[120px] shrink-0 border-black rounded-xl bg-main/50 hover:bg-main font-bold"
+                onClick={handleReplyCreateSubmit}
+              >
+                대댓글 쓰기
+              </button>
+            </div>
+          ) : (
+            <br />
+          )}
+
+          {/* 대댓글 */}
+          <ReplyItemList replyList={replyList} />
         </div>
       </div>
     </li>

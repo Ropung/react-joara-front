@@ -10,4 +10,4 @@ export type EpisodeStatusType =
   | "SUSPEND"
   | "REMOVED"
   | "BLOCK";
-export type SomeIdUnion = "bid" | "eid" | "gid" | "epiNum";
+export type SomeIdUnion = "bid" | "eid" | "gid" | "cid" | "epiNum";

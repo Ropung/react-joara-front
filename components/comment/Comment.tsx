@@ -1,20 +1,11 @@
-import {
-  useState,
-  useRef,
-  MutableRefObject,
-  ChangeEvent,
-  useEffect,
-} from "react";
-import Path from "@/constants/path/routes";
+import { useState, useRef, ChangeEvent } from "react";
 import { useRouter } from "next/router";
 import CommentItem from "./widgets/CommentItem";
 import { SomeIdUnion } from "@/models/type";
 import { useCommentCreateMutation } from "@/hooks/mutation/comment/useCommentCreateMutation";
-import { useCommentUpdateMutation } from "@/hooks/mutation/comment/useCommentUpdateMutation";
-import { useCommentDeleteMutation } from "@/hooks/mutation/comment/useCommentDeleteMutation";
 import { CommentCreateReq } from "@/models/books/comment";
-import useCommentsQuery from "@/hooks/query/book/useCommentsQuery ";
 import { Size } from "@/constants/genre";
+import useCommentsQuery from "@/hooks/query/comment/useCommentsQuery ";
 
 const Comment = () => {
   const router = useRouter();
@@ -27,7 +18,7 @@ const Comment = () => {
     Size.TWENTY,
     1
   );
-  console.log(commentList);
+  // console.log(commentList);
 
   const [commentValue, setCommentValue] = useState<CommentCreateReq>({});
   const handleCommentValueChange = (evt: ChangeEvent<HTMLTextAreaElement>) => {
@@ -90,7 +81,7 @@ const Comment = () => {
         {commentList?.map((comment) => {
           return (
             <CommentItem
-              key={`comment-${comment.id}`}
+              key={`commentId${comment.id}`}
               commentId={comment.id}
               epiId={comment.epiId}
               memberId={comment.memberId}

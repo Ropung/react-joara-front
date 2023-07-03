@@ -20,7 +20,6 @@ export interface CommentDeleteRes {
 //  -------------------------------[Query]--------------------------------- //
 export interface CommentRes {
   commentList: CommentProps[];
-
   lastPage: number;
 }
 export interface CommentProps {

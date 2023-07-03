@@ -1,8 +1,13 @@
 // -----------------------------[ Command] -----------------------------------//
 export interface ReplyCreateUseFormProps {}
-export type ReplyCreateReq = {};
 export interface ReplyUpdateUseFormProps {}
-export type ReplyUpdateReq = {};
+
+export type ReplyCreateReq = {
+  content?: string;
+};
+export interface ReplyUpdateReq {
+  content?: string;
+}
 
 export interface ReplyCreateRes {
   success: boolean;
@@ -15,5 +20,20 @@ export interface ReplyDeleteRes {
 }
 
 //  -------------------------------[Query]--------------------------------- //
-export interface ReplyRes {}
-export interface ReplyProps {}
+export interface ReplyRes {
+  replyList: ReplyProps[];
+  lastPage: number;
+}
+export interface ReplyProps {
+  id?: string;
+  commentId?: string;
+  memberId?: string;
+  nickname?: string;
+  content?: string;
+  status?: ReplyStatus;
+  createdAt?: string;
+  updatedAt?: string;
+  deletedAt?: string;
+}
+
+export type ReplyStatus = "PENDING" | "ACTIVE" | "BLOCK" | "REMOVED";
