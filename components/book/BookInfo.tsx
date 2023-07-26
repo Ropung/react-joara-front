@@ -38,7 +38,7 @@ const BookInfo: FC<BookInfoProps> = (props) => {
           height={200}
           className="w-[25%]"
           src={book?.coverUrl ? book?.coverUrl : PreviewImg}
-          alt={book?.title + "표지 이미지"}
+          alt={book?.title + "표지이미지"}
         />
         <section className="flex flex-col items-start flex-1">
           <div className="flex flex-col items-start justify-between w-full min-h-full gap-2">
